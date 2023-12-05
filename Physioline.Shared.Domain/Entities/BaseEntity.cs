@@ -13,5 +13,15 @@ namespace Physioline.Shared.Domain.Entities
             IsDeleted = false;
             CreatedAt = DateTime.Now;
         }
-    }
+
+        public void Delete()
+        {
+            IsDeleted.Delete();
+        }
+
+		public void Restore()
+		{
+			IsDeleted.Restore();
+		}
+	}
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Physioline.Shared.Domain.ValueObjects
 {
-    public record BaseEntityIsDeleted
+    public class BaseEntityIsDeleted
     {
         public bool Value { get; private set; }
 
