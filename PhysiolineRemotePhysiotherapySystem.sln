@@ -3,9 +3,41 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{783DA8D3-43B1-4DC9-B589-8DAFC92E9F91}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{0FD654B5-A274-4D41-BA96-6C2A40CB5EAA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TreatmentManagement", "TreatmentManagement", "{971AB491-8861-4069-A115-90536D69F01E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{86A63AE8-3DA4-4043-B060-1CE6EE2D84F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Physioline.TM.Domain", "Physioline.TM.Domain\Physioline.TM.Domain.csproj", "{1BAA96E9-A247-485C-8F10-ECAE7F70FD45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Physioline.Shared.Domain", "Physioline.Shared.Domain\Physioline.Shared.Domain.csproj", "{DB0469F4-CC57-4C17-B409-BE76DA315F06}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1BAA96E9-A247-485C-8F10-ECAE7F70FD45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BAA96E9-A247-485C-8F10-ECAE7F70FD45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BAA96E9-A247-485C-8F10-ECAE7F70FD45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BAA96E9-A247-485C-8F10-ECAE7F70FD45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB0469F4-CC57-4C17-B409-BE76DA315F06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB0469F4-CC57-4C17-B409-BE76DA315F06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB0469F4-CC57-4C17-B409-BE76DA315F06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB0469F4-CC57-4C17-B409-BE76DA315F06}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{971AB491-8861-4069-A115-90536D69F01E} = {783DA8D3-43B1-4DC9-B589-8DAFC92E9F91}
+		{86A63AE8-3DA4-4043-B060-1CE6EE2D84F5} = {783DA8D3-43B1-4DC9-B589-8DAFC92E9F91}
+		{1BAA96E9-A247-485C-8F10-ECAE7F70FD45} = {971AB491-8861-4069-A115-90536D69F01E}
+		{DB0469F4-CC57-4C17-B409-BE76DA315F06} = {86A63AE8-3DA4-4043-B060-1CE6EE2D84F5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7F0970CB-D188-47A9-9CBD-BF890C9E0122}
