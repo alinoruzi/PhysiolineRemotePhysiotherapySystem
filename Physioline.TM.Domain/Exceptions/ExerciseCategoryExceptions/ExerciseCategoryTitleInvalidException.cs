@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Physioline.TM.Domain.Exceptions.ExerciseCategoryExceptions
 {
-    public class ExerciseCategoryTitleInvalidValue : Exception
+    public class ExerciseCategoryTitleInvalidException : Exception
     {
-        public ExerciseCategoryTitleInvalidValue(int maxsize) : base($"The maximum size of characters as exercise category title is {maxsize}.")
+        public ExerciseCategoryTitleInvalidException(int maxsize) : base($"The maximum size of characters as exercise category title is {maxsize}.")
 		{
 
         }

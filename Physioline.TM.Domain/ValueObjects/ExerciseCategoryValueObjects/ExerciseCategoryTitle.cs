@@ -1,5 +1,4 @@
 ﻿using Physioline.TM.Domain.Exceptions.ExerciseCategoryExceptions;
-using Physioline.TM.Domain.Exceptions.ExerciseExceptions;
 
 namespace Physioline.TM.Domain.ValueObjects.ExerciseCategoryValueObjects
 {
@@ -12,7 +11,7 @@ namespace Physioline.TM.Domain.ValueObjects.ExerciseCategoryValueObjects
             if (string.IsNullOrEmpty(title))
                 throw new ExerciseCategoryTitleNullOrEmptyException();
             if (title.Length > 255)
-                throw new ExerciseCategoryTitleInvalidValue(255);
+                throw new ExerciseCategoryTitleInvalidException(255);
 
 			Value = title;
         }

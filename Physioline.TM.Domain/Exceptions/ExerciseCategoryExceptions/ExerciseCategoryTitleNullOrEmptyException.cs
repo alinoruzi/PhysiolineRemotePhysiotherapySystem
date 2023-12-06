@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Physioline.TM.Domain.Exceptions.ExerciseExceptions
+namespace Physioline.TM.Domain.Exceptions.ExerciseCategoryExceptions
 {
 	public class ExerciseCategoryTitleNullOrEmptyException : Exception
 	{

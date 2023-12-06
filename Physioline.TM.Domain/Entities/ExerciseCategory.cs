@@ -8,7 +8,7 @@ namespace Physioline.TM.Domain.Entities
 	{
         public ExerciseCategoryTitle Title { get; private set; }
         public ExerciseCategoryDescription? Descriptin { get; private set; }
-        public ExerciseCategory? Parent { get; set; }
+        public ExerciseCategory? Parent { get; private set; }
 		public List<Exercise>? Exercises { get; private set; }
 
 

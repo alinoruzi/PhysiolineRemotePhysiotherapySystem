@@ -9,7 +9,7 @@ namespace Physioline.TM.Domain.ValueObjects.ExerciseValueObjects
 		public ExerciseDescription(string title)
 		{
 			if (title.Length > 2500)
-				throw new ExerciseTitleInvalidValue(2500);
+				throw new ExerciseTitleInvalidException(2500);
 
 			Value = title;
 		}

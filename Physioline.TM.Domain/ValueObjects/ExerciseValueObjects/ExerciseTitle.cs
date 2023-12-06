@@ -11,7 +11,7 @@ namespace Physioline.TM.Domain.ValueObjects.ExerciseValueObjects
             if (string.IsNullOrEmpty(title))
                 throw new ExerciseTitleNullOrEmptyException();
             if (title.Length > 255)
-                throw new ExerciseTitleInvalidValue(255);
+                throw new ExerciseTitleInvalidException(255);
 
 			Value = title;
         }

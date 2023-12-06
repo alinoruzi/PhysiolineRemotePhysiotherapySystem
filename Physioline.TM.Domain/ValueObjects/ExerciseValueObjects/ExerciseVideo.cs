@@ -9,7 +9,7 @@ namespace Physioline.TM.Domain.ValueObjects.ExerciseValueObjects
 		public ExerciseVideo(string path)
 		{
 			if (path.Contains(' '))
-				throw new ExerciseVideoInvalidValue();
+				throw new ExerciseVideoInvalidException();
 
 			Value = path;
 		}

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Physioline.TM.Domain.Exceptions.ExerciseExceptions
 {
-    public class ExercisePictureInvalidValue : Exception
+    public class ExerciseVideoInvalidException : Exception
     {
-        public ExercisePictureInvalidValue() : base("The exercise image path cannot contain the space character.")
+        public ExerciseVideoInvalidException() : base("The exercise video path cannot contain the space character.")
 		{
 
         }

@@ -16,7 +16,7 @@ namespace Physioline.TM.Domain.ValueObjects.ExerciseValueObjects
 			if (string.IsNullOrEmpty(path)) 
 				throw new ExercisePictureNullOrEmptyException();
 			if (path.Contains(' '))
-				throw new ExercisePictureInvalidValue();
+				throw new ExercisePictureInvalidException();
 
 			Value = path;
 		}

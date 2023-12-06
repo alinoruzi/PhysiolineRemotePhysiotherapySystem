@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Physioline.TM.Domain.Exceptions.ExerciseExceptions
 {
-    public class ExerciseTitleInvalidValue : Exception
+    public class ExercisePictureInvalidException : Exception
     {
-        public ExerciseTitleInvalidValue(int maxsize) : base($"The maximum size of characters as exercise title is {maxsize}.")
+        public ExercisePictureInvalidException() : base("The exercise image path cannot contain the space character.")
 		{
 
         }
