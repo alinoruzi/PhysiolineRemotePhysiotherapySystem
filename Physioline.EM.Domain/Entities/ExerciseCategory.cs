@@ -14,5 +14,10 @@
 			Category = category;
 			CategoryId = category.Id;
 		}
-	}
+
+        public ExerciseCategory()
+        {
+            
+        }
+    }
 }

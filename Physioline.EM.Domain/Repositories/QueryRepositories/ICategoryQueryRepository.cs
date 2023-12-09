@@ -5,6 +5,6 @@ namespace Physioline.EM.Domain.Repositories.QueryRepositories
 {
 	public interface ICategoryQueryRepository : IBaseQueryRepository<long,Category>
 	{
-		Task<IEnumerable<Category>> SearchByTitle(string title, CancellationToken cancellationToken);
+		Task<List<Category>> SearchByTitle(string title, CancellationToken cancellationToken);
 	}
 }

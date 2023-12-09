@@ -12,18 +12,20 @@ namespace Physioline.Shared.Domain.Entities
 		public long Id
 		{
 			get => _id;
-			init => _id = value;
+			private set => _id = value;
 		}
         public bool IsDeleted 
         {
 	        get => _isDeleted;
-	        private set => _isDeleted = value;
+			private set => _isDeleted = value;
         }
         public DateTime CreatedAt 
         {
 	        get => _createdAt;
-	        init => _createdAt = value;
+	        private set => _createdAt = value;
         }
+
+        public DateTime ModifiedAt { get; protected set; }
 
         public long CreatorUserId
         {
@@ -36,6 +38,12 @@ namespace Physioline.Shared.Domain.Entities
             IsDeleted = false;
             CreatedAt = DateTime.Now;
             CreatorUserId = creatorUserId;
+            ModifiedAt = DateTime.Now;
+        }
+
+        public BaseEntity()
+        {
+            
         }
 
         protected void ChangeCreatorUser(long creatorUserId)

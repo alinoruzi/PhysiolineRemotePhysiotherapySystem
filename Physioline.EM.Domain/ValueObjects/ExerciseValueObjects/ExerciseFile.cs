@@ -9,8 +9,8 @@ namespace Physioline.EM.Domain.ValueObjects.ExerciseValueObjects
 {
 	public record ExerciseFile
 	{
-        public string Title { get; set; }
-        public string FileExtention { get; set; }
+        public string Title { get; private set; }
+        public string FileExtention { get; private set; }
 
 		public ExerciseFile(string title, string fileExtention)
 		{

@@ -12,39 +12,46 @@ namespace Physioline.EM.Domain.Entities
         public string Title 
         {
 	        get => _title;
-	        private set => _title = value;
+			private set => _title = value;
         }
         public string? Descriptin 
         {
 	        get => _description;
-	        private set => _description = value;
+			private set => _description = value;
         }
         
         public long? ParentId { get; private set; }
+
         public Category? Parent { get; private set; }
         
-		public List<Exercise>? Exercises { get; private set; }
+        public List<Category>? Children { get; private set; }
 
+        public List<ExerciseCategory>? ExerciseCategories { get; private set; }
+		
 
-        public Category(string title, string description, 
-	        Category? parent, List<Exercise>? exercises, 
-	        long creatorUserId) : base(creatorUserId)
+        public Category(string title, string description,
+	        Category? parent, long creatorUserId) : base(creatorUserId)
 		{
 			Title = title;
 			Descriptin = description;
 			Parent = parent;
-			ParentId = parent.Id;
-			Exercises = exercises;
+			ParentId = parent?.Id;
+			ExerciseCategories = new List<ExerciseCategory>();
 		}
 
-		public void Edit(string title, string description, 
-			Category? parent, List<Exercise>? exercises)
+        public Category()
+        {
+            
+        }
+
+        public void Edit(string title, string description,
+	        Category? parent, long creatorUserId)
 		{
 			Title = title;
 			Descriptin = description;
 			Parent = parent;
-			ParentId = parent.Id;
-			Exercises = exercises;
+			ParentId = parent?.Id;
+			ModifiedAt = DateTime.Now;
 		}
 	}
 }

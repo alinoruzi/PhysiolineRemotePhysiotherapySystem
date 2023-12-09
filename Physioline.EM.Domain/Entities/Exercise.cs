@@ -8,8 +8,7 @@ namespace Physioline.EM.Domain.Entities
 
 		private ExerciseTitle _title;
 		private ExerciseDescription? _description;
-		private ExerciseFile _picture;
-		private ExerciseFile _video;
+
 
 		public string Title
 		{
@@ -19,43 +18,41 @@ namespace Physioline.EM.Domain.Entities
         public string? Description 
         {
 	        get => _description;
-	        private set => _description = value;
+			private set => _description = value;
         }
         
-        public string Picture
-        {
-	        get => _picture;
-	        private set => _picture = value;
-        }
+        public ExerciseFile Picture { get; private set; }
         
-        public string? Video 
-        {
-	        get => _video;
-	        private set => _video = value;
-        }
-        
-        public List<Category> Categories { get; private set; }
+        public ExerciseFile? Video { get; private set; }
+
+        public List<ExerciseGuide> Guides { get; private set; }
+
+        public List<ExerciseCategory>? ExerciseCategories { get; private set; }
         
         public Exercise(string title, string? description, string picture,
-	        string video, List<Category> categories,
-	        long creatorUserId) : base(creatorUserId)
+	        string video, List<ExerciseGuide> guides, long creatorUserId) : base(creatorUserId)
         {
 	        Title = title;
 	        Description = description;
 	        Picture = picture;
 	        Video = video;
-	        Categories = categories;
-	        
+	        ExerciseCategories = new List<ExerciseCategory>();
+	        Guides = guides;
         }
-        
+
+        public Exercise()
+        {
+            
+        }
+
         public void Edit(string title, string? description, string picture,
-	        string video, List<Category> categories)
+	        string video, long creatorUserId)
         {
 	        Title = title;
 	        Description = description;
 	        Picture = picture;
 	        Video = video;
-	        Categories = categories;
+	        ModifiedAt = DateTime.Now;
         }
 	}
 }

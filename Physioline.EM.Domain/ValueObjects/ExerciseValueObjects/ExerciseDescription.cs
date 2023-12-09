@@ -8,8 +8,8 @@ namespace Physioline.EM.Domain.ValueObjects.ExerciseValueObjects
 
 		public ExerciseDescription(string title)
 		{
-			if (title.Length > 2500)
-				throw new ExerciseTitleInvalidException(2500);
+			if (title.Length > 4000)
+				throw new ExerciseTitleInvalidException(4000);
 
 			Value = title;
 		}

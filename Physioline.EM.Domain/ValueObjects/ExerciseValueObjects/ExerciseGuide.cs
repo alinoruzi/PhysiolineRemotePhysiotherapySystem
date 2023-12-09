@@ -4,7 +4,9 @@ namespace Physioline.EM.Domain.ValueObjects.ExerciseValueObjects
 {
 	public record ExerciseGuide
 	{
-		public string Title { get; private set; }
+        public long Id { get; set; }
+        public long ExerciseId { get; set; }
+        public string Title { get; private set; }
 		public string Link { get; private set; }
 
 		public ExerciseGuide(string title, string link)
@@ -22,7 +24,6 @@ namespace Physioline.EM.Domain.ValueObjects.ExerciseValueObjects
 			Title = title;
 			Link = link.ToLower();
 		}
-		
 		
 	}
 }
