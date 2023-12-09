@@ -5,7 +5,7 @@ namespace Physioline.EM.Domain.Repositories.QueryRepositories
 {
 	public interface IExerciseQueryRepository : IBaseQueryRepository<long, Exercise>
 	{
-		Task<IEnumerable<Exercise>> PartialGet(int countPerPage, int pageNumber, CancellationToken cancellationToken);
-		Task<IEnumerable<Exercise>> SearchByTitle(string title, CancellationToken cancellationToken);
+		Task<List<Exercise>> PartialGet(int countPerPage, int pageNumber, CancellationToken cancellationToken);
+		Task<List<Exercise>> SearchByTitle(string title, CancellationToken cancellationToken);
 	}
 }

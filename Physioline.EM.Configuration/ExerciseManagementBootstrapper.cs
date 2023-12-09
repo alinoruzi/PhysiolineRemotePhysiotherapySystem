@@ -23,6 +23,7 @@ namespace Physioline.EM.Configuration
 			
 			services.AddTransient<IAddCategoryByAdmin, AddCategoryByAdmin>();
 			services.AddTransient<IGetCategoryListByAdmin,GetCategoryListByAdmin>();
+			services.AddTransient<IGetParentCategories,GetParentCategories>();
 
 			services.AddDbContext<EmContext>(c=>c.UseSqlServer(connectionString));
 		}

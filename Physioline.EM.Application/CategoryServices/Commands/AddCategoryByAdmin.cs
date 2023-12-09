@@ -18,22 +18,27 @@ namespace Physioline.EM.Application.CategoryServices.Commands
 		}
 
 
-		public async Task<OperationResult> Execute(InputCategoryDto inputCategoryDto, CancellationToken cancellationToken)
+		public async Task<OperationResult> Execute(string title, string description, long? parentId, long creatorUserId, CancellationToken cancellationToken)
 		{
 			Category? parentCategory = null;
 			
-			if (inputCategoryDto.ParentId != null)
+			if (parentId != null)
 			{
-				parentCategory = await _categoryQueryRepository.Get((long)inputCategoryDto.ParentId, cancellationToken);
+				parentCategory = await _categoryQueryRepository.Get((long)parentId, cancellationToken);
+				if (parentCategory == null || parentCategory.ParentId != null)
+				{
+					return OperationResult.Failed("Parent Category is invalid.");
+				}
 			}
 
 			var category = new Category
 			(
-				inputCategoryDto.Title,
-				inputCategoryDto.Description,
+				title,
+				description,
 				parentCategory,
-				inputCategoryDto.CreatorUserId
+				creatorUserId
 			);
+			
 			await _categoryCommandRepository.Create(category, cancellationToken);
 			await _categoryCommandRepository.Save(cancellationToken);
 			

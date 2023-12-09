@@ -1,0 +1,44 @@
+@model Physioline.WebApp.Areas.Administration.Models.CategoryCreateViewModel
+@{
+    ViewData["Title"] = "افزودن دسته بندی";
+}
+
+<div class="mt-5 col-sm-12 col-lg-8 ps-lg-5">
+    <form asp-controller="Category" asp-action="Create" method="post">
+        <div class="row mb-3 mt-3">
+            <div class="col-12">
+                <lable class="form-label" asp-for="Title"></lable>
+                <input type="text" class="form-control" name="Title" asp-for="Title" required maxlength="40"/> 
+                <div asp-validation-summary="All" asp-for="Title" class="form-text"></div>
+            </div>
+        </div>
+        <div class="row mb-3 mt-3">
+            <div class="col-12">
+                <lable class="form-label" asp-for="ParentId"></lable>
+                <div class="col-12">
+                    <input type="text" class="form-control" name="parentId" asp-for="ParentId" required maxlength="40"/> 
+                    <div asp-validation-summary="All" asp-for="ParentId" class="form-text"></div>
+                    </div>
+                @* <select name="ganre" class="form-select" required> *@
+                @*     <option value=null>بدون والد</option> *@
+                @*     @foreach (var item in ViewBag["ParentCategories"]) *@
+                @*     { *@
+                @*         <option value="@item.Id">@item.Title</option> *@
+                @*     } *@
+                @* </select> *@
+            </div>
+            <div class="col-12 mt-2">
+                <lable class="form-label" asp-for="Description"></lable>
+                <textarea name="Description" class="form-control" asp-for="Description" maxlength="350"></textarea>
+                <div asp-validation-summary="All" asp-for="Description" class="form-text"></div>
+            </div> 
+
+        </div>
+
+        <div class="mb-3 mt-5">
+            <div class="d-grid gap-2">
+                <input type="submit" class="btn btn-lg btn-dark" value="افزودن دسته بندی" />
+            </div>
+        </div>
+    </form>
+</div>

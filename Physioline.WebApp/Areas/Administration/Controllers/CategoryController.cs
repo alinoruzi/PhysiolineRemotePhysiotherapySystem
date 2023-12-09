@@ -9,10 +9,12 @@ namespace Physioline.WebApp.Areas.Administration.Controllers
 	{
 		private readonly IGetCategoryListByAdmin _getCategoryList;
 		private readonly IAddCategoryByAdmin _addCategory;
-		public CategoryController(IAddCategoryByAdmin addCategory, IGetCategoryListByAdmin getCategoryList)
+		private readonly IGetParentCategories _getParentCategories;
+		public CategoryController(IAddCategoryByAdmin addCategory, IGetCategoryListByAdmin getCategoryList, IGetParentCategories getParentCategories)
 		{
 			_addCategory = addCategory;
 			_getCategoryList = getCategoryList;
+			_getParentCategories = getParentCategories;
 		}
 
 		public async Task<IActionResult> Index(CancellationToken cancellationToken)
@@ -40,9 +42,25 @@ namespace Physioline.WebApp.Areas.Administration.Controllers
 		}
 		
 		[HttpGet]
-		public IActionResult Add()
+		public async Task<IActionResult> Create(CancellationToken cancellationToken)
 		{
-			return Ok();
+			ViewData["ParentCategories"] = await _getParentCategories.Execute(cancellationToken);
+			return View(new CategoryCreateViewModel());
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Create(CategoryCreateViewModel categoryCreateViewModel, CancellationToken cancellationToken)
+		{
+			var result = await _addCategory.Execute(categoryCreateViewModel.Title, categoryCreateViewModel.Description, categoryCreateViewModel.ParentId, 0,
+				cancellationToken);
+			if (!result.IsSuccess)
+				throw new Exception("Error in Create Category by Admin Controller.");
+			
+			ViewData["ActionResult"] = true;
+			ViewData["ActionName"] = "افزودن دسته بندی";
+			ViewData["ActionObjectTitle"] = categoryCreateViewModel.Title;
+			
+			return RedirectToAction("Index");
 		}
 		
 		[HttpGet]

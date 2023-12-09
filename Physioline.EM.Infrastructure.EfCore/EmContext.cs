@@ -21,6 +21,7 @@ namespace Physioline.EM.Infrastructure.EfCore
 
         public DbSet<Exercise> Exercises { get; set; }
         public DbSet<Category> Categories { get; set; }
+        
         public DbSet<ExerciseCategory> ExerciseCategories { get; set; }
     }
 }
