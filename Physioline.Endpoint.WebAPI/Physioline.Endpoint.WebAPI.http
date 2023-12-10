@@ -1,0 +1,6 @@
+@Physioline.Endpoint.WebAPI_HostAddress = http://localhost:5143
+
+GET {{Physioline.Endpoint.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
