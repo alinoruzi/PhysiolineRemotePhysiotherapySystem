@@ -6,10 +6,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+string connectionString = builder.Configuration.GetConnectionString("SqlServer");
+
 
 var app = builder.Build();
 
-string connectionString = builder.Configuration.GetConnectionString("SqlServer");
 
 PhysiolineBootstrapper.Configure(builder.Services,connectionString);
 

@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Physioline.Domain.Core\Physioline.Domain.Core.csproj" />
+    </ItemGroup>
+
 </Project>
