@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>TreatmentManagement.Application.Service</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Physioline.Framework.Application\Physioline.Framework.Application.csproj" />
+      <ProjectReference Include="..\TreatmentManagement.Application.Contracts\TreatmentManagement.Application.Contracts.csproj" />
+      <ProjectReference Include="..\TreatmentManagement.Domain\TreatmentManagement.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="ExerciseServices\Queries\" />
+    </ItemGroup>
+
+</Project>
