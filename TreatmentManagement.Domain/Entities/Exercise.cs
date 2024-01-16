@@ -8,20 +8,19 @@ namespace TreatmentManagement.Domain.Entities
 		public required string Title { get; set; }
 		public required string ShortDescription { get; set; }
 		public string? LongDescription { get; set; }
-		public required bool IsGlobal { get; set; }
+		public bool IsGlobal { get; set; }
 		public List<ExerciseFile> Files { get; set; }
-		public List<ExerciseCategorization> Categorizations { get; set; }
 		public List<ExerciseCategory> Categories { get; set; }
-		public List<ExerciseGuideReference> GuideReferences { get; set; }
 		public List<CollectionDetail> Collections { get; set; }
+		public List<ExerciseGuideReference> GuideReferences { get; set; }
 
 		public Exercise()
 		{
 			Files = new List<ExerciseFile>();
-			Categorizations = new List<ExerciseCategorization>();
+			Categories = new List<ExerciseCategory>();
 			GuideReferences = new List<ExerciseGuideReference>();
 			Collections = new List<CollectionDetail>();
-			Categories = new List<ExerciseCategory>();
+			IsGlobal = false;
 		}
 	}
 

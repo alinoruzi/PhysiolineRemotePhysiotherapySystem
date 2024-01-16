@@ -1,12 +1,12 @@
 using Physioline.Framework.Application;
+using Physioline.Framework.Application.ResultModels;
 using System.Net;
-using TreatmentManagement.Application.Contracts.AdminServices;
+using TreatmentManagement.ApplicationContracts.AdminDTOs;
+using TreatmentManagement.ApplicationContracts.AdminServices;
 using TreatmentManagement.Domain.Entities;
-using TreatmentManagement.Application.Contracts.DTOs;
-using TreatmentManagement.Domain.Repositories;
 using TreatmentManagement.Domain.Repositories.ExerciseCategoryRepositories;
 
-namespace TreatmentManagement.Application.Service.AppServices
+namespace TreatmentManagement.ApplicationServices.AppServices
 {
 	public class ExerciseCategoryAdminService : IExerciseCategoryAdminService
 	{

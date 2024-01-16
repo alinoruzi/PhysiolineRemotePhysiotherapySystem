@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace TreatmentManagement.Application.Contracts.ExerciseServicesContracts.DTOs
+namespace TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.DTOs
 {
 	public class ExerciseGuidesReferenceDto
 	{

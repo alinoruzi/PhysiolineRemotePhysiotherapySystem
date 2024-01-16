@@ -1,8 +1,6 @@
-using TreatmentManagement.Domain.ValueObjects;
-
-namespace TreatmentManagement.Application.Contracts.ExerciseServicesContracts.DTOs
+namespace TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.DTOs
 {
-	public class ExerciseOutputDto
+	public class GetExerciseByAdminDto
 	{
 		public long Id { get; set; }
 		public string Title { get; set; }
@@ -14,6 +12,6 @@ namespace TreatmentManagement.Application.Contracts.ExerciseServicesContracts.DT
 		public DateTime CreatedAt { get; set; }
 		public long UserCreatorId { get; set; }
 		public List<long> CategoriesId { get; set; }
-		public List<ExerciseGuidesReferenceDto>? GuideReferences { get; set; }
+		public List<ExerciseGuidesReferenceDto> GuideReferences { get; set; }
 	}
 }

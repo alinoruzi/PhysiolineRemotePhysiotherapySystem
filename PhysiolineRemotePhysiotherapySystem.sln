@@ -15,8 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00-Framework", "00-Framewor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Physioline.Framework.Domain", "Physioline.Framework.Domain\Physioline.Framework.Domain.csproj", "{0C5507B4-9DDE-40DE-BB22-26931D9B3E6A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TreatmentManagement.Application.Services", "TreatmentManagement.Application.Services\TreatmentManagement.Application.Services.csproj", "{1B929AF8-B6B9-4D67-B1F2-13EB6F856572}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TreatmentManagement.Infrastructure.EntityFrameworkCore", "TreatmentManagement.Infrastructure.EntityFrameworkCore\TreatmentManagement.Infrastructure.EntityFrameworkCore.csproj", "{60C51EBA-A355-41F5-B9B4-709564FC4684}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TreatmentManagement.Infrastructure.Configuration", "TreatmentManagement.Infrastructure.Configuration\TreatmentManagement.Infrastructure.Configuration.csproj", "{25ACFB9C-8E96-4412-A1FD-E233F412BB09}"
@@ -25,11 +23,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Physioline.Endpoint.WebAPI"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TreatmentManagement", "TreatmentManagement", "{908A9815-6ED8-4B7D-84B9-42E68A3D52FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreatmentManagement.Application.Contracts", "TreatmentManagement.Application.Contracts\TreatmentManagement.Application.Contracts.csproj", "{88A57797-3330-451C-9951-FBE92CB13AAF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreatmentManagement.ApplicationContracts", "TreatmentManagement.ApplicationContracts\TreatmentManagement.ApplicationContracts.csproj", "{88A57797-3330-451C-9951-FBE92CB13AAF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Physioline.Framework.Application", "Physioline.Framework.Application\Physioline.Framework.Application.csproj", "{0FA3B649-096A-450D-B0F2-1FCE4257C717}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Physioline.Framework.Infrastructure", "Physioline.Framework.Infrastructure\Physioline.Framework.Infrastructure.csproj", "{79ACFFCF-271B-469D-8C29-4FC3F6F39675}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreatmentManagement.ApplicationServices", "TreatmentManagement.ApplicationServices\TreatmentManagement.ApplicationServices.csproj", "{F9906936-F2E3-48AB-8B9B-4F04DCF6654D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreatmentManagement.DomainServices", "TreatmentManagement.DomainServices\TreatmentManagement.DomainServices.csproj", "{DBAFA08E-5628-4F9E-B5A5-44BD9F180CA4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,10 +47,6 @@ Global
 		{0C5507B4-9DDE-40DE-BB22-26931D9B3E6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C5507B4-9DDE-40DE-BB22-26931D9B3E6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C5507B4-9DDE-40DE-BB22-26931D9B3E6A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1B929AF8-B6B9-4D67-B1F2-13EB6F856572}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1B929AF8-B6B9-4D67-B1F2-13EB6F856572}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1B929AF8-B6B9-4D67-B1F2-13EB6F856572}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1B929AF8-B6B9-4D67-B1F2-13EB6F856572}.Release|Any CPU.Build.0 = Release|Any CPU
 		{60C51EBA-A355-41F5-B9B4-709564FC4684}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{60C51EBA-A355-41F5-B9B4-709564FC4684}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60C51EBA-A355-41F5-B9B4-709564FC4684}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -73,6 +71,14 @@ Global
 		{79ACFFCF-271B-469D-8C29-4FC3F6F39675}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79ACFFCF-271B-469D-8C29-4FC3F6F39675}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79ACFFCF-271B-469D-8C29-4FC3F6F39675}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9906936-F2E3-48AB-8B9B-4F04DCF6654D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9906936-F2E3-48AB-8B9B-4F04DCF6654D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9906936-F2E3-48AB-8B9B-4F04DCF6654D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9906936-F2E3-48AB-8B9B-4F04DCF6654D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBAFA08E-5628-4F9E-B5A5-44BD9F180CA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBAFA08E-5628-4F9E-B5A5-44BD9F180CA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBAFA08E-5628-4F9E-B5A5-44BD9F180CA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBAFA08E-5628-4F9E-B5A5-44BD9F180CA4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,12 +90,13 @@ Global
 		{C93DCCE5-634E-4ECD-85D8-907C9374E8FF} = {5E773D1D-92D1-415D-923E-5338C6057105}
 		{908A9815-6ED8-4B7D-84B9-42E68A3D52FF} = {C8AD6F98-6317-47F1-B2CE-FEFDF4D231F1}
 		{B9C81FA0-A330-4412-91FF-2B3E83C388E3} = {908A9815-6ED8-4B7D-84B9-42E68A3D52FF}
-		{1B929AF8-B6B9-4D67-B1F2-13EB6F856572} = {908A9815-6ED8-4B7D-84B9-42E68A3D52FF}
 		{25ACFB9C-8E96-4412-A1FD-E233F412BB09} = {908A9815-6ED8-4B7D-84B9-42E68A3D52FF}
 		{60C51EBA-A355-41F5-B9B4-709564FC4684} = {908A9815-6ED8-4B7D-84B9-42E68A3D52FF}
 		{88A57797-3330-451C-9951-FBE92CB13AAF} = {908A9815-6ED8-4B7D-84B9-42E68A3D52FF}
 		{0FA3B649-096A-450D-B0F2-1FCE4257C717} = {CB8E2704-E120-4D4F-9153-52D9C462BD88}
 		{79ACFFCF-271B-469D-8C29-4FC3F6F39675} = {CB8E2704-E120-4D4F-9153-52D9C462BD88}
+		{F9906936-F2E3-48AB-8B9B-4F04DCF6654D} = {908A9815-6ED8-4B7D-84B9-42E68A3D52FF}
+		{DBAFA08E-5628-4F9E-B5A5-44BD9F180CA4} = {908A9815-6ED8-4B7D-84B9-42E68A3D52FF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7F0970CB-D188-47A9-9CBD-BF890C9E0122}

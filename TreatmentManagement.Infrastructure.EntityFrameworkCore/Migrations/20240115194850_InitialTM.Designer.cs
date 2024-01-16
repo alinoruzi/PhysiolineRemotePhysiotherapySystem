@@ -12,7 +12,7 @@ using TreatmentManagement.Infrastructure.EntityFrameworkCore;
 namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(TMContext))]
-    [Migration("20240109184326_InitialTM")]
+    [Migration("20240115194850_InitialTM")]
     partial class InitialTM
     {
         /// <inheritdoc />
@@ -24,6 +24,36 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("CollectionCollectionCategory", b =>
+                {
+                    b.Property<long>("CategoriesId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("CollectionsId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("CategoriesId", "CollectionsId");
+
+                    b.HasIndex("CollectionsId");
+
+                    b.ToTable("CollectionCollectionCategory", "TM");
+                });
+
+            modelBuilder.Entity("ExerciseExerciseCategory", b =>
+                {
+                    b.Property<long>("CategoriesId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ExercisesId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("CategoriesId", "ExercisesId");
+
+                    b.HasIndex("ExercisesId");
+
+                    b.ToTable("ExerciseExerciseCategory", "TM");
+                });
 
             modelBuilder.Entity("Physioline.Framework.Domain.BaseEntity", b =>
                 {
@@ -39,12 +69,6 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
                     b.Property<long>("CreatorUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime?>("EditedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("EditorUserId")
-                        .HasColumnType("bigint");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -53,36 +77,6 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
                     b.ToTable("BaseEntity");
 
                     b.UseTptMappingStrategy();
-                });
-
-            modelBuilder.Entity("TreatmentManagement.Domain.Entities.CollectionCategorization", b =>
-                {
-                    b.Property<long>("CollectionId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("CollectionCategoryId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("CollectionId", "CollectionCategoryId");
-
-                    b.HasIndex("CollectionCategoryId");
-
-                    b.ToTable("CollectionCategorizations", "TM");
-                });
-
-            modelBuilder.Entity("TreatmentManagement.Domain.Entities.ExerciseCategorization", b =>
-                {
-                    b.Property<long>("ExerciseId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("ExerciseCategoryId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("ExerciseId", "ExerciseCategoryId");
-
-                    b.HasIndex("ExerciseCategoryId");
-
-                    b.ToTable("ExerciseCategorizations", "TM");
                 });
 
             modelBuilder.Entity("TreatmentManagement.Domain.Entities.Collection", b =>
@@ -277,42 +271,34 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
                     b.ToTable("PlanDetails", "TM");
                 });
 
-            modelBuilder.Entity("TreatmentManagement.Domain.Entities.CollectionCategorization", b =>
+            modelBuilder.Entity("CollectionCollectionCategory", b =>
                 {
-                    b.HasOne("TreatmentManagement.Domain.Entities.CollectionCategory", "CollectionCategory")
-                        .WithMany("Categorizations")
-                        .HasForeignKey("CollectionCategoryId")
+                    b.HasOne("TreatmentManagement.Domain.Entities.CollectionCategory", null)
+                        .WithMany()
+                        .HasForeignKey("CategoriesId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("TreatmentManagement.Domain.Entities.Collection", "Collection")
-                        .WithMany("Categorizations")
-                        .HasForeignKey("CollectionId")
+                    b.HasOne("TreatmentManagement.Domain.Entities.Collection", null)
+                        .WithMany()
+                        .HasForeignKey("CollectionsId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Collection");
-
-                    b.Navigation("CollectionCategory");
                 });
 
-            modelBuilder.Entity("TreatmentManagement.Domain.Entities.ExerciseCategorization", b =>
+            modelBuilder.Entity("ExerciseExerciseCategory", b =>
                 {
-                    b.HasOne("TreatmentManagement.Domain.Entities.ExerciseCategory", "ExerciseCategory")
-                        .WithMany("Categorizations")
-                        .HasForeignKey("ExerciseCategoryId")
+                    b.HasOne("TreatmentManagement.Domain.Entities.ExerciseCategory", null)
+                        .WithMany()
+                        .HasForeignKey("CategoriesId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("TreatmentManagement.Domain.Entities.Exercise", "Exercise")
-                        .WithMany("Categorizations")
-                        .HasForeignKey("ExerciseId")
+                    b.HasOne("TreatmentManagement.Domain.Entities.Exercise", null)
+                        .WithMany()
+                        .HasForeignKey("ExercisesId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Exercise");
-
-                    b.Navigation("ExerciseCategory");
                 });
 
             modelBuilder.Entity("TreatmentManagement.Domain.Entities.Collection", b =>
@@ -503,8 +489,6 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
 
             modelBuilder.Entity("TreatmentManagement.Domain.Entities.Collection", b =>
                 {
-                    b.Navigation("Categorizations");
-
                     b.Navigation("Details");
 
                     b.Navigation("Plans");
@@ -512,15 +496,11 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
 
             modelBuilder.Entity("TreatmentManagement.Domain.Entities.CollectionCategory", b =>
                 {
-                    b.Navigation("Categorizations");
-
                     b.Navigation("Children");
                 });
 
             modelBuilder.Entity("TreatmentManagement.Domain.Entities.Exercise", b =>
                 {
-                    b.Navigation("Categorizations");
-
                     b.Navigation("Collections");
 
                     b.Navigation("Files");
@@ -528,8 +508,6 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
 
             modelBuilder.Entity("TreatmentManagement.Domain.Entities.ExerciseCategory", b =>
                 {
-                    b.Navigation("Categorizations");
-
                     b.Navigation("Children");
                 });
 

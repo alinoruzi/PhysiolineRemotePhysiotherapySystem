@@ -15,9 +15,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\TreatmentManagement.Application.Contracts\TreatmentManagement.Application.Contracts.csproj" />
+      <ProjectReference Include="..\TreatmentManagement.ApplicationContracts\TreatmentManagement.ApplicationContracts.csproj" />
+      <ProjectReference Include="..\TreatmentManagement.ApplicationServices\TreatmentManagement.ApplicationServices.csproj" />
+      <ProjectReference Include="..\TreatmentManagement.DomainServices\TreatmentManagement.DomainServices.csproj" />
       <ProjectReference Include="..\TreatmentManagement.Domain\TreatmentManagement.Domain.csproj" />
-      <ProjectReference Include="..\TreatmentManagement.Application.Services\TreatmentManagement.Application.Services.csproj" />
       <ProjectReference Include="..\TreatmentManagement.Infrastructure.EntityFrameworkCore\TreatmentManagement.Infrastructure.EntityFrameworkCore.csproj" />
     </ItemGroup>
 

@@ -33,12 +33,10 @@ namespace Physioline.Framework.Infrastructure
 			CancellationToken cancellationToken)
 			=> await _dbSet.AsNoTracking().Where(expression).ToListAsync(cancellationToken);
 		
-		public async Task<TEntity> CreateAsync(TEntity entity, 
+		public async Task CreateAsync(TEntity entity, 
 			CancellationToken cancellationToken)
 		{
 			await _dbSet.AddAsync(entity, cancellationToken);
-			await SaveChangesAsync(cancellationToken);
-			return entity;
 		}
 
 		public async Task SaveChangesAsync(CancellationToken cancellationToken)

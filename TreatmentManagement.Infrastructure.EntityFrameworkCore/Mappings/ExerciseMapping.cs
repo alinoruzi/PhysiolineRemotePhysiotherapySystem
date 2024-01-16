@@ -16,6 +16,10 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Mappings
 			builder.Property(e => e.ShortDescription).IsRequired().HasMaxLength(750);
 			builder.Property(e => e.LongDescription).IsRequired(false).HasMaxLength(2500);
 			builder.Property(e => e.IsGlobal).IsRequired();
+			
+			builder.HasMany(e => e.Categories)
+				.WithMany(ec => ec.Exercises);
+			
 			builder.OwnsMany(e => e.GuideReferences, g =>
 			{
 				g.WithOwner().HasForeignKey(g=>g.ExerciseId);

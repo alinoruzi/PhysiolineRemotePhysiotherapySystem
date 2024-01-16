@@ -1,12 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using TreatmentManagement.Application.Contracts.AdminServices;
-using TreatmentManagement.Application.Contracts.ExerciseServicesContracts.Commands;
-using TreatmentManagement.Application.Service.AppServices;
-using TreatmentManagement.Application.Service.ExerciseServices.Commands;
+using TreatmentManagement.ApplicationContracts.AdminServices;
+using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.Commands;
+using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.Queries;
+using TreatmentManagement.ApplicationServices.AppServices;
+using TreatmentManagement.ApplicationServices.ExerciseAppServices.Commands;
+using TreatmentManagement.ApplicationServices.ExerciseAppServices.Queries;
 using TreatmentManagement.Domain.Repositories;
 using TreatmentManagement.Domain.Repositories.ExerciseCategoryRepositories;
 using TreatmentManagement.Domain.Repositories.ExerciseRepositories;
+using TreatmentManagement.Domain.ServiceContracts;
+using TreatmentManagement.DomainServices.DomainServices;
 using TreatmentManagement.Infrastructure.EntityFrameworkCore;
 using TreatmentManagement.Infrastructure.EntityFrameworkCore.Repositories;
 using TreatmentManagement.Infrastructure.EntityFrameworkCore.Repositories.ExerciseCategoryRepositories;
@@ -18,14 +22,24 @@ namespace TreatmentManagement.Infrastructure.Configuration
 	{
 		public static void Configure(IServiceCollection services, string? connectionString)
 		{
-			services.AddTransient<IExerciseCategoryAdminService, ExerciseCategoryAdminService>();
-			services.AddTransient<IExerciseCategoryRepository, ExerciseCategoryRepository>();
+			//Domain Services:
+			services.AddScoped<IExerciseService, ExerciseService>();
+			services.AddScoped<IExerciseCategoryService, ExerciseCategoryService>();
+			
+			//Application Services:
+			services.AddScoped<IExerciseCategoryAdminService, ExerciseCategoryAdminService>();
+			services.AddScoped<IGetExerciseByAdminAppService,GetExerciseByAdminAppServiceAppService>();
+			
+			//UnitOfWork:
+			services.AddScoped<IUnitOfWork, UnitOfWork>();
 			
 			//Repositories:
 			services.AddTransient<IExerciseRepository, ExerciseRepository>();
+			services.AddScoped<IExerciseCategoryRepository, ExerciseCategoryRepository>();
+
 			
 			//ExerciseServices:
-			services.AddTransient<IAddGlobalExercise, AddGlobalExercise>();
+			services.AddTransient<IAddExerciseAppService, AddExerciseAppService>();
 			
 			services.AddDbContext<TMContext>(options =>options.UseSqlServer(connectionString));
 		}

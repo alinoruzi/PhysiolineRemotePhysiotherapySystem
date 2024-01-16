@@ -1,8 +1,11 @@
+using Physioline.Framework.Application;
+using Physioline.Framework.Application.CustomValidations;
 using System.ComponentModel.DataAnnotations;
+using System.Net;
 
-namespace TreatmentManagement.Application.Contracts.ExerciseServicesContracts.DTOs
+namespace TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.DTOs
 {
-	public class ExerciseInputDto
+	public class AddExerciseDto
 	{
 		[Required]
 		[MinLength(3)]
@@ -14,6 +17,7 @@ namespace TreatmentManagement.Application.Contracts.ExerciseServicesContracts.DT
 		[MaxLength(750)]
 		public required string ShortDescription { get; set; }
 		
+		[Required(AllowEmptyStrings = true)]
 		[MinLength(3)]
 		[MaxLength(750)]
 		public string? LongDescription { get; set; }
@@ -24,11 +28,12 @@ namespace TreatmentManagement.Application.Contracts.ExerciseServicesContracts.DT
 		
 		[Required] public long CreatorUserId { get; set; }
 
+		[Required]
+		[RequiredList(nameof(ExerciseCategoriesId))]
+		public required List<long> ExerciseCategoriesId { get; set; }
 
-		[Required] public required List<long> ExerciseCategoriesId { get; set; }
-
-		public List<ExerciseGuidesReferenceDto>? GuideReferences { get; set; }
-
-
+		[Required]
+		public List<ExerciseGuidesReferenceDto> GuideReferences { get; set; }
+		
 	}
 }

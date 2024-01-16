@@ -1,7 +1,8 @@
 using Physioline.Framework.Application;
-using TreatmentManagement.Application.Contracts.DTOs;
+using Physioline.Framework.Application.ResultModels;
+using TreatmentManagement.ApplicationContracts.AdminDTOs;
 
-namespace TreatmentManagement.Application.Contracts.AdminServices
+namespace TreatmentManagement.ApplicationContracts.AdminServices
 {
 	public interface IExerciseCategoryAdminService
 	{

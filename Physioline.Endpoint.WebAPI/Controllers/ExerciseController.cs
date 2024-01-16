@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Physioline.Endpoint.WebAPI.Models;
-using TreatmentManagement.Application.Contracts.AdminServices;
-using TreatmentManagement.Application.Contracts.DTOs;
-using TreatmentManagement.Application.Contracts.ExerciseServicesContracts.Commands;
-using TreatmentManagement.Application.Contracts.ExerciseServicesContracts.DTOs;
+using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.Commands;
+using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.DTOs;
+using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.Queries;
 
 namespace Physioline.Endpoint.WebAPI.Controllers
 {
@@ -11,17 +9,29 @@ namespace Physioline.Endpoint.WebAPI.Controllers
     [ApiController]
     public class ExerciseController : ControllerBase
     {
-        private readonly IAddGlobalExercise _addGlobalExercise;
-        public ExerciseController(IAddGlobalExercise addGlobalExercise)
+        private readonly IAddExerciseAppService _addExercise;
+        private readonly IGetExerciseByAdminAppService _getExerciseByAdmin;
+        public ExerciseController(IAddExerciseAppService addExerciseAppService, IGetExerciseByAdminAppService getExerciseByAdmin)
         {
-            _addGlobalExercise = addGlobalExercise;
+            _addExercise = addExerciseAppService;
+            _getExerciseByAdmin = getExerciseByAdmin;
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<GetExerciseByAdminDto>> Get(long id, CancellationToken cancellationToken)
+        {
+            var result = await _getExerciseByAdmin.Run(id,cancellationToken);
+            if (!result)
+                return StatusCode(result, result.Message);
+            
+            return result.Value;
+        }
 
         [HttpPost]
-        public async Task<ExerciseOutputDto> GetCategories(ExerciseInputDto inputDto,CancellationToken cancellationToken)
+        public async Task<ActionResult> Add(AddExerciseDto dto,CancellationToken cancellationToken)
         {
-            return await _addGlobalExercise.Run(inputDto, cancellationToken);
+            var result = await _addExercise.Run(dto, cancellationToken);
+            return StatusCode(result,result.Message);
         }
     }
 }

@@ -22,8 +22,6 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatorUserId = table.Column<long>(type: "bigint", nullable: false),
-                    EditedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    EditorUserId = table.Column<long>(type: "bigint", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -152,25 +150,25 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CollectionCategorizations",
+                name: "CollectionCollectionCategory",
                 schema: "TM",
                 columns: table => new
                 {
-                    CollectionId = table.Column<long>(type: "bigint", nullable: false),
-                    CollectionCategoryId = table.Column<long>(type: "bigint", nullable: false)
+                    CategoriesId = table.Column<long>(type: "bigint", nullable: false),
+                    CollectionsId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CollectionCategorizations", x => new { x.CollectionId, x.CollectionCategoryId });
+                    table.PrimaryKey("PK_CollectionCollectionCategory", x => new { x.CategoriesId, x.CollectionsId });
                     table.ForeignKey(
-                        name: "FK_CollectionCategorizations_CollectionCategories_CollectionCategoryId",
-                        column: x => x.CollectionCategoryId,
+                        name: "FK_CollectionCollectionCategory_CollectionCategories_CategoriesId",
+                        column: x => x.CategoriesId,
                         principalSchema: "TM",
                         principalTable: "CollectionCategories",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_CollectionCategorizations_Collections_CollectionId",
-                        column: x => x.CollectionId,
+                        name: "FK_CollectionCollectionCategory_Collections_CollectionsId",
+                        column: x => x.CollectionsId,
                         principalSchema: "TM",
                         principalTable: "Collections",
                         principalColumn: "Id");
@@ -212,25 +210,25 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ExerciseCategorizations",
+                name: "ExerciseExerciseCategory",
                 schema: "TM",
                 columns: table => new
                 {
-                    ExerciseId = table.Column<long>(type: "bigint", nullable: false),
-                    ExerciseCategoryId = table.Column<long>(type: "bigint", nullable: false)
+                    CategoriesId = table.Column<long>(type: "bigint", nullable: false),
+                    ExercisesId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ExerciseCategorizations", x => new { x.ExerciseId, x.ExerciseCategoryId });
+                    table.PrimaryKey("PK_ExerciseExerciseCategory", x => new { x.CategoriesId, x.ExercisesId });
                     table.ForeignKey(
-                        name: "FK_ExerciseCategorizations_ExerciseCategories_ExerciseCategoryId",
-                        column: x => x.ExerciseCategoryId,
+                        name: "FK_ExerciseExerciseCategory_ExerciseCategories_CategoriesId",
+                        column: x => x.CategoriesId,
                         principalSchema: "TM",
                         principalTable: "ExerciseCategories",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_ExerciseCategorizations_Exercises_ExerciseId",
-                        column: x => x.ExerciseId,
+                        name: "FK_ExerciseExerciseCategory_Exercises_ExercisesId",
+                        column: x => x.ExercisesId,
                         principalSchema: "TM",
                         principalTable: "Exercises",
                         principalColumn: "Id");
@@ -349,10 +347,10 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
                 column: "ParentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CollectionCategorizations_CollectionCategoryId",
+                name: "IX_CollectionCollectionCategory_CollectionsId",
                 schema: "TM",
-                table: "CollectionCategorizations",
-                column: "CollectionCategoryId");
+                table: "CollectionCollectionCategory",
+                column: "CollectionsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CollectionDetails_CollectionId",
@@ -373,10 +371,10 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
                 column: "ParentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ExerciseCategorizations_ExerciseCategoryId",
+                name: "IX_ExerciseExerciseCategory_ExercisesId",
                 schema: "TM",
-                table: "ExerciseCategorizations",
-                column: "ExerciseCategoryId");
+                table: "ExerciseExerciseCategory",
+                column: "ExercisesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ExerciseFiles_ExerciseId",
@@ -413,7 +411,7 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CollectionCategorizations",
+                name: "CollectionCollectionCategory",
                 schema: "TM");
 
             migrationBuilder.DropTable(
@@ -421,7 +419,7 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
                 schema: "TM");
 
             migrationBuilder.DropTable(
-                name: "ExerciseCategorizations",
+                name: "ExerciseExerciseCategory",
                 schema: "TM");
 
             migrationBuilder.DropTable(
