@@ -3,7 +3,7 @@ using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.Comm
 using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.DTOs;
 using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.Queries;
 
-namespace Physioline.Endpoint.WebAPI.Controllers
+namespace Physioline.Endpoint.WebAPI.ApiControllers.Admin
 {
     [Route("api/admin/[controller]/")]
     [ApiController]
@@ -17,6 +17,12 @@ namespace Physioline.Endpoint.WebAPI.Controllers
             _getExerciseByAdmin = getExerciseByAdmin;
         }
 
+        [HttpGet]
+        public async Task<ActionResult> GetAll(CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<GetExerciseByAdminDto>> Get(long id, CancellationToken cancellationToken)
         {

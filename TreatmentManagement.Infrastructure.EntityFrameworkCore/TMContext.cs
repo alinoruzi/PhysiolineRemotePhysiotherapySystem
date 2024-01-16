@@ -16,7 +16,7 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore
 		{
 			foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
 			{
-				relationship.DeleteBehavior = DeleteBehavior.NoAction; 
+				relationship.DeleteBehavior = DeleteBehavior.NoAction;
 			}
 
 			base.OnModelCreating(modelBuilder);
@@ -24,7 +24,7 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore
 			modelBuilder.ApplyConfiguration(new BaseEntityMapping());
 			
 			modelBuilder.ApplyConfiguration(new ExerciseCategoryMapping());
-			modelBuilder.ApplyConfiguration(new ExerciseFileMapping());
+			modelBuilder.ApplyConfiguration(new ExercisePictureMapping());
 			modelBuilder.ApplyConfiguration(new ExerciseMapping());
 
 			modelBuilder.ApplyConfiguration(new CollectionMapping());
@@ -37,7 +37,7 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore
 
 		public DbSet<Exercise> Exercises { get; set; }
 		public DbSet<ExerciseCategory> ExerciseCategories { get; set; }
-		public DbSet<ExerciseFile> ExerciseFiles { get; set; }
+		public DbSet<ExercisePicture> ExercisePictures { get; set; }
 		
 		public DbSet<Collection> Collections { get; set; }
 		public DbSet<CollectionDetail> CollectionDetails { get; set; }

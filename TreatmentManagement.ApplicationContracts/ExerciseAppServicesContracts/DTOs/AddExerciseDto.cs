@@ -22,15 +22,10 @@ namespace TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.
 		[MaxLength(750)]
 		public string? LongDescription { get; set; }
 		
-		[Required] public long StaticPictureFileId { get; set; }
+		[Required] public long PictureId { get; set; }
 		
-		public long? AnimationPictureFileId { get; set; }
-		
+		[Required] public long CategoryId { get; set; }
 		[Required] public long CreatorUserId { get; set; }
-
-		[Required]
-		[RequiredList(nameof(ExerciseCategoriesId))]
-		public required List<long> ExerciseCategoriesId { get; set; }
 
 		[Required]
 		public List<ExerciseGuidesReferenceDto> GuideReferences { get; set; }

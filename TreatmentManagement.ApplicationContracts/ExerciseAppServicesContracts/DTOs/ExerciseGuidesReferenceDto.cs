@@ -12,6 +12,7 @@ namespace TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.
 		[Required]
 		[MinLength(3)]
 		[MaxLength(1000)]
+		[Url]
 		public string Url { get; set; }
 	}
 }

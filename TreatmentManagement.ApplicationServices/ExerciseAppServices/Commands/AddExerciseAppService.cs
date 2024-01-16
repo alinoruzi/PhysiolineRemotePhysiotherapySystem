@@ -27,22 +27,14 @@ namespace TreatmentManagement.ApplicationServices.ExerciseAppServices.Commands
 			
 			exercise.GuideReferences = dto.GuideReferences
 				.Select(ExerciseMapper.Map).ToList();
-			
-			var categories = new List<ExerciseCategory>();
-			
-			foreach (var id in dto.ExerciseCategoriesId)
+
+
+			if (!await _exerciseCategoryService.IsExistById(dto.CategoryId, cancellationToken))
 			{
-				if (!await _exerciseCategoryService.IsExistById(id, cancellationToken))
-				{
-					var message = ResultMessage.EntityNotFound(nameof(ExerciseCategory), id);
-					return OperationResult.Failed(message,HttpStatusCode.NotFound);
-				}
-				
-				categories.Add(await _exerciseCategoryService.GetById(id,cancellationToken));
+				var message = ResultMessage.EntityNotFound(nameof(ExerciseCategory), dto.CategoryId);
+				return OperationResult.Failed(message, HttpStatusCode.NotFound);
 			}
 
-			exercise.Categories = categories;
-			
 			await _exerciseService.Add(exercise,cancellationToken);
 			
 			return OperationResult.Success();

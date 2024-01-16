@@ -15,13 +15,8 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Mappings
 			builder.Property(cc => cc.Title).IsRequired().HasMaxLength(255);
 			builder.Property(cc => cc.Description).IsRequired(false).HasMaxLength(750);
 			
-			builder.HasOne(cc => cc.Parent)
-				.WithMany(cc => cc.Children)
-				.HasForeignKey(cc => cc.ParentId)
-				.IsRequired(false);
-
 			builder.HasMany(cc => cc.Collections)
-				.WithMany(c => c.Categories);
+				.WithOne(c => c.Category);
 		}
 	}
 }

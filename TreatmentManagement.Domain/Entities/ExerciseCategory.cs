@@ -6,14 +6,10 @@ namespace TreatmentManagement.Domain.Entities
 	{
 		public required string Title { get; set; }
 		public string? Description { get; set; }
-		public long? ParentId { get; set; }
-		public ExerciseCategory? Parent { get; set; }
-		public List<ExerciseCategory> Children { get; set; }
 		public List<Exercise> Exercises { get; set; }
 
 		public ExerciseCategory()
 		{
-			Children = new List<ExerciseCategory>();
 			Exercises = new List<Exercise>();
 		}
 	}

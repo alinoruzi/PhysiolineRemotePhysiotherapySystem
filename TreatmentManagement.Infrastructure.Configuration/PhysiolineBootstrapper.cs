@@ -1,9 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using TreatmentManagement.ApplicationContracts.AdminServices;
 using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.Commands;
 using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.Queries;
-using TreatmentManagement.ApplicationServices.AppServices;
 using TreatmentManagement.ApplicationServices.ExerciseAppServices.Commands;
 using TreatmentManagement.ApplicationServices.ExerciseAppServices.Queries;
 using TreatmentManagement.Domain.Repositories;
@@ -27,7 +25,6 @@ namespace TreatmentManagement.Infrastructure.Configuration
 			services.AddScoped<IExerciseCategoryService, ExerciseCategoryService>();
 			
 			//Application Services:
-			services.AddScoped<IExerciseCategoryAdminService, ExerciseCategoryAdminService>();
 			services.AddScoped<IGetExerciseByAdminAppService,GetExerciseByAdminAppServiceAppService>();
 			
 			//UnitOfWork:

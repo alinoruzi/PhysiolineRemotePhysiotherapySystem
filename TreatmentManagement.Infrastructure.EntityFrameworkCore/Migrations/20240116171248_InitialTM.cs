@@ -36,42 +36,13 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(750)", maxLength: 750, nullable: true),
-                    ParentId = table.Column<long>(type: "bigint", nullable: true)
+                    Description = table.Column<string>(type: "nvarchar(750)", maxLength: 750, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CollectionCategories", x => x.Id);
                     table.ForeignKey(
                         name: "FK_CollectionCategories_BaseEntity_Id",
-                        column: x => x.Id,
-                        principalTable: "BaseEntity",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CollectionCategories_CollectionCategories_ParentId",
-                        column: x => x.ParentId,
-                        principalSchema: "TM",
-                        principalTable: "CollectionCategories",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Collections",
-                schema: "TM",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    ShortDescription = table.Column<string>(type: "nvarchar(750)", maxLength: 750, nullable: false),
-                    LongDescription = table.Column<string>(type: "nvarchar(2500)", maxLength: 2500, nullable: true),
-                    IsGlobal = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Collections", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Collections_BaseEntity_Id",
                         column: x => x.Id,
                         principalTable: "BaseEntity",
                         principalColumn: "Id",
@@ -85,8 +56,7 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(750)", maxLength: 750, nullable: true),
-                    ParentId = table.Column<long>(type: "bigint", nullable: true)
+                    Description = table.Column<string>(type: "nvarchar(750)", maxLength: 750, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -97,30 +67,24 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
                         principalTable: "BaseEntity",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ExerciseCategories_ExerciseCategories_ParentId",
-                        column: x => x.ParentId,
-                        principalSchema: "TM",
-                        principalTable: "ExerciseCategories",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Exercises",
+                name: "ExerciseFiles",
                 schema: "TM",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    ShortDescription = table.Column<string>(type: "nvarchar(750)", maxLength: 750, nullable: false),
-                    LongDescription = table.Column<string>(type: "nvarchar(2500)", maxLength: 2500, nullable: true),
-                    IsGlobal = table.Column<bool>(type: "bit", nullable: false)
+                    Name = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false),
+                    Extension = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    ExerciseId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Exercises", x => x.Id);
+                    table.PrimaryKey("PK_ExerciseFiles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Exercises_BaseEntity_Id",
+                        name: "FK_ExerciseFiles_BaseEntity_Id",
                         column: x => x.Id,
                         principalTable: "BaseEntity",
                         principalColumn: "Id",
@@ -150,137 +114,67 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CollectionCollectionCategory",
-                schema: "TM",
-                columns: table => new
-                {
-                    CategoriesId = table.Column<long>(type: "bigint", nullable: false),
-                    CollectionsId = table.Column<long>(type: "bigint", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CollectionCollectionCategory", x => new { x.CategoriesId, x.CollectionsId });
-                    table.ForeignKey(
-                        name: "FK_CollectionCollectionCategory_CollectionCategories_CategoriesId",
-                        column: x => x.CategoriesId,
-                        principalSchema: "TM",
-                        principalTable: "CollectionCategories",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_CollectionCollectionCategory_Collections_CollectionsId",
-                        column: x => x.CollectionsId,
-                        principalSchema: "TM",
-                        principalTable: "Collections",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CollectionDetails",
+                name: "Collections",
                 schema: "TM",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
-                    CollectionId = table.Column<long>(type: "bigint", nullable: false),
-                    ExerciseId = table.Column<long>(type: "bigint", nullable: false),
-                    NumberPerDuration = table.Column<long>(type: "bigint", nullable: false),
-                    SecondsOfDuration = table.Column<long>(type: "bigint", nullable: false),
-                    Priority = table.Column<long>(type: "bigint", nullable: false)
+                    Title = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    ShortDescription = table.Column<string>(type: "nvarchar(750)", maxLength: 750, nullable: false),
+                    LongDescription = table.Column<string>(type: "nvarchar(2500)", maxLength: 2500, nullable: true),
+                    IsGlobal = table.Column<bool>(type: "bit", nullable: false),
+                    CategoryId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CollectionDetails", x => x.Id);
+                    table.PrimaryKey("PK_Collections", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CollectionDetails_BaseEntity_Id",
+                        name: "FK_Collections_BaseEntity_Id",
                         column: x => x.Id,
                         principalTable: "BaseEntity",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CollectionDetails_Collections_CollectionId",
-                        column: x => x.CollectionId,
+                        name: "FK_Collections_CollectionCategories_CategoryId",
+                        column: x => x.CategoryId,
                         principalSchema: "TM",
-                        principalTable: "Collections",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_CollectionDetails_Exercises_ExerciseId",
-                        column: x => x.ExerciseId,
-                        principalSchema: "TM",
-                        principalTable: "Exercises",
+                        principalTable: "CollectionCategories",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "ExerciseExerciseCategory",
+                name: "Exercises",
                 schema: "TM",
                 columns: table => new
                 {
-                    CategoriesId = table.Column<long>(type: "bigint", nullable: false),
-                    ExercisesId = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    ShortDescription = table.Column<string>(type: "nvarchar(750)", maxLength: 750, nullable: false),
+                    LongDescription = table.Column<string>(type: "nvarchar(2500)", maxLength: 2500, nullable: true),
+                    IsGlobal = table.Column<bool>(type: "bit", nullable: false),
+                    PictureId = table.Column<long>(type: "bigint", nullable: false),
+                    CategoryId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ExerciseExerciseCategory", x => new { x.CategoriesId, x.ExercisesId });
+                    table.PrimaryKey("PK_Exercises", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ExerciseExerciseCategory_ExerciseCategories_CategoriesId",
-                        column: x => x.CategoriesId,
+                        name: "FK_Exercises_BaseEntity_Id",
+                        column: x => x.Id,
+                        principalTable: "BaseEntity",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Exercises_ExerciseCategories_CategoryId",
+                        column: x => x.CategoryId,
                         principalSchema: "TM",
                         principalTable: "ExerciseCategories",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_ExerciseExerciseCategory_Exercises_ExercisesId",
-                        column: x => x.ExercisesId,
+                        name: "FK_Exercises_ExerciseFiles_PictureId",
+                        column: x => x.PictureId,
                         principalSchema: "TM",
-                        principalTable: "Exercises",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ExerciseFiles",
-                schema: "TM",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false),
-                    Name = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false),
-                    Extension = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    ExerciseId = table.Column<long>(type: "bigint", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ExerciseFiles", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ExerciseFiles_BaseEntity_Id",
-                        column: x => x.Id,
-                        principalTable: "BaseEntity",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ExerciseFiles_Exercises_ExerciseId",
-                        column: x => x.ExerciseId,
-                        principalSchema: "TM",
-                        principalTable: "Exercises",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ExerciseGuideReference",
-                schema: "TM",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ExerciseId = table.Column<long>(type: "bigint", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Url = table.Column<string>(type: "nvarchar(2500)", maxLength: 2500, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ExerciseGuideReference", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ExerciseGuideReference_Exercises_ExerciseId",
-                        column: x => x.ExerciseId,
-                        principalSchema: "TM",
-                        principalTable: "Exercises",
+                        principalTable: "ExerciseFiles",
                         principalColumn: "Id");
                 });
 
@@ -320,6 +214,63 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CollectionDetails",
+                schema: "TM",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    CollectionId = table.Column<long>(type: "bigint", nullable: false),
+                    ExerciseId = table.Column<long>(type: "bigint", nullable: false),
+                    NumberPerDuration = table.Column<long>(type: "bigint", nullable: false),
+                    SecondsOfDuration = table.Column<long>(type: "bigint", nullable: false),
+                    Priority = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CollectionDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CollectionDetails_BaseEntity_Id",
+                        column: x => x.Id,
+                        principalTable: "BaseEntity",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CollectionDetails_Collections_CollectionId",
+                        column: x => x.CollectionId,
+                        principalSchema: "TM",
+                        principalTable: "Collections",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_CollectionDetails_Exercises_ExerciseId",
+                        column: x => x.ExerciseId,
+                        principalSchema: "TM",
+                        principalTable: "Exercises",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ExerciseGuideReference",
+                schema: "TM",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ExerciseId = table.Column<long>(type: "bigint", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(2500)", maxLength: 2500, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExerciseGuideReference", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ExerciseGuideReference_Exercises_ExerciseId",
+                        column: x => x.ExerciseId,
+                        principalSchema: "TM",
+                        principalTable: "Exercises",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PlanDetailWeekDay",
                 schema: "TM",
                 columns: table => new
@@ -341,18 +292,6 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CollectionCategories_ParentId",
-                schema: "TM",
-                table: "CollectionCategories",
-                column: "ParentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CollectionCollectionCategory_CollectionsId",
-                schema: "TM",
-                table: "CollectionCollectionCategory",
-                column: "CollectionsId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CollectionDetails_CollectionId",
                 schema: "TM",
                 table: "CollectionDetails",
@@ -365,28 +304,30 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
                 column: "ExerciseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ExerciseCategories_ParentId",
+                name: "IX_Collections_CategoryId",
                 schema: "TM",
-                table: "ExerciseCategories",
-                column: "ParentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ExerciseExerciseCategory_ExercisesId",
-                schema: "TM",
-                table: "ExerciseExerciseCategory",
-                column: "ExercisesId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ExerciseFiles_ExerciseId",
-                schema: "TM",
-                table: "ExerciseFiles",
-                column: "ExerciseId");
+                table: "Collections",
+                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ExerciseGuideReference_ExerciseId",
                 schema: "TM",
                 table: "ExerciseGuideReference",
                 column: "ExerciseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Exercises_CategoryId",
+                schema: "TM",
+                table: "Exercises",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Exercises_PictureId",
+                schema: "TM",
+                table: "Exercises",
+                column: "PictureId",
+                unique: true,
+                filter: "[PictureId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PlanDetails_CollectionId",
@@ -411,19 +352,7 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CollectionCollectionCategory",
-                schema: "TM");
-
-            migrationBuilder.DropTable(
                 name: "CollectionDetails",
-                schema: "TM");
-
-            migrationBuilder.DropTable(
-                name: "ExerciseExerciseCategory",
-                schema: "TM");
-
-            migrationBuilder.DropTable(
-                name: "ExerciseFiles",
                 schema: "TM");
 
             migrationBuilder.DropTable(
@@ -435,14 +364,6 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
                 schema: "TM");
 
             migrationBuilder.DropTable(
-                name: "CollectionCategories",
-                schema: "TM");
-
-            migrationBuilder.DropTable(
-                name: "ExerciseCategories",
-                schema: "TM");
-
-            migrationBuilder.DropTable(
                 name: "Exercises",
                 schema: "TM");
 
@@ -451,11 +372,23 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
                 schema: "TM");
 
             migrationBuilder.DropTable(
+                name: "ExerciseCategories",
+                schema: "TM");
+
+            migrationBuilder.DropTable(
+                name: "ExerciseFiles",
+                schema: "TM");
+
+            migrationBuilder.DropTable(
                 name: "Collections",
                 schema: "TM");
 
             migrationBuilder.DropTable(
                 name: "Plans",
+                schema: "TM");
+
+            migrationBuilder.DropTable(
+                name: "CollectionCategories",
                 schema: "TM");
 
             migrationBuilder.DropTable(

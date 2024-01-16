@@ -1,4 +1,3 @@
-using TreatmentManagement.ApplicationContracts.AdminDTOs;
 using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.DTOs;
 using TreatmentManagement.Domain.Entities;
 using TreatmentManagement.Domain.ValueObjects;
@@ -13,7 +12,10 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 				Title = dto.Title,
 				ShortDescription = dto.ShortDescription,
 				LongDescription = dto.LongDescription,
-				CreatorUserId = dto.CreatorUserId
+				PictureId = 0,
+				CategoryId = dto.CategoryId,
+				CreatorUserId = dto.CreatorUserId,
+				IsGlobal = false
 			};
 
 		public static ExerciseGuideReference Map(ExerciseGuidesReferenceDto dto)
@@ -35,7 +37,5 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 				CreatedAt = entity.CreatedAt,
 				UserCreatorId = entity.CreatorUserId,
 			};
-
-
 	}
 }

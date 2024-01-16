@@ -6,10 +6,10 @@ using TreatmentManagement.Domain.Enums;
 
 namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Mappings
 {
-	public class ExerciseFileMapping : IEntityTypeConfiguration<ExerciseFile>
+	public class ExercisePictureMapping : IEntityTypeConfiguration<ExercisePicture>
 	{
 
-		public void Configure(EntityTypeBuilder<ExerciseFile> builder)
+		public void Configure(EntityTypeBuilder<ExercisePicture> builder)
 		{
 			builder.HasBaseType<BaseEntity>();
 			builder.ToTable("ExerciseFiles","TM");
@@ -21,6 +21,7 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Mappings
 					ft => ft.ToString(),
 					ft => (FileExtension)Enum.Parse(typeof(FileExtension), ft)
 				);
+			
 			builder.Property(ef => ef.Type)
 				.IsRequired()
 				.HasMaxLength(255)
@@ -28,9 +29,10 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Mappings
 					ft => ft.ToString(),
 					ft => (FileType)Enum.Parse(typeof(FileType), ft)
 				);
+			
 			builder.HasOne(ef => ef.Exercise)
-				.WithMany(e => e.Files)
-				.HasForeignKey(ef => ef.ExerciseId)
+				.WithOne(e => e.Picture)
+				.HasForeignKey<ExercisePicture>(ef => ef.ExerciseId)
 				.IsRequired(false);
 		}
 	}
