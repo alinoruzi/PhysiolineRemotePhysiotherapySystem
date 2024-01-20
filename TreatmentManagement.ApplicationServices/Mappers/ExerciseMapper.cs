@@ -1,4 +1,5 @@
 using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.DTOs;
+using TreatmentManagement.ApplicationContracts.ExerciseCategoryAppServicesContracts.DTOs;
 using TreatmentManagement.Domain.Entities;
 using TreatmentManagement.Domain.ValueObjects;
 
@@ -36,6 +37,14 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 				IsGlobal = entity.IsGlobal,
 				CreatedAt = entity.CreatedAt,
 				UserCreatorId = entity.CreatorUserId,
+			};
+
+		public static ExerciseCategoryListItemDto Map(ExerciseCategory entity)
+			=> new ExerciseCategoryListItemDto()
+			{
+				Title = entity.Title,
+				Description = entity.Description,
+				UserCreatorId = entity.CreatorUserId
 			};
 	}
 }

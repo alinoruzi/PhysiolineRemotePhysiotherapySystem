@@ -6,6 +6,7 @@ namespace TreatmentManagement.Domain.ServiceContracts
 	{
 		public Task<Exercise> GetById(long id, CancellationToken cancellationToken);
 		public Task<bool> IsExistById(long id, CancellationToken cancellationToken);
-		public Task<long> Add(Exercise exercise, CancellationToken cancellationToken);
+		public Task<long> Add(Exercise entity, CancellationToken cancellationToken);
+		public Task<int> CommitChanges(CancellationToken cancellationToken);
 	}
 }

@@ -1,8 +1,9 @@
 using System.Net;
+using System.Runtime.CompilerServices;
 
 namespace Physioline.Framework.Application.ResultModels
 {
-	public class ValueResult<T>
+	public class ValueResult<T> where T : class
 	{
 		public T Value { get; set; }
 		public string Message { get; set; }
@@ -43,6 +44,5 @@ namespace Physioline.Framework.Application.ResultModels
 			=> (int)valueResult.StatusCode;
 		public static implicit operator ValueResult<T>(T obj)
 			=> ValueResult<T>.Success(obj);
-
 	}
 }

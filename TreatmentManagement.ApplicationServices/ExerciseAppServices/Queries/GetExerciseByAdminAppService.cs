@@ -10,10 +10,10 @@ using TreatmentManagement.Domain.ServiceContracts;
 
 namespace TreatmentManagement.ApplicationServices.ExerciseAppServices.Queries
 {
-	public class GetExerciseByAdminAppServiceAppService : IGetExerciseByAdminAppService
+	public class GetExerciseByAdminAppService : IGetExerciseByAdminAppService
 	{
 		private readonly IExerciseService _exerciseService;
-		public GetExerciseByAdminAppServiceAppService(IExerciseService exerciseService)
+		public GetExerciseByAdminAppService(IExerciseService exerciseService)
 		{
 			_exerciseService = exerciseService;
 		}

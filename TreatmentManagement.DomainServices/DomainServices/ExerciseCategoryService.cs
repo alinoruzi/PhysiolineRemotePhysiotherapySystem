@@ -21,8 +21,17 @@ namespace TreatmentManagement.DomainServices.DomainServices
 		public async Task<bool> IsExistById(long id, CancellationToken cancellationToken)
 			=> await _unitOfWork.ExerciseCategoryRepository
 				.IsExistAsync((ec=>ec.Id == id),cancellationToken);
-		
-		public async Task<long> Add(ExerciseCategory exercise, CancellationToken cancellationToken)
-			=> throw new NotImplementedException();
+		public async Task<bool> IsExistByTitle(string title, CancellationToken cancellationToken)
+			=> await _unitOfWork.ExerciseCategoryRepository
+				.IsExistAsync(ec=>ec.Title == title, cancellationToken);
+
+		public async Task<long> Add(ExerciseCategory entity, CancellationToken cancellationToken)
+		{
+			await _unitOfWork.ExerciseCategoryRepository.CreateAsync(entity, cancellationToken);
+			await _unitOfWork.CommitAsync(cancellationToken);
+			return entity.Id;
+		}
+		public async Task<int> CommitChanges(CancellationToken cancellationToken)
+			=> await _unitOfWork.CommitAsync(cancellationToken);
 	}
 }

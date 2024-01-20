@@ -17,5 +17,11 @@ namespace Physioline.Framework.Application.ResultModels
 		{
 			return new ResultMessage($"The value of the required property as {propertyName} in a /an {entityName} is null or empty.");
 		}
+		
+		public static ResultMessage AnUniquePropertyAlreadyExist (string entityName,string propertyName)
+		{
+			return new ResultMessage($"The value of the unique property as {propertyName} in the {entityName}s is already exist.");
+		}
+		
 	}
 }
