@@ -21,6 +21,10 @@ namespace Physioline.Framework.Application.ResultModels
 		{
 			return new OperationResult(message, true, HttpStatusCode.OK);
 		}
+		public static OperationResult Success(ResultMessage message)
+		{
+			return new OperationResult(message.Message, true, HttpStatusCode.OK);
+		}
 
 		public static OperationResult Failed(ResultMessage resultMessage, HttpStatusCode statusCode)
 		{

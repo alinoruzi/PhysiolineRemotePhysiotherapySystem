@@ -9,14 +9,10 @@ using TreatmentManagement.ApplicationServices.ExerciseAppServices.Queries;
 using TreatmentManagement.ApplicationServices.ExerciseCategoryAppServices.Commands;
 using TreatmentManagement.ApplicationServices.ExerciseCategoryAppServices.Queries;
 using TreatmentManagement.Domain.Repositories;
-using TreatmentManagement.Domain.Repositories.ExerciseCategoryRepositories;
-using TreatmentManagement.Domain.Repositories.ExerciseRepositories;
 using TreatmentManagement.Domain.ServiceContracts;
 using TreatmentManagement.DomainServices.DomainServices;
 using TreatmentManagement.Infrastructure.EntityFrameworkCore;
 using TreatmentManagement.Infrastructure.EntityFrameworkCore.Repositories;
-using TreatmentManagement.Infrastructure.EntityFrameworkCore.Repositories.ExerciseCategoryRepositories;
-using TreatmentManagement.Infrastructure.EntityFrameworkCore.Repositories.ExerciseRepositories;
 
 namespace TreatmentManagement.Infrastructure.Configuration
 {
@@ -25,7 +21,7 @@ namespace TreatmentManagement.Infrastructure.Configuration
 		public static void Configure(IServiceCollection services, string? connectionString)
 		{
 
-			#region EndregionDomainServices
+			#region DomainServices
 			
 			services.AddScoped<IExerciseService, ExerciseService>();
 			services.AddScoped<IExerciseCategoryService, ExerciseCategoryService>();
@@ -43,9 +39,21 @@ namespace TreatmentManagement.Infrastructure.Configuration
 			#endregion
 
 			#region ExerciseAppservices
-
+			
+			//commands:
+			services.AddScoped<IAddExerciseByAdminAppService, AddExerciseByAdminAppService>();
+			services.AddScoped<IAddExerciseByExpertAppService, AddExerciseByExpertAppService>();
+			services.AddScoped<IDeleteExerciseByAdminAppService, DeleteExerciseByAdminAppService>();
+			services.AddScoped<IDeleteExerciseByExpertAppService, DeleteExerciseByExpertAppService>();
+			services.AddScoped<IEditExerciseByAdminAppService,EditExerciseByAdminAppService>();
+			services.AddScoped<IEditExerciseByExpertAppService, EditExerciseByExpertAppService>();
+			//queries:
+			services.AddScoped<IGetAllExercisesByAdminAppService, GetAllExercisesByAdminAppService>();
 			services.AddScoped<IGetExerciseByAdminAppService, GetExerciseByAdminAppService>();
-			services.AddScoped<IAddExerciseAppService, AddExerciseAppService>();
+			services.AddScoped<IGetExerciseByExpertAppService,GetExerciseByExpertAppService>();
+			services.AddScoped<IGetGlobalExercisesByExpertAppService,GetGlobalExercisesByExpertAppService>();
+			services.AddScoped<IGetSpecificExercisesByExpertAppService, GetSpecificExercisesByExpertAppService>();
+			services.AddScoped<ISearchExerciseAppService,SearchExerciseAppService>();
 			
 			#endregion
 			
@@ -59,9 +67,10 @@ namespace TreatmentManagement.Infrastructure.Configuration
 
 			
 			//ExerciseServices:
-			services.AddTransient<IAddExerciseAppService, AddExerciseAppService>();
+			services.AddTransient<IAddExerciseByAdminAppService, AddExerciseByAdminAppService>();
 			
-			services.AddDbContext<TMContext>(options =>options.UseSqlServer(connectionString));
+			//DbContext:
+			services.AddDbContext<TmContext>(options => options.UseSqlServer(connectionString));
 		}
 	}
 }

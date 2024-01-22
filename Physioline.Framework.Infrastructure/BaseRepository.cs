@@ -19,12 +19,20 @@ namespace Physioline.Framework.Infrastructure
 
 		public async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken)
 			=> await _dbSet.AsNoTracking().ToListAsync(cancellationToken);
-		
+
+		public async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken)
+			=> await _dbSet.AsNoTracking().Where(expression).ToListAsync(cancellationToken);
+
 		public async Task<IEnumerable<TEntity>> GetPageAsync(int pageNumber, int pageSize,
 			CancellationToken cancellationToken)
 			=> await _dbSet.AsNoTracking().Skip((pageNumber-1)*pageSize)
 				.Take(pageSize).ToListAsync(cancellationToken);
 		
+		public async Task<IEnumerable<TEntity>> GetPageAsync(Expression<Func<TEntity, bool>> expression, int pageNumber, int pageSize, CancellationToken cancellationToken)
+			=> await _dbSet.AsNoTracking().Where(expression)
+				.Skip((pageNumber-1)*pageSize)
+				.Take(pageSize).ToListAsync(cancellationToken);
+
 		public async Task<bool> IsExistAsync(Expression<Func<TEntity, bool>> expression, 
 			CancellationToken cancellationToken)
 			=> await _dbSet.AnyAsync(expression,cancellationToken);
@@ -38,8 +46,11 @@ namespace Physioline.Framework.Infrastructure
 		{
 			await _dbSet.AddAsync(entity, cancellationToken);
 		}
-
-		public async Task SaveChangesAsync(CancellationToken cancellationToken)
-			=> await _context.SaveChangesAsync(cancellationToken);
+		
+		public void Update(TEntity entity)
+		{
+			_context.Entry(entity).State = EntityState.Modified;
+		}
+		
 	}
 }

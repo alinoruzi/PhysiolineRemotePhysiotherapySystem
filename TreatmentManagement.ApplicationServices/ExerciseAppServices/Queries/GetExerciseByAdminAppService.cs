@@ -1,36 +1,35 @@
-using Physioline.Framework.Application;
-using Physioline.Framework.Application.CustomValidations;
 using Physioline.Framework.Application.ResultModels;
 using System.Net;
 using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.DTOs;
 using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.Queries;
 using TreatmentManagement.ApplicationServices.Mappers;
 using TreatmentManagement.Domain.Entities;
-using TreatmentManagement.Domain.ServiceContracts;
+using TreatmentManagement.Domain.Repositories;
 
 namespace TreatmentManagement.ApplicationServices.ExerciseAppServices.Queries
 {
 	public class GetExerciseByAdminAppService : IGetExerciseByAdminAppService
 	{
-		private readonly IExerciseService _exerciseService;
-		public GetExerciseByAdminAppService(IExerciseService exerciseService)
+		private readonly IUnitOfWork _unitOfWork;
+		public GetExerciseByAdminAppService(IUnitOfWork unitOfWork)
 		{
-			_exerciseService = exerciseService;
+			_unitOfWork = unitOfWork;
 		}
-		
 		public async Task<ValueResult<GetExerciseByAdminDto>> Run(long id, CancellationToken cancellationToken)
-		{
-			if (!await _exerciseService.IsExistById(id, cancellationToken))
+		{ 
+			ResultMessage message;
+
+			if (!await _unitOfWork.ExerciseRepository.IsExistAsync(e => e.Id == id, cancellationToken))
 			{
-				var message = ResultMessage.EntityNotFound(nameof(Exercise), id);
-				return ValueResult<GetExerciseByAdminDto>.Failed(message,HttpStatusCode.NotFound);
+				message = ResultMessage.EntityNotFound(nameof(Exercise), id);
+				return ValueResult<GetExerciseByAdminDto>.Failed(message, HttpStatusCode.NotFound);
 			}
-			
-			var exercise = await _exerciseService.GetById(id, cancellationToken);
 
-			var result = ExerciseMapper.Map(exercise);
+			Exercise exercise = await _unitOfWork.ExerciseRepository.GetAsync(id, cancellationToken);
+			GetExerciseByAdminDto dto = ExerciseMapper.MapToAdminDto(exercise);
 
-			return result;
+			message = ResultMessage.SuccessfullyGetData();
+			return ValueResult<GetExerciseByAdminDto>.Success(dto,message);
 		}
 	}
 }

@@ -30,6 +30,10 @@ namespace Physioline.Framework.Application.ResultModels
 		{
 			return new ValueResult<T>(message, true, HttpStatusCode.OK,value);
 		}
+		public static ValueResult<T> Success(T value, ResultMessage message)
+		{
+			return new ValueResult<T>(message.Message, true, HttpStatusCode.OK,value);
+		}
 
 		public static ValueResult<T> Failed(ResultMessage resultMessage, HttpStatusCode statusCode)
 		{

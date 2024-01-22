@@ -10,22 +10,24 @@ namespace TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.
 		[Required]
 		[MinLength(3)]
 		[MaxLength(255)]
-		public required string Title { get; set; }
+		public string Title { get; set; }
 		
 		[Required]
 		[MinLength(3)]
 		[MaxLength(750)]
-		public required string ShortDescription { get; set; }
+		public string ShortDescription { get; set; }
 		
-		[Required(AllowEmptyStrings = true)]
-		[MinLength(3)]
 		[MaxLength(750)]
-		public string? LongDescription { get; set; }
+		public string LongDescription { get; set; }
 		
-		[Required] public long PictureId { get; set; }
+		[Required]
+		[MinLength(5)]
+		[MaxLength(1000)]
+		public string PicturePath { get; set; }
 		
-		[Required] public long CategoryId { get; set; }
-		[Required] public long CreatorUserId { get; set; }
+		[Required]
+		[RequiredId]
+		public long CategoryId { get; set; }
 
 		[Required]
 		public List<ExerciseGuidesReferenceDto> GuideReferences { get; set; }
