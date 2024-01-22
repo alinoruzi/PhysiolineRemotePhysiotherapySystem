@@ -35,7 +35,7 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.AdminControllers
             [FromQuery] int pageSize = 10 )
             => await _getAll.Run(pageNumber, pageSize, cancellationToken);
         
-        [HttpGet("{id:long}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<GetExerciseByAdminDto>> Get(long id, CancellationToken cancellationToken)
         {
             var result = await _get.Run(id, cancellationToken);

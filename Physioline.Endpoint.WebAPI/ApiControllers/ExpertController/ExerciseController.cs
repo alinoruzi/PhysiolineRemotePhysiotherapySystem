@@ -44,7 +44,7 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.ExpertController
                 userId, cancellationToken);
         }
         
-        [HttpGet("{id:long}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<GetExerciseByExpertDto>> Get(long id, CancellationToken cancellationToken)
         {
             var result = await _get.Run(id, cancellationToken);

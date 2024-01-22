@@ -1,9 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using TreatmentManagement.ApplicationContracts.CollectionCategoryAppServicesContracts.Commands;
+using TreatmentManagement.ApplicationContracts.CollectionCategoryAppServicesContracts.Queries;
 using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.Commands;
 using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.Queries;
 using TreatmentManagement.ApplicationContracts.ExerciseCategoryAppServicesContracts.Commands;
 using TreatmentManagement.ApplicationContracts.ExerciseCategoryAppServicesContracts.Queries;
+using TreatmentManagement.ApplicationServices.CollectionCategoryAppServices.Commands;
+using TreatmentManagement.ApplicationServices.CollectionCategoryAppServices.Queries;
 using TreatmentManagement.ApplicationServices.ExerciseAppServices.Commands;
 using TreatmentManagement.ApplicationServices.ExerciseAppServices.Queries;
 using TreatmentManagement.ApplicationServices.ExerciseCategoryAppServices.Commands;
@@ -38,7 +42,7 @@ namespace TreatmentManagement.Infrastructure.Configuration
 			services.AddScoped<IGetAllExerciseCategoriesAppService,GetAllExerciseCategoriesAppService>();
 			#endregion
 
-			#region ExerciseAppservices
+			#region ExerciseAppServices
 			
 			//commands:
 			services.AddScoped<IAddExerciseByAdminAppService, AddExerciseByAdminAppService>();
@@ -56,10 +60,25 @@ namespace TreatmentManagement.Infrastructure.Configuration
 			services.AddScoped<ISearchExerciseAppService,SearchExerciseAppService>();
 			
 			#endregion
+
+			#region CollectionCategoryAppServices
+
+			//Commands:
+			services.AddScoped<IAddCollectionCategoryByAdminAppService, AddCollectionCategoryByAdminAppService>();
+			services.AddScoped<IDeleteCollectionCategoryByAdminAppService,DeleteCollectionCategoryByAdminAppService>();
+			services.AddScoped<IEditCollectionCategoryByAdminAppService, EditCollectionCategoryByAdminAppService>();
+			
+			//Queries:
+			services.AddScoped<IGetCollectionCategoryAppService, GetCollectionCategoryAppService>();
+			services.AddScoped<IGetCollectionCategoryPageListByAdminAppService, GetCollectionCategoryPageListByAdminAppService>();
+			services.AddScoped<ISearchCollectionCategoryAppService, SearchCollectionCategoryAppService>();
+			
+			#endregion
 			
 			
 			//UnitOfWork:
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
+			
 			
 			//Repositories:
 			services.AddTransient<IExerciseRepository, ExerciseRepository>();

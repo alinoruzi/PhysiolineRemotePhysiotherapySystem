@@ -32,7 +32,7 @@ namespace TreatmentManagement.ApplicationServices.CollectionCategoryAppServices.
 
 			if (collectionCategory.Title != dto.Title)
 			{
-				if (!await _unitOfWork.CollectionCategoryRepository
+				if (await _unitOfWork.CollectionCategoryRepository
 					    .IsExistAsync(cc
 						    => cc.Title == dto.Title, cancellationToken))
 				{

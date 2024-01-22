@@ -20,7 +20,7 @@ namespace TreatmentManagement.ApplicationServices.CollectionCategoryAppServices.
 		{
 			ResultMessage message;
 
-			if (!await _unitOfWork.CollectionCategoryRepository
+			if (await _unitOfWork.CollectionCategoryRepository
 				    .IsExistAsync(cc
 					    => cc.Title == dto.Title, cancellationToken))
 			{
