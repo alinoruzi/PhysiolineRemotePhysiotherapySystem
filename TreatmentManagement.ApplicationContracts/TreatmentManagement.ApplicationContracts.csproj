@@ -12,10 +12,4 @@
       <ProjectReference Include="..\TreatmentManagement.Domain\TreatmentManagement.Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="CollectionAppServicesContracts\Commands\" />
-      <Folder Include="CollectionAppServicesContracts\DTOs\" />
-      <Folder Include="CollectionAppServicesContracts\Queries\" />
-    </ItemGroup>
-
 </Project>

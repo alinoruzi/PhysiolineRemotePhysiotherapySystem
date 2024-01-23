@@ -20,7 +20,7 @@ namespace TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.
 		public string ShortDescription { get; set; }
 		
 		[MinLength(3)]
-		[MaxLength(750)]
+		[MaxLength(2500)]
 		public string LongDescription { get; set; }
 		
 		[Required]

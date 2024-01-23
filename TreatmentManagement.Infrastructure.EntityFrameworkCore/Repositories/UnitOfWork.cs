@@ -26,6 +26,16 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Repositories
 		public ICollectionCategoryRepository CollectionCategoryRepository
 			=> _collectionCategoryRepository = _collectionCategoryRepository ?? new CollectionCategoryRepository(_context);
 
+		
+		private ICollectionRepository _collectionRepository;
+		public ICollectionRepository CollectionRepository
+			=> _collectionRepository = _collectionRepository ?? new CollectionRepository(_context);
+
+		
+		private ICollectionDetailRepository _collectionDetailRepository;
+		public ICollectionDetailRepository CollectionDetailRepository
+			=> _collectionDetailRepository = _collectionDetailRepository ?? new CollectionDetailRepository(_context);
+
 
 		public async Task<int> CommitAsync(CancellationToken cancellationToken)
 			=> await _context.SaveChangesAsync(cancellationToken);

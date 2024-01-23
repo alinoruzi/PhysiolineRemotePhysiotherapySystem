@@ -10,6 +10,5 @@ namespace TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.
 		public string PicturePath { get; set; }
 		public long CategoryId { get; set; }
 		public List<ExerciseGuidesReferenceDto> GuideReferences { get; set; }
-		public DateTime CreatedAt { get; set; }
 	}
 }

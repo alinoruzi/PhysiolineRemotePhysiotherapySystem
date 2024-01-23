@@ -16,7 +16,7 @@ namespace TreatmentManagement.ApplicationServices.ExerciseAppServices.Queries
 			_unitOfWork = unitOfWork;
 		}
 
-		public async Task<ValueResult<GetExerciseByExpertDto>> Run(long id, CancellationToken cancellationToken)
+		public async Task<ValueResult<GetExerciseByExpertDto>> Run(long id, long userId, CancellationToken cancellationToken)
 		{
 			ResultMessage message;
 
@@ -27,6 +27,13 @@ namespace TreatmentManagement.ApplicationServices.ExerciseAppServices.Queries
 			}
 
 			Exercise exercise = await _unitOfWork.ExerciseRepository.GetAsync(id, cancellationToken);
+			
+			if (exercise.CreatorUserId != userId && !exercise.IsGlobal)
+			{
+				message = ResultMessage.DontHavePermission();
+				return ValueResult<GetExerciseByExpertDto>.Failed(message,HttpStatusCode.Unauthorized);
+			}
+			
 			GetExerciseByExpertDto dto = ExerciseMapper.MapToExpertDto(exercise);
 
 			message = ResultMessage.SuccessfullyGetData();

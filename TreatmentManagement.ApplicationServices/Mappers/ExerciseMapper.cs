@@ -68,7 +68,6 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 				IsGlobal = entity.IsGlobal,
 				PicturePath = entity.PicturePath,
 				CategoryId = entity.CategoryId,
-				CreatedAt = entity.CreatedAt,
 				GuideReferences = entity.GuideReferences.Select(Map).ToList()
 			};
 
@@ -89,8 +88,8 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 				Id = entity.Id,
 				Title = entity.Title,
 				ShortDescription = entity.ShortDescription,
-				CreatedAt = entity.CreatedAt,
 				IsGlobal = entity.IsGlobal,
+				PicturePath = entity.PicturePath
 			};
 
 		public static SearchResultExerciseDto MapToSearchResult(Exercise entity)

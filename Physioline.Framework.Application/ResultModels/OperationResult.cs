@@ -2,7 +2,7 @@ using System.Net;
 
 namespace Physioline.Framework.Application.ResultModels
 {
-	public class OperationResult
+	public class OperationResult : Exception
 	{
 		public bool IsSuccess { get; private set; }
 		public string Message { get; set; }
@@ -10,6 +10,12 @@ namespace Physioline.Framework.Application.ResultModels
 		private HttpStatusCode StatusCode { get; set; }
 
 
+		public OperationResult(ResultMessage message) : base(message.Message)
+		{
+			IsSuccess = false;
+			Message = message.Message;
+			StatusCode = HttpStatusCode.ExpectationFailed;
+		}
 		private OperationResult(string message, bool state, HttpStatusCode statusCode)
 		{
 			IsSuccess = state;

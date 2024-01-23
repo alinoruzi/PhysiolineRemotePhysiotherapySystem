@@ -5,6 +5,7 @@ namespace TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.
 {
 	public interface IGetExerciseByExpertAppService
 	{
-		Task<ValueResult<GetExerciseByExpertDto>> Run(long id, CancellationToken cancellationToken);
+		Task<ValueResult<GetExerciseByExpertDto>> Run(long id,
+			long userId, CancellationToken cancellationToken);
 	}
 }

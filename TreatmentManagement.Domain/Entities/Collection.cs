@@ -6,9 +6,9 @@ namespace TreatmentManagement.Domain.Entities
 	{
 		public required string Title { get; set; }
 		public required string ShortDescription { get; set; }
-		public string? LongDescription { get; set; }
-		public required bool IsGlobal { get; set; }
-		public required CollectionCategory Category { get; set; }
+		public string LongDescription { get; set; }
+		public bool IsGlobal { get; set; }
+		public CollectionCategory Category { get; set; }
 		public required long CategoryId { get; set; }
 		public List<CollectionDetail> Details { get; set; }
 		public List<PlanDetail> Plans { get; set; }
