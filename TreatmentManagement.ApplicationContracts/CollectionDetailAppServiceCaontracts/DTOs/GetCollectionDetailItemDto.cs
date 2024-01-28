@@ -4,7 +4,8 @@ namespace TreatmentManagement.ApplicationContracts.CollectionDetailAppServiceCao
 	{
 		public long Id { get; set; }
 		public uint Priority { get; set; }
-		public long CollectionId { get; set; }
 		public long ExerciseId { get; set; }
+		public uint NumberPerDuration { get; set; }
+		public uint SecondsOfDuration { get; set; }
 	}
 }

@@ -4,6 +4,7 @@ namespace Physioline.Framework.Domain
 {
 	public interface IBaseRepository<TEntity> where TEntity : BaseEntity
 	{
+		Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken);
 		Task<TEntity> GetAsync(long id, CancellationToken cancellationToken);
 		Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken);
 		Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> expression,

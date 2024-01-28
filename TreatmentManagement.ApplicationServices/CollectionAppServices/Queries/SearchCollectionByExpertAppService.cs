@@ -13,7 +13,7 @@ namespace TreatmentManagement.ApplicationServices.CollectionAppServices.Queries
 			_unitOfWork = unitOfWork;
 		}
 
-		public async Task<List<SearchCollectionOutputDto>> Run(SearchCollectionOutputDto dto,
+		public async Task<List<SearchCollectionOutputDto>> Run(SearchCollectionInputDto dto,
 			long userId, CancellationToken cancellationToken)
 			=> (await _unitOfWork.CollectionRepository
 					.GetAllAsync(c

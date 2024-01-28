@@ -17,7 +17,7 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.0")
+                .HasAnnotation("ProductVersion", "8.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -171,15 +171,18 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
                 {
                     b.HasBaseType("Physioline.Framework.Domain.BaseEntity");
 
-                    b.Property<long>("ClientId")
+                    b.Property<long>("ClientUserId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Description")
                         .HasMaxLength(2500)
                         .HasColumnType("nvarchar(2500)");
 
-                    b.Property<long>("ExpertId")
-                        .HasColumnType("bigint");
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -196,17 +199,11 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
                     b.Property<long>("CollectionId")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime>("EndCollection")
-                        .HasColumnType("datetime2");
-
                     b.Property<long>("PlanId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("Priority")
                         .HasColumnType("bigint");
-
-                    b.Property<DateTime>("StartCollection")
-                        .HasColumnType("datetime2");
 
                     b.HasIndex("CollectionId");
 
@@ -367,7 +364,8 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
                                 .HasMaxLength(255)
                                 .HasColumnType("nvarchar(255)");
 
-                            b1.Property<long>("PlanDetailId")
+                            b1.Property<long?>("PlanDetailId")
+                                .IsRequired()
                                 .HasColumnType("bigint");
 
                             b1.HasKey("Id");

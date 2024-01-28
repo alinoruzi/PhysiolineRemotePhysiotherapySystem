@@ -25,9 +25,10 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 			=> new GetCollectionDetailItemDto()
 			{
 				Id = entity.Id,
-				CollectionId = entity.CollectionId,
 				ExerciseId = entity.ExerciseId,
-				Priority = entity.Priority
+				Priority = entity.Priority,
+				NumberPerDuration = entity.NumberPerDuration,
+				SecondsOfDuration = entity.SecondsOfDuration
 			};
 	}
 }

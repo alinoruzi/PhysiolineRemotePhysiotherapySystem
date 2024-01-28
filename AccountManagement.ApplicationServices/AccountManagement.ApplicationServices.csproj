@@ -6,4 +6,13 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\AccountManagement.ApplicationContracts\AccountManagement.ApplicationContracts.csproj" />
+      <ProjectReference Include="..\AccountManagement.Domain\AccountManagement.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="ClientAppServices\Commands\" />
+    </ItemGroup>
+
 </Project>

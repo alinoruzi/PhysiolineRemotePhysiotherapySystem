@@ -18,16 +18,10 @@ namespace TreatmentManagement.ApplicationServices.CollectionDetailAppServices.Qu
 
 		public async Task<List<GetCollectionDetailItemDto>> Run(long collectionId, CancellationToken cancellationToken)
 		{
-			ResultMessage message;
-			if (!await _unitOfWork.CollectionRepository.IsExistAsync(c => c.Id == collectionId, cancellationToken))
-			{
-				message = ResultMessage.EntityNotFound(nameof(Collection), collectionId);
-				throw new OperationResult(message);
-			}
-
 			return (await _unitOfWork.CollectionDetailRepository
 					.GetAllAsync(cd => cd.CollectionId == collectionId,cancellationToken))
-				.Select(CollectionDetailMapper.Map).ToList();
+				.Select(CollectionDetailMapper.Map)
+				.OrderBy(x=>x.Priority).ToList();
 		}
 	}
 }

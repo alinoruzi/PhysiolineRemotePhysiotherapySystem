@@ -9,41 +9,46 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.AdminControllers
     [ApiController]
     public class ExerciseController : ControllerBase
     {
-        private readonly IGetAllExercisesByAdminAppService _getAll;
+        private readonly IGetExercisesPageListByAdminAppService _getPage;
         private readonly IGetExerciseByAdminAppService _get;
-        private readonly ISearchExerciseAppService _search;
+        private readonly ISearchExerciseByAdminAppService _search;
         private readonly IAddExerciseByAdminAppService _add;
         private readonly IEditExerciseByAdminAppService _edit;
         private readonly IDeleteExerciseByAdminAppService _delete;
-
-        public ExerciseController(IAddExerciseByAdminAppService addExercise, 
-            IGetAllExercisesByAdminAppService getAll, 
+        
+        public ExerciseController(IGetExercisesPageListByAdminAppService getPage,
             IGetExerciseByAdminAppService get, 
-            IEditExerciseByAdminAppService edit, ISearchExerciseAppService search, IDeleteExerciseByAdminAppService delete)
+            ISearchExerciseByAdminAppService search, 
+            IAddExerciseByAdminAppService add, 
+            IEditExerciseByAdminAppService edit, 
+            IDeleteExerciseByAdminAppService delete)
         {
-            _add = addExercise;
-            _getAll = getAll;
+            _getPage = getPage;
             _get = get;
-            _edit = edit;
             _search = search;
+            _add = add;
+            _edit = edit;
             _delete = delete;
         }
-
+        
         [HttpGet]
         public async Task<ActionResult<List<GetExerciseListItemByAdminDto>>> GetAll(CancellationToken cancellationToken,
             [FromQuery] int pageNumber = 1,
             [FromQuery] int pageSize = 10 )
-            => await _getAll.Run(pageNumber, pageSize, cancellationToken);
+            => await _getPage.Run(pageNumber, pageSize, cancellationToken);
         
         [HttpGet("{id}")]
-        public async Task<ActionResult<GetExerciseByAdminDto>> Get(long id, CancellationToken cancellationToken)
+        public async Task<ActionResult<GetExerciseByAdminDto>> Get(long id,
+            CancellationToken cancellationToken)
         {
             var result = await _get.Run(id, cancellationToken);
             return !result ? StatusCode(result, result.Message) : Ok(result.Value);
         }
 
         [HttpGet("Search")]
-        public async Task<ActionResult<List<SearchResultExerciseDto>>> Search([FromQuery] SearchInputExerciseDto dto, CancellationToken cancellationToken)
+        public async Task<ActionResult<List<SearchResultExerciseDto>>> Search(
+            [FromQuery] SearchInputExerciseDto dto, 
+            CancellationToken cancellationToken)
             => await _search.Run(dto,cancellationToken);
 
         [HttpPost]

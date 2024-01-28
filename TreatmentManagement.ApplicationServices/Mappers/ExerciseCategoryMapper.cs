@@ -1,3 +1,4 @@
+using TreatmentManagement.ApplicationContracts.CollectionCategoryAppServicesContracts.DTOs;
 using TreatmentManagement.ApplicationContracts.ExerciseCategoryAppServicesContracts.DTOs;
 using TreatmentManagement.Domain.Entities;
 
@@ -5,15 +6,15 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 {
 	public class ExerciseCategoryMapper
 	{
-		public static ExerciseCategory Map(AddExerciseCategoryDto dto)
+		public static ExerciseCategory Map(AddExerciseCategoryDto dto, long userId)
 			=> new ExerciseCategory
 			{
 				Title = dto.Title,
 				Description = dto.Description,
-				CreatorUserId = dto.CreatorUserId
+				CreatorUserId = userId
 			};
 
-		public static void Map(ExerciseCategory entity, EditExerciseCategoryDto dto)
+		public static void MapForEdit(ExerciseCategory entity, EditExerciseCategoryDto dto)
 		{
 			entity.Title = dto.Title;
 			entity.Description = dto.Description;
@@ -27,14 +28,21 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 				Description = entity.Description
 			};
 
-		public static ExerciseCategoryListItemDto MapToListItem(ExerciseCategory entity)
-			=> new ExerciseCategoryListItemDto()
+		public static GetExerciseCategoryListItemDto MapToListItem(ExerciseCategory entity)
+			=> new GetExerciseCategoryListItemDto()
 			{
 				Id = entity.Id,
 				Title = entity.Title,
 				Description = entity.Description,
-				UserCreatorId = entity.CreatorUserId
+				CreatedAt = entity.CreatedAt,
+				CreatorUserId = entity.CreatorUserId,
 			};
-
+		
+		public static ExerciseCategorySearchResultDto MapToSearchResult(ExerciseCategory entity)
+			=> new ExerciseCategorySearchResultDto()
+			{
+				Id = entity.Id,
+				Title = entity.Title
+			};
 	}
 }

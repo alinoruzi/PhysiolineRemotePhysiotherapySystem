@@ -14,9 +14,9 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Mappings
 			builder.ToTable("Plans", "TM");
 			builder.Property(p => p.Title).IsRequired().HasMaxLength(255);
 			builder.Property(p => p.Description).IsRequired(false).HasMaxLength(2500);
-			builder.Property(p => p.ExpertId).IsRequired();
-			builder.Property(p => p.ClientId).IsRequired();
-			
+			builder.Property(p => p.ClientUserId).IsRequired();
+			builder.Property(pd => pd.StartDate).IsRequired();
+			builder.Property(pd => pd.EndDate).IsRequired();
 		}
 	}
 }

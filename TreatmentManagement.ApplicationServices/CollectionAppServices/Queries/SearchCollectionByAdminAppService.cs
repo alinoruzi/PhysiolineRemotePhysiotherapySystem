@@ -13,7 +13,7 @@ namespace TreatmentManagement.ApplicationServices.CollectionAppServices.Queries
 			_unitOfWork = unitOfWork;
 		}
 
-		public async Task<List<SearchCollectionOutputDto>> Run(SearchCollectionOutputDto dto, CancellationToken cancellationToken)
+		public async Task<List<SearchCollectionOutputDto>> Run(SearchCollectionInputDto dto, CancellationToken cancellationToken)
 			=> (await _unitOfWork.CollectionRepository
 					.GetAllAsync(c => c.Title.Contains(dto.Title), cancellationToken))
 				.Select(CollectionMapper.MapToSearchResult).ToList();

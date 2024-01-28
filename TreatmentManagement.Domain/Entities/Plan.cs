@@ -6,8 +6,9 @@ namespace TreatmentManagement.Domain.Entities
 	{
 		public required string Title { get; set; }
 		public required string Description { get; set; }
-		public required long ExpertId { get; set; }
-		public required long ClientId { get; set; }
+		public required long ClientUserId { get; set; }
+		public DateTime StartDate { get; set; }
+		public required DateTime EndDate { get; set; }
 		public List<PlanDetail> Details { get; set; }
 		
 		public Plan()

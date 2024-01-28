@@ -1,10 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using TreatmentManagement.ApplicationContracts.CollectionCategoryAppServicesContracts.DTOs;
+using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.Commands;
 using TreatmentManagement.ApplicationContracts.ExerciseCategoryAppServicesContracts.Commands;
 using TreatmentManagement.ApplicationContracts.ExerciseCategoryAppServicesContracts.DTOs;
 using TreatmentManagement.ApplicationContracts.ExerciseCategoryAppServicesContracts.Queries;
-using TreatmentManagement.Domain.Entities;
-using TreatmentManagement.Domain.Enums;
-using TreatmentManagement.Domain.Repositories;
 
 namespace Physioline.Endpoint.WebAPI.ApiControllers.AdminControllers
 {
@@ -12,60 +11,70 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.AdminControllers
     [ApiController]
     public class ExerciseCategoryController : ControllerBase
     {
-        private readonly IAddExerciseCategoryAppService _addExerciseCategory;
-        private readonly IGetExerciseCategoryAppService _getExerciseCategory;
-        private readonly IGetAllExerciseCategoriesAppService _getAllExerciseCategories;
-        private readonly IEditExerciseCategoryAppService _editExerciseCategory;
-        private readonly IDeleteExerciseCategoryAppService _deleteExerciseCategory;
-        public ExerciseCategoryController(IAddExerciseCategoryAppService addExercise, 
-            IGetExerciseCategoryAppService getExerciseCategory, 
-            IGetAllExerciseCategoriesAppService getAllExerciseCategories, 
-            IEditExerciseCategoryAppService editExerciseCategory, 
-            IDeleteExerciseCategoryAppService deleteExerciseCategory)
+        private readonly IGetExerciseCategoriesPageListByAdminAppService _getPage;
+        private readonly IGetExerciseCategoryAppService _get;
+        private readonly ISearchExerciseCategoryAppService _search;
+        private readonly IAddExerciseCategoryByAdminAppService _add;
+        private readonly IEditExerciseCategoryByAdminAppService _edit;
+        private readonly IDeleteExerciseByAdminAppService _delete;
+        public ExerciseCategoryController(IGetExerciseCategoriesPageListByAdminAppService getPage,
+            IGetExerciseCategoryAppService get,
+            ISearchExerciseCategoryAppService search,
+            IAddExerciseCategoryByAdminAppService add,
+            IEditExerciseCategoryByAdminAppService edit, 
+            IDeleteExerciseByAdminAppService delete)
         {
-            _addExerciseCategory = addExercise;
-            _getExerciseCategory = getExerciseCategory;
-            _getAllExerciseCategories = getAllExerciseCategories;
-            _editExerciseCategory = editExerciseCategory;
-            _deleteExerciseCategory = deleteExerciseCategory;
+            _getPage = getPage;
+            _get = get;
+            _search = search;
+            _add = add;
+            _edit = edit;
+            _delete = delete;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ExerciseCategoryListItemDto>>> GetAll(CancellationToken cancellationToken)
+        public async Task<List<GetExerciseCategoryListItemDto>> GetAll(CancellationToken cancellationToken,
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10)
+            => await _getPage.Run(pageNumber, pageSize, cancellationToken);
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<GetExerciseCategoryDto>> Get(long id,
+            CancellationToken cancellationToken)
         {
-            return await _getAllExerciseCategories.Run(cancellationToken);
+            var result = await _get.Run(id, cancellationToken);
+            return !result ? StatusCode(result, result.Message) : Ok(result.Value);
         }
 
-        [HttpGet("{id:long}")]
-        public async Task<ActionResult<GetExerciseCategoryDto>> Get(long id, CancellationToken cancellationToken)
-        {
-            var result = await _getExerciseCategory.Run(id, cancellationToken);
-            if (!result)
-                return StatusCode(result, result.Message);
-
-            return result.Value;
-        }
-         
-        [HttpPost]
-        public async Task<ActionResult> Add(AddExerciseCategoryDto dto,CancellationToken cancellationToken)
-        {
-            var result = await _addExerciseCategory.Run(dto, cancellationToken);
-            return StatusCode(result,result.Message);
-        }
-
-        [HttpPut]
-        public async Task<ActionResult> Edit(EditExerciseCategoryDto dto, CancellationToken cancellationToken)
-        {
-            var result = await _editExerciseCategory.Run(dto, cancellationToken);
-            return StatusCode(result,result.Message);
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(long id, CancellationToken cancellationToken)
-        {
-            var result = await _deleteExerciseCategory.Run(id, cancellationToken);
-            return StatusCode(result,result.Message);
-        }
+        [HttpGet("Search")]
+        public async Task<List<ExerciseCategorySearchResultDto>> Search(
+            [FromQuery] ExerciseCategorySearchInputDto dto,
+            CancellationToken cancellationToken)
+            => await _search.Run(dto,cancellationToken);
         
+        [HttpPost]
+        public async Task<ActionResult> Add(AddExerciseCategoryDto dto,
+            CancellationToken cancellationToken)
+        {
+            long userId = 1;
+            var result = await _add.Run(dto,userId, cancellationToken); 
+            return StatusCode(result,result.Message);
+        }
+		
+        [HttpPut]
+        public async Task<ActionResult> Edit(EditExerciseCategoryDto dto, 
+            CancellationToken cancellationToken)
+        {
+            var result = await _edit.Run(dto, cancellationToken);
+            return StatusCode(result, result.Message);
+        }
+		
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(long id, 
+            CancellationToken cancellationToken)
+        {
+            var result = await _delete.Run(id, cancellationToken);
+            return StatusCode(result, result.Message);
+        }
     }
 }

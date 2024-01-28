@@ -2,7 +2,7 @@ namespace AccountManagement.Domain.Enums
 {
 	public enum Gender
 	{
-		Male,
-		Female
+		Male=1,
+		Female=2
 	}
 }

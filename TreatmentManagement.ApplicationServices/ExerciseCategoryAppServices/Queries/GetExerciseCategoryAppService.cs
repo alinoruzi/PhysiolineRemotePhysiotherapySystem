@@ -1,32 +1,40 @@
 using Physioline.Framework.Application.ResultModels;
 using System.Net;
+using TreatmentManagement.ApplicationContracts.CollectionCategoryAppServicesContracts.DTOs;
 using TreatmentManagement.ApplicationContracts.ExerciseCategoryAppServicesContracts.DTOs;
 using TreatmentManagement.ApplicationContracts.ExerciseCategoryAppServicesContracts.Queries;
 using TreatmentManagement.ApplicationServices.Mappers;
 using TreatmentManagement.Domain.Entities;
-using TreatmentManagement.Domain.ServiceContracts;
+using TreatmentManagement.Domain.Repositories;
 
 namespace TreatmentManagement.ApplicationServices.ExerciseCategoryAppServices.Queries
 {
 	public class GetExerciseCategoryAppService : IGetExerciseCategoryAppService
 	{
-		private readonly IExerciseCategoryService _exerciseCategoryService;
-		public GetExerciseCategoryAppService(IExerciseCategoryService exerciseCategoryService)
+		private readonly IUnitOfWork _unitOfWork;
+		public GetExerciseCategoryAppService(IUnitOfWork unitOfWork)
 		{
-			_exerciseCategoryService = exerciseCategoryService;
+			_unitOfWork = unitOfWork;
 		}
-
+		
 		public async Task<ValueResult<GetExerciseCategoryDto>> Run(long id, CancellationToken cancellationToken)
 		{ 
-			if (!await _exerciseCategoryService.IsExistById(id, cancellationToken))
+			ResultMessage message;
+			if (!await _unitOfWork.ExerciseCategoryRepository
+				    .IsExistAsync(ec 
+					    => ec.Id == id, cancellationToken))
 			{
-				var message = ResultMessage.EntityNotFound(nameof(ExerciseCategory), id);
-				return ValueResult<GetExerciseCategoryDto>.Failed(message,HttpStatusCode.NotFound);
+				message = ResultMessage.EntityNotFound(nameof(ExerciseCategory), id);
+				return ValueResult<GetExerciseCategoryDto>.Failed(message, HttpStatusCode.NotFound);
 			}
 
-			var exerciseCategory = await _exerciseCategoryService.GetById(id, cancellationToken);
+			var exerciseCategory = await _unitOfWork
+				.ExerciseCategoryRepository.GetAsync(id, cancellationToken);
 
-			return ExerciseCategoryMapper.Map(exerciseCategory);
+			message = ResultMessage.SuccessfullyGetData();
+			
+			return ValueResult<GetExerciseCategoryDto>
+				.Success(ExerciseCategoryMapper.Map(exerciseCategory),message);
 		}
 	}
 }

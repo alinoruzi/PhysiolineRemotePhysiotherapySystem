@@ -7,5 +7,6 @@ namespace TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.
 		public string ShortDescription { get; set; }
 		public bool IsGlobal { get; set; }
 		public string PicturePath { get; set; }
+		public long CtegoryId { get; set; }
 	}
 }

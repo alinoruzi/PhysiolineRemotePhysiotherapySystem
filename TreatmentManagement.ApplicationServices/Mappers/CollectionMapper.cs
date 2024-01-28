@@ -43,6 +43,7 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 				ShortDescription = entity.ShortDescription,
 				LongDescription = entity.LongDescription,
 				IsGlobal = entity.IsGlobal,
+				CategoryId = entity.CategoryId,
 			};
 
 		public static GetCollectionListItemByAdminDto MapToAdminItem(Collection entity)
@@ -55,6 +56,16 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 				CreatedAt = entity.CreatedAt,
 				CreatorUserId = entity.CreatorUserId
 			};
+
+		public static GetCollectionByClientDto MapToClientDto(Collection entity)
+			=> new GetCollectionByClientDto()
+			{
+				Id = entity.Id,
+				Title = entity.Title,
+				ShortDescription = entity.ShortDescription,
+				LongDescription = entity.LongDescription,
+				Category = entity.Category.Title
+			};
 		
 		public static GetCollectionListItemByExpertDto MapToExpertItem(Collection entity)
 			=> new GetCollectionListItemByExpertDto()
@@ -63,7 +74,9 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 				Title = entity.Title,
 				ShortDescription = entity.ShortDescription,
 				IsGlobal = entity.IsGlobal,
+				CategoryId = entity.CategoryId
 			};
+		
 
 		public static SearchCollectionOutputDto MapToSearchResult(Collection entity)
 			=> new SearchCollectionOutputDto()

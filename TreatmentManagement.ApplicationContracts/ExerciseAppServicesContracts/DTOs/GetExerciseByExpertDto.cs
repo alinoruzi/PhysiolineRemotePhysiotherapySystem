@@ -11,4 +11,15 @@ namespace TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.
 		public long CategoryId { get; set; }
 		public List<ExerciseGuidesReferenceDto> GuideReferences { get; set; }
 	}
+	
+	public class GetExerciseByClientDto
+	{
+		public long Id { get; set; }
+		public string Title { get; set; }
+		public string ShortDescription { get; set; }
+		public string LongDescription { get; set; }
+		public string PicturePath { get; set; }
+		public string Category { get; set; }
+		public List<ExerciseGuidesReferenceDto> GuideReferences { get; set; }
+	}
 }

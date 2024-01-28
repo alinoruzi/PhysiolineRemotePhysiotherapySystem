@@ -18,7 +18,7 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore
 			{
 				relationship.DeleteBehavior = DeleteBehavior.NoAction;
 			}
-
+			
 			base.OnModelCreating(modelBuilder);
 			
 			modelBuilder.ApplyConfiguration(new BaseEntityMapping());

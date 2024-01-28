@@ -5,6 +5,7 @@ namespace TreatmentManagement.ApplicationContracts.ExerciseCategoryAppServicesCo
 {
 	public interface IGetExerciseCategoryAppService
 	{
-		Task<ValueResult<GetExerciseCategoryDto>> Run(long id, CancellationToken cancellationToken);
+		Task<ValueResult<GetExerciseCategoryDto>> Run(long id,
+			CancellationToken cancellationToken);
 	}
 }

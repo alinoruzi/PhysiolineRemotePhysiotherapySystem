@@ -17,20 +17,10 @@ namespace TreatmentManagement.ApplicationServices.CollectionDetailAppServices.Qu
 
 		public async Task<List<GetCollectionDetailItemDto>> Run(long collectionId, long userId, CancellationToken cancellationToken)
 		{ 
-			ResultMessage message;
-			if (!await _unitOfWork.CollectionRepository.IsExistAsync(c => c.Id == collectionId, cancellationToken))
-			{
-				message = ResultMessage.EntityNotFound(nameof(Collection), collectionId);
-				throw new OperationResult(message);
-			}
-
-			var collection = await _unitOfWork.CollectionRepository.GetAsync(collectionId, cancellationToken);
-
-			if (collection.CreatorUserId == userId)
-				return collection.Details.Select(CollectionDetailMapper.Map).ToList();
-
-			message = ResultMessage.DontHavePermission();
-			throw new OperationResult(message);
+			return (await _unitOfWork.CollectionDetailRepository
+					.GetAllAsync(cd => cd.Collection.CreatorUserId == userId && cd.CollectionId == collectionId,cancellationToken))
+				.Select(CollectionDetailMapper.Map)
+				.OrderBy(x=>x.Priority).ToList();
 		}
 	}
 }

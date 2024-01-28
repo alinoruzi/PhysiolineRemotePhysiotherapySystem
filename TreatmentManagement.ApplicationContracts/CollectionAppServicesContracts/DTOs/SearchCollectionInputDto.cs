@@ -5,7 +5,6 @@ namespace TreatmentManagement.ApplicationContracts.CollectionAppServicesContract
 	public class SearchCollectionInputDto
 	{
 		[Required]
-		[MinLength(3)]
 		[MaxLength(255)]
 		public string Title { get; set; }
 	}

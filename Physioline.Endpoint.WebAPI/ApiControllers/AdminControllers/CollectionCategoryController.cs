@@ -9,7 +9,7 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.AdminControllers
 	[ApiController]
 	public class CollectionCategoryController : ControllerBase
 	{
-		private readonly IGetCollectionCategoryPageListByAdminAppService _getPage;
+		private readonly IGetCollectionCategoriesPageListByAdminAppService _getPage;
 		private readonly IGetCollectionCategoryAppService _get;
 		private readonly ISearchCollectionCategoryAppService _search;
 		private readonly IAddCollectionCategoryByAdminAppService _add;
@@ -17,7 +17,7 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.AdminControllers
 		private readonly IDeleteCollectionCategoryByAdminAppService _delete;
 		
 		public CollectionCategoryController(
-			IGetCollectionCategoryPageListByAdminAppService getPage,
+			IGetCollectionCategoriesPageListByAdminAppService getPage,
 			IGetCollectionCategoryAppService get,
 			ISearchCollectionCategoryAppService search,
 			IAddCollectionCategoryByAdminAppService add, 

@@ -9,4 +9,5 @@ namespace TreatmentManagement.ApplicationContracts.CollectionAppServicesContract
 		public bool IsGlobal { get; set; }
 		public long CategoryId { get; set; }
 	}
+
 }

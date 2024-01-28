@@ -70,6 +70,18 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 				CategoryId = entity.CategoryId,
 				GuideReferences = entity.GuideReferences.Select(Map).ToList()
 			};
+		
+		public static GetExerciseByClientDto MapToClientDto(Exercise entity)
+			=> new GetExerciseByClientDto()
+			{
+				Id = entity.Id,
+				Title = entity.Title,
+				ShortDescription = entity.ShortDescription,
+				LongDescription = entity.LongDescription,
+				PicturePath = entity.PicturePath,
+				Category = entity.Category.Title,
+				GuideReferences = entity.GuideReferences.Select(Map).ToList()
+			};
 
 		public static GetExerciseListItemByAdminDto MapToListItemByAdmin(Exercise entity)
 			=> new GetExerciseListItemByAdminDto()
@@ -89,7 +101,8 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 				Title = entity.Title,
 				ShortDescription = entity.ShortDescription,
 				IsGlobal = entity.IsGlobal,
-				PicturePath = entity.PicturePath
+				PicturePath = entity.PicturePath,
+				CtegoryId = entity.CategoryId
 			};
 
 		public static SearchResultExerciseDto MapToSearchResult(Exercise entity)

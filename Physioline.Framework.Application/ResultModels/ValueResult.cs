@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace Physioline.Framework.Application.ResultModels
 {
-	public class ValueResult<T> where T : class
+	public class ValueResult<T>
 	{
 		public T Value { get; set; }
 		public string Message { get; set; }

@@ -1,8 +1,6 @@
-using Physioline.Framework.Application.CustomValidations;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace TreatmentManagement.ApplicationContracts.ExerciseCategoryAppServicesContracts.DTOs
+namespace TreatmentManagement.ApplicationContracts.CollectionCategoryAppServicesContracts.DTOs
 {
 	public class AddExerciseCategoryDto
 	{
@@ -10,12 +8,11 @@ namespace TreatmentManagement.ApplicationContracts.ExerciseCategoryAppServicesCo
 		[MinLength(3)]
 		[MaxLength(255)]
 		public string Title { get; set; }
-
+		
+		[Required]
+		[MinLength(3)]
 		[MaxLength(750)]
 		public string Description { get; set; }
-
-		[Required]
-		[RequiredId]
-		public long CreatorUserId { get; set; }
 	}
+
 }

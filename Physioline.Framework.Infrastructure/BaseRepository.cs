@@ -14,6 +14,8 @@ namespace Physioline.Framework.Infrastructure
 			_dbSet = context.Set<TEntity>();
 		}
 
+		public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken)
+			=> await _dbSet.FirstAsync(expression, cancellationToken) ?? throw new InvalidOperationException();
 		public async Task<TEntity> GetAsync(long id, CancellationToken cancellationToken)
 			=> await _dbSet.FindAsync(id) ?? throw new InvalidOperationException();
 

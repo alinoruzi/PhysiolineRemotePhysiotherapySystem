@@ -37,6 +37,16 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Repositories
 			=> _collectionDetailRepository = _collectionDetailRepository ?? new CollectionDetailRepository(_context);
 
 
+		private IPlanRepository _planRepository;
+		public IPlanRepository PlanRepository
+			=> _planRepository = _planRepository ?? new PlanRepository(_context);
+
+		
+		private IPlanDetailRepository _planDetailRepository;
+		public IPlanDetailRepository PlanDetailRepository
+			=> _planDetailRepository = _planDetailRepository ?? new PlanDetailRepository(_context);
+		
+
 		public async Task<int> CommitAsync(CancellationToken cancellationToken)
 			=> await _context.SaveChangesAsync(cancellationToken);
 

@@ -22,8 +22,6 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Mappings
 				.HasForeignKey(pd => pd.CollectionId)
 				.IsRequired();
 			builder.Property(pd => pd.Priority).IsRequired();
-			builder.Property(pd => pd.StartCollection).IsRequired();
-			builder.Property(pd => pd.EndCollection).IsRequired();
 			builder.OwnsMany(pd => pd.WeekDays, w =>
 			{
 				w.WithOwner().HasForeignKey(wd => wd.PlanDetailId);

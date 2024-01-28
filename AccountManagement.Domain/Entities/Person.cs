@@ -7,10 +7,9 @@ namespace AccountManagement.Domain.Entities
 	{
 		public required string FirstName { get; set; }
 		public required string LastName { get; set; }
-		public required DateTime BirthDate { get; set; }
 		public required Gender Gender { get; set; }
 		
-		public User? User { get; set; }
+		public User User { get; set; }
 		public long? UserId { get; set; }
 	}
 

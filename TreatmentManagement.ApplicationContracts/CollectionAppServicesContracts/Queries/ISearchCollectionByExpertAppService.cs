@@ -4,7 +4,7 @@ namespace TreatmentManagement.ApplicationContracts.CollectionAppServicesContract
 {
 	public interface ISearchCollectionByExpertAppService
 	{
-		Task<List<SearchCollectionOutputDto>> Run(SearchCollectionOutputDto dto,
+		Task<List<SearchCollectionOutputDto>> Run(SearchCollectionInputDto dto,
 			long userId, CancellationToken cancellationToken);
 	}
 }
