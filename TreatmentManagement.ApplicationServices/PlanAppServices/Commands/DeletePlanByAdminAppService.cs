@@ -17,19 +17,15 @@ namespace TreatmentManagement.ApplicationServices.PlanAppServices.Commands
 		{
 			ResultMessage message;
 			if (!await _unitOfWork.PlanRepository
-				    .IsExistAsync(p 
+				    .IsExistAsync(p
 					    => p.Id == id, cancellationToken))
-			{
-				message = ResultMessage.EntityNotFound(nameof(Plan),id);
-			}
+				message = ResultMessage.EntityNotFound(nameof(Plan), id);
 
 			var plan = await _unitOfWork.PlanRepository.GetAsync(id, cancellationToken);
-			
-			
-			foreach (PlanDetail planDetail in plan.Details)
-			{
+
+
+			foreach (var planDetail in plan.Details)
 				planDetail.IsDeleted = true;
-			}
 
 			plan.IsDeleted = true;
 

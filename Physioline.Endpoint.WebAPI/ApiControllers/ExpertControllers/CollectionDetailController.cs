@@ -9,35 +9,36 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.ExpertControllers
 	[ApiController]
 	public class CollectionDetailController : ControllerBase
 	{
-		private readonly IGetCollectionDetailsByExpertAppService _get;
 		private readonly IAddCollectionDetailByExpertAppService _add;
-		private readonly IEditCollectionDetailByExpertAppService _edit;
 		private readonly IDeleteCollectionDetailByExpertAppService _delete;
+		private readonly IEditCollectionDetailByExpertAppService _edit;
+		private readonly IGetCollectionDetailsByExpertAppService _get;
 
 
-		public CollectionDetailController(IGetCollectionDetailsByExpertAppService get, IAddCollectionDetailByExpertAppService add, IEditCollectionDetailByExpertAppService edit, IDeleteCollectionDetailByExpertAppService delete)
+		public CollectionDetailController(IGetCollectionDetailsByExpertAppService get, IAddCollectionDetailByExpertAppService add,
+			IEditCollectionDetailByExpertAppService edit, IDeleteCollectionDetailByExpertAppService delete)
 		{
 			_get = get;
 			_add = add;
 			_edit = edit;
 			_delete = delete;
 		}
-		
+
 		[HttpGet("{collectionId}")]
 		public async Task<ActionResult<List<GetCollectionDetailItemDto>>> Get(long collectionId,
 			CancellationToken cancellationToken)
 		{
 			long userId = 2;
-			return await _get.Run(collectionId,userId, cancellationToken);
-		} 
+			return await _get.Run(collectionId, userId, cancellationToken);
+		}
 
 		[HttpPost]
 		public async Task<ActionResult> Add(AddCollectionDetailDto dto,
 			CancellationToken cancellationToken)
 		{
 			long userId = 2;
-			var result = await _add.Run(dto,userId, cancellationToken); 
-			return StatusCode(result,result.Message);
+			var result = await _add.Run(dto, userId, cancellationToken);
+			return StatusCode(result, result.Message);
 		}
 
 		[HttpPut]
@@ -45,7 +46,7 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.ExpertControllers
 			CancellationToken cancellationToken)
 		{
 			long userId = 2;
-			var result = await _edit.Run(dto,userId, cancellationToken);
+			var result = await _edit.Run(dto, userId, cancellationToken);
 			return StatusCode(result, result.Message);
 		}
 

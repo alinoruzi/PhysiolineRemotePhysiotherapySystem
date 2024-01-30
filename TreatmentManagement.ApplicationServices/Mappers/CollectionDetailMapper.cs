@@ -5,7 +5,7 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 {
 	public class CollectionDetailMapper
 	{
-		public static CollectionDetail Map(AddCollectionDetailDto dto, long userId)
+		public static CollectionDetail Map(AddCollectionDetailDto dto, uint priority, long userId)
 			=> new CollectionDetail
 			{
 				CollectionId = dto.CollectionId,
@@ -13,6 +13,7 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 				NumberPerDuration = dto.NumberPerDuration,
 				SecondsOfDuration = dto.SecondsPerDuration,
 				CreatorUserId = userId,
+				Priority = priority
 			};
 
 		public static void Map(CollectionDetail entity, EditCollectionDetailDto dto)
@@ -22,7 +23,7 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 		}
 
 		public static GetCollectionDetailItemDto Map(CollectionDetail entity)
-			=> new GetCollectionDetailItemDto()
+			=> new GetCollectionDetailItemDto
 			{
 				Id = entity.Id,
 				ExerciseId = entity.ExerciseId,

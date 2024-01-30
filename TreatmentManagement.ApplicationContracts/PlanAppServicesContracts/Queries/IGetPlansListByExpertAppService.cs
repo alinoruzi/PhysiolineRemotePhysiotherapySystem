@@ -4,7 +4,7 @@ namespace TreatmentManagement.ApplicationContracts.PlanAppServicesContracts.Quer
 {
 	public interface IGetPlansListByExpertAppService
 	{
-		Task<List<GetPlanByExpertDto>> Run(long userId, 
+		Task<List<GetPlanByExpertDto>> Run(long userId,
 			CancellationToken cancellationToken);
 	}
 }

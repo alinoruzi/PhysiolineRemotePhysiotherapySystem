@@ -15,12 +15,12 @@ namespace TreatmentManagement.ApplicationServices.CollectionCategoryAppServices.
 		{
 			_unitOfWork = unitOfWork;
 		}
-		
+
 		public async Task<ValueResult<GetCollectionCategoryDto>> Run(long id, CancellationToken cancellationToken)
-		{ 
+		{
 			ResultMessage message;
 			if (!await _unitOfWork.CollectionCategoryRepository
-				    .IsExistAsync(cc 
+				    .IsExistAsync(cc
 					    => cc.Id == id, cancellationToken))
 			{
 				message = ResultMessage.EntityNotFound(nameof(CollectionCategory), id);
@@ -31,9 +31,9 @@ namespace TreatmentManagement.ApplicationServices.CollectionCategoryAppServices.
 				.CollectionCategoryRepository.GetAsync(id, cancellationToken);
 
 			message = ResultMessage.SuccessfullyGetData();
-			
+
 			return ValueResult<GetCollectionCategoryDto>
-				.Success(CollectionCategoryMapper.Map(collectionCategory),message);
+				.Success(CollectionCategoryMapper.Map(collectionCategory), message);
 		}
 	}
 }

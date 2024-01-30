@@ -16,7 +16,7 @@ namespace TreatmentManagement.ApplicationServices.ExerciseAppServices.Queries
 		public async Task<List<GetExerciseListItemByExpertDto>> Run(int pageNumber, int pageSize, long userId, CancellationToken cancellationToken)
 		{
 			var exercises = await _unitOfWork.ExerciseRepository
-				.GetPageAsync((e=>e.CreatorUserId == userId),pageNumber,
+				.GetPageAsync(e => e.CreatorUserId == userId, pageNumber,
 					pageSize, cancellationToken);
 			return exercises.Select(ExerciseMapper.MapToListItemByExpert).ToList();
 		}

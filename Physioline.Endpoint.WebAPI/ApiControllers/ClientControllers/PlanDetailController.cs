@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using TreatmentManagement.ApplicationContracts.PlanAppServicesContracts.DTOs;
-using TreatmentManagement.ApplicationContracts.PlanAppServicesContracts.Queries;
 using TreatmentManagement.ApplicationContracts.PlanDetailAppServicesContracts.DTOs;
 using TreatmentManagement.ApplicationContracts.PlanDetailAppServicesContracts.Queries;
 
@@ -24,6 +22,5 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.ClientControllers
 			long userId = 3;
 			return await _getAll.Run(planId, userId, cancellationToken);
 		}
-		
 	}
 }

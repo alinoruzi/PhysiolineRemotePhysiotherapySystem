@@ -5,16 +5,10 @@ namespace TreatmentManagement.ApplicationContracts.CollectionDetailAppServiceCao
 {
 	public class EditCollectionDetailDto
 	{
-		[Required]
-		[RequiredId]
-		public long Id { get; set; }
-		
-		[Required]
-		[Range(1,1000)]
-		public uint NumberPerDuration { get; set; }
-		
-		[Required]
-		[Range(0,86400)]
-		public uint SecondsPerDuration { get; set; }
+		[Required] [RequiredId] public long Id { get; set; }
+
+		[Required] [Range(1, 1000)] public uint NumberPerDuration { get; set; }
+
+		[Required] [Range(0, 86400)] public uint SecondsPerDuration { get; set; }
 	}
 }

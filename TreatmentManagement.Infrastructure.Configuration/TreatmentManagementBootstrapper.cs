@@ -41,90 +41,92 @@ namespace TreatmentManagement.Infrastructure.Configuration
 			//Application Services:
 
 			#region CollectionAppServices
+
 			//Commands:
-			services.AddScoped<IAddCollectionByAdminAppService,AddCollectionByAdminAppService>();
-			services.AddScoped<IAddCollectionByExpertAppService,AddCollectionByExpertAppService>();
-			services.AddScoped<IDeleteCollectionByAdminAppService,DeleteCollectionByAdminAppService>();
-			services.AddScoped<IDeleteCollectionByExpertAppService,DeleteCollectionByExpertAppService>();
-			services.AddScoped<IEditCollectionByAdminAppService,EditCollectionByAdminAppService>();
-			services.AddScoped<IEditCollectionByExpertAppService,EditCollectionByExpertAppService>();
-			
+			services.AddScoped<IAddCollectionByAdminAppService, AddCollectionByAdminAppService>();
+			services.AddScoped<IAddCollectionByExpertAppService, AddCollectionByExpertAppService>();
+			services.AddScoped<IDeleteCollectionByAdminAppService, DeleteCollectionByAdminAppService>();
+			services.AddScoped<IDeleteCollectionByExpertAppService, DeleteCollectionByExpertAppService>();
+			services.AddScoped<IEditCollectionByAdminAppService, EditCollectionByAdminAppService>();
+			services.AddScoped<IEditCollectionByExpertAppService, EditCollectionByExpertAppService>();
+
 			//Queries:
-			services.AddScoped<IGetCollectionByAdminAppService,GetCollectionByAdminAppService>();
-			services.AddScoped<IGetCollectionByExpertAppService,GetCollectionByExpertAppService>();
-			services.AddScoped<IGetCollectionsPageListByAdminAppService,GetCollectionsPageListByAdminAppService>();
-			services.AddScoped<IGetGlobalCollectionsPageListByExpertAppService,GetGlobalCollectionsPageListByExpertAppService>();
-			services.AddScoped<IGetSpecificCollectionsPageListByExpertAppService,GetSpecificCollectionsPageListByExpertAppService>();
-			services.AddScoped<ISearchCollectionByAdminAppService,SearchCollectionByAdminAppService>();
-			services.AddScoped<ISearchCollectionByExpertAppService,SearchCollectionByExpertAppService>();
+			services.AddScoped<IGetCollectionByAdminAppService, GetCollectionByAdminAppService>();
+			services.AddScoped<IGetCollectionByExpertAppService, GetCollectionByExpertAppService>();
+			services.AddScoped<IGetCollectionsPageListByAdminAppService, GetCollectionsPageListByAdminAppService>();
+			services.AddScoped<IGetGlobalCollectionsPageListByExpertAppService, GetGlobalCollectionsPageListByExpertAppService>();
+			services.AddScoped<IGetSpecificCollectionsPageListByExpertAppService, GetSpecificCollectionsPageListByExpertAppService>();
+			services.AddScoped<ISearchCollectionByAdminAppService, SearchCollectionByAdminAppService>();
+			services.AddScoped<ISearchCollectionByExpertAppService, SearchCollectionByExpertAppService>();
 			services.AddScoped<IGetCollectionByClientAppService, GetCollectionByClientAppService>();
-			
+
 			#endregion
-			
+
 			#region CollectionCategoryAppServices
 
 			//Commands:
 			services.AddScoped<IAddCollectionCategoryByAdminAppService, AddCollectionCategoryByAdminAppService>();
-			services.AddScoped<IDeleteCollectionCategoryByAdminAppService,DeleteCollectionCategoryByAdminAppService>();
+			services.AddScoped<IDeleteCollectionCategoryByAdminAppService, DeleteCollectionCategoryByAdminAppService>();
 			services.AddScoped<IEditCollectionCategoryByAdminAppService, EditCollectionCategoryByAdminAppService>();
-			
+
 			//Queries:
 			services.AddScoped<IGetCollectionCategoriesPageListByAdminAppService, GetCollectionCategoriesPageListByAdminAppService>();
 			services.AddScoped<IGetCollectionCategoryAppService, GetCollectionCategoryAppService>();
 			services.AddScoped<ISearchCollectionCategoryAppService, SearchCollectionCategoryAppService>();
-			
+
 			#endregion
 
 			#region CollectionDetailAppServices
 
 			//Commands:
-			services.AddScoped<IAddCollectionDetailByAdminAppService,AddCollectionDetailByAdminAppService>();
-			services.AddScoped<IAddCollectionDetailByExpertAppService,AddCollectionDetailByExpertAppService>();
-			services.AddScoped<IDeleteCollectionDetailByAdminAppService,DeleteCollectionDetailByAdminAppService>();
-			services.AddScoped<IDeleteCollectionDetailByExpertAppService,DeleteCollectionDetailByExpertAppService>();
-			services.AddScoped<IEditCollectionDetailByAdminAppService,EditCollectionDetailByAdminAppService>();
-			services.AddScoped<IEditCollectionDetailByExpertAppService,EditCollectionDetailByExpertAppService>();
-			
+			services.AddScoped<IAddCollectionDetailByAdminAppService, AddCollectionDetailByAdminAppService>();
+			services.AddScoped<IAddCollectionDetailByExpertAppService, AddCollectionDetailByExpertAppService>();
+			services.AddScoped<IDeleteCollectionDetailByAdminAppService, DeleteCollectionDetailByAdminAppService>();
+			services.AddScoped<IDeleteCollectionDetailByExpertAppService, DeleteCollectionDetailByExpertAppService>();
+			services.AddScoped<IEditCollectionDetailByAdminAppService, EditCollectionDetailByAdminAppService>();
+			services.AddScoped<IEditCollectionDetailByExpertAppService, EditCollectionDetailByExpertAppService>();
+
 			//Queries:
-			services.AddScoped<IGetCollectionDetailsByAdminAppService,GetCollectionDetailsByAdminAppService>();
-			services.AddScoped<IGetCollectionDetailsByExpertAppService,GetCollectionDetailsByExpertAppService>();
-			services.AddScoped<IGetCollectionDetailsByClientAppService,GetCollectionDetailsByClientAppService>();
-			
+			services.AddScoped<IGetCollectionDetailsByAdminAppService, GetCollectionDetailsByAdminAppService>();
+			services.AddScoped<IGetCollectionDetailsByExpertAppService, GetCollectionDetailsByExpertAppService>();
+			services.AddScoped<IGetCollectionDetailsByClientAppService, GetCollectionDetailsByClientAppService>();
+
 			#endregion
 
 			#region ExerciseAppServices
 
 			//Commands:
-			services.AddScoped<IAddExerciseByAdminAppService,AddExerciseByAdminAppService>();
-			services.AddScoped<IAddExerciseByExpertAppService,AddExerciseByExpertAppService>();
-			services.AddScoped<IDeleteExerciseByAdminAppService,DeleteExerciseByAdminAppService>();
-			services.AddScoped<IDeleteExerciseByExpertAppService,DeleteExerciseByExpertAppService>();
-			services.AddScoped<IEditExerciseByAdminAppService,EditExerciseByAdminAppService>();
-			services.AddScoped<IEditExerciseByExpertAppService,EditExerciseByExpertAppService>();
-			
+			services.AddScoped<IAddExerciseByAdminAppService, AddExerciseByAdminAppService>();
+			services.AddScoped<IAddExerciseByExpertAppService, AddExerciseByExpertAppService>();
+			services.AddScoped<IDeleteExerciseByAdminAppService, DeleteExerciseByAdminAppService>();
+			services.AddScoped<IDeleteExerciseByExpertAppService, DeleteExerciseByExpertAppService>();
+			services.AddScoped<IEditExerciseByAdminAppService, EditExerciseByAdminAppService>();
+			services.AddScoped<IEditExerciseByExpertAppService, EditExerciseByExpertAppService>();
+
 			//Queries:
-			services.AddScoped<IGetExerciseByAdminAppService,GetExerciseByAdminAppService>();
-			services.AddScoped<IGetExerciseByExpertAppService,GetExerciseByExpertAppService>();
-			services.AddScoped<IGetExercisesPageListByAdminAppService,GetExercisesPageListByAdminAppService>();
-			services.AddScoped<IGetGlobalExercisesPageListByExpertAppService,GetGlobalExercisesPageListByExpertAppService>();
-			services.AddScoped<IGetSpecificExercisesPageListByExpertAppService,GetSpecificExercisesPageListByExpertAppService>();
-			services.AddScoped<ISearchExerciseByAdminAppService,SearchExerciseByAdminAppService>();
-			services.AddScoped<ISearchExerciseByExpertAppService,SearchExerciseByExpertAppService>();
+			services.AddScoped<IGetExerciseByAdminAppService, GetExerciseByAdminAppService>();
+			services.AddScoped<IGetExerciseByExpertAppService, GetExerciseByExpertAppService>();
+			services.AddScoped<IGetExercisesPageListByAdminAppService, GetExercisesPageListByAdminAppService>();
+			services.AddScoped<IGetGlobalExercisesPageListByExpertAppService, GetGlobalExercisesPageListByExpertAppService>();
+			services.AddScoped<IGetSpecificExercisesPageListByExpertAppService, GetSpecificExercisesPageListByExpertAppService>();
+			services.AddScoped<ISearchExerciseByAdminAppService, SearchExerciseByAdminAppService>();
+			services.AddScoped<ISearchExerciseByExpertAppService, SearchExerciseByExpertAppService>();
 			services.AddScoped<IGetExerciseByClientAppService, GetExerciseByClientAppService>();
-			
+
 			#endregion
-			
+
 			#region ExerciseCategoryAppServices
+
 			//Commands:
 			services.AddScoped<IAddExerciseCategoryByAdminAppService, AddExerciseCategoryByAdminAppService>();
-			services.AddScoped<IDeleteExerciseCategoryByAdminAppService,DeleteExerciseCategoryByAdminAppService>();
+			services.AddScoped<IDeleteExerciseCategoryByAdminAppService, DeleteExerciseCategoryByAdminAppService>();
 			services.AddScoped<IEditExerciseCategoryByAdminAppService, EditExerciseCategoryByAdminAppService>();
-			
+
 			//Queries:
 			services.AddScoped<IGetExerciseCategoriesPageListByAdminAppService, GetExerciseCategoriesPageListByAdminAppService>();
 			services.AddScoped<IGetExerciseCategoryAppService, GetExerciseCategoryAppService>();
 			services.AddScoped<ISearchExerciseCategoryAppService, SearchExerciseCategoryAppService>();
-			
+
 			#endregion
 
 			#region PlanAppServices
@@ -133,7 +135,7 @@ namespace TreatmentManagement.Infrastructure.Configuration
 			services.AddScoped<IAddPlanByExpertAppService, AddPlanByExpertAppService>();
 			services.AddScoped<IDeletePlanByAdminAppService, DeletePlanByAdminAppService>();
 			services.AddScoped<IDeletePlanByExpertAppService, DeletePlanByExpertAppService>();
-			services.AddScoped<IEditPlanByExpertAppService,EditPlanByExpertAppService>();
+			services.AddScoped<IEditPlanByExpertAppService, EditPlanByExpertAppService>();
 
 			//Queries:
 			services.AddScoped<IGetPlanByExpertAppService, GetPlanByExpertAppService>();
@@ -141,7 +143,7 @@ namespace TreatmentManagement.Infrastructure.Configuration
 			services.AddScoped<IGetPlansPageListByAdminAppService, GetPlansPageListByAdminAppService>();
 			services.AddScoped<IGetAllPlansByClientAppService, GetAllPlansByClientAppService>();
 			services.AddScoped<IGetPlanByClientAppService, GetPlanByClientAppService>();
-			
+
 			#endregion
 
 			#region PlanDetailAppServices
@@ -150,19 +152,18 @@ namespace TreatmentManagement.Infrastructure.Configuration
 			services.AddScoped<IAddPlanDetailByExpertAppService, AddPlanDetailByExpertAppService>();
 			services.AddScoped<IDeletePlanDetailByExpertAppService, DeletePlanDetailByExpertAppService>();
 			services.AddScoped<IEditPlanDetailByExpertAppService, EditPlanDetailByExpertAppService>();
-			
+
 			//Queries:
 			services.AddScoped<IGetPlanDetailsByAdminAppService, GetPlanDetailsByAdminAppService>();
 			services.AddScoped<IGetPlanDetailsByExpertAppService, GetPlanDetailsByExpertAppService>();
 			services.AddScoped<IGetAllPlanDetailsByClientAppService, GetAllPlanDetailsByClientAppService>();
-			
+
 			#endregion
-			
-			
-			
+
+
 			//UnitOfWork:
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
-			
+
 			//DbContext:
 			services.AddDbContext<TmContext>(options => options.UseSqlServer(connectionString));
 		}

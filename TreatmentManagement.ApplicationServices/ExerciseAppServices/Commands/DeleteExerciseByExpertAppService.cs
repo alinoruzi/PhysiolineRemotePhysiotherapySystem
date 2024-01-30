@@ -13,30 +13,28 @@ namespace TreatmentManagement.ApplicationServices.ExerciseAppServices.Commands
 		{
 			_unitOfWork = unitOfWork;
 		}
-		
+
 		public async Task<OperationResult> Run(long id, long userId, CancellationToken cancellationToken)
-		{ 
+		{
 			ResultMessage message;
-			
+
 			if (!await _unitOfWork.ExerciseRepository.IsExistAsync(e => e.Id == id, cancellationToken))
 			{
 				message = ResultMessage.EntityNotFound(nameof(Exercise), id);
 				return OperationResult.Failed(message, HttpStatusCode.NotFound);
 			}
 
-			Exercise exercise = await _unitOfWork.ExerciseRepository.GetAsync(id, cancellationToken);
-			
+			var exercise = await _unitOfWork.ExerciseRepository.GetAsync(id, cancellationToken);
+
 			if (exercise.CreatorUserId != userId)
 			{
 				message = ResultMessage.DontHavePermission();
 				return OperationResult.Failed(message, HttpStatusCode.Unauthorized);
 			}
-			
-			
+
+
 			foreach (var item in exercise.Collections)
-			{
 				item.IsDeleted = true;
-			}
 
 			exercise.IsDeleted = true;
 

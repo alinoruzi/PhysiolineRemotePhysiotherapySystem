@@ -17,10 +17,10 @@ namespace AccountManagement.Infrastructure.Configuration
 			//ApplicationServices:
 			services.AddScoped<IAddUserAppService, AddUserAppService>();
 			services.AddScoped<IGetUserIdAppService, GetUserIdAppService>();
-			
+
 			//UnitOfWork:
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
-			
+
 			//DbContext:
 			services.AddDbContext<AmContext>(options => options.UseSqlServer(connectionString));
 		}

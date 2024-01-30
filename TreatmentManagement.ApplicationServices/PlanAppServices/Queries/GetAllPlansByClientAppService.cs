@@ -1,7 +1,6 @@
 using TreatmentManagement.ApplicationContracts.PlanAppServicesContracts.DTOs;
 using TreatmentManagement.ApplicationContracts.PlanAppServicesContracts.Queries;
 using TreatmentManagement.ApplicationServices.Mappers;
-using TreatmentManagement.Domain.Entities;
 using TreatmentManagement.Domain.Repositories;
 
 namespace TreatmentManagement.ApplicationServices.PlanAppServices.Queries

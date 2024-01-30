@@ -21,7 +21,7 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 		}
 
 		public static GetExerciseCategoryDto Map(ExerciseCategory entity)
-			=> new GetExerciseCategoryDto()
+			=> new GetExerciseCategoryDto
 			{
 				Id = entity.Id,
 				Title = entity.Title,
@@ -29,17 +29,17 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 			};
 
 		public static GetExerciseCategoryListItemDto MapToListItem(ExerciseCategory entity)
-			=> new GetExerciseCategoryListItemDto()
+			=> new GetExerciseCategoryListItemDto
 			{
 				Id = entity.Id,
 				Title = entity.Title,
 				Description = entity.Description,
 				CreatedAt = entity.CreatedAt,
-				CreatorUserId = entity.CreatorUserId,
+				CreatorUserId = entity.CreatorUserId
 			};
-		
+
 		public static ExerciseCategorySearchResultDto MapToSearchResult(ExerciseCategory entity)
-			=> new ExerciseCategorySearchResultDto()
+			=> new ExerciseCategorySearchResultDto
 			{
 				Id = entity.Id,
 				Title = entity.Title

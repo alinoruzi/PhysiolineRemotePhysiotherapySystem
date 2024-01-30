@@ -1,5 +1,3 @@
-using TreatmentManagement.ApplicationContracts.CollectionCategoryAppServicesContracts.DTOs;
-using TreatmentManagement.ApplicationContracts.CollectionCategoryAppServicesContracts.Queries;
 using TreatmentManagement.ApplicationContracts.ExerciseCategoryAppServicesContracts.DTOs;
 using TreatmentManagement.ApplicationContracts.ExerciseCategoryAppServicesContracts.Queries;
 using TreatmentManagement.ApplicationServices.Mappers;
@@ -14,10 +12,10 @@ namespace TreatmentManagement.ApplicationServices.ExerciseCategoryAppServices.Qu
 		{
 			_unitOfWork = unitOfWork;
 		}
-		
+
 		public async Task<List<GetExerciseCategoryListItemDto>> Run(int pageNumber, int pageSize, CancellationToken cancellationToken)
-		=> (await _unitOfWork.ExerciseCategoryRepository
-				.GetPageAsync(pageNumber, pageSize, cancellationToken))
-			.Select(ExerciseCategoryMapper.MapToListItem).ToList();
+			=> (await _unitOfWork.ExerciseCategoryRepository
+					.GetPageAsync(pageNumber, pageSize, cancellationToken))
+				.Select(ExerciseCategoryMapper.MapToListItem).ToList();
 	}
 }

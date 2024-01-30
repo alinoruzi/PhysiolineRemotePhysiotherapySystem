@@ -22,14 +22,14 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.ClientControllers
 			long userId = 3;
 			return await _getAll.Run(userId, cancellationToken);
 		}
-		
+
 		[HttpGet("{id}")]
 		public async Task<ActionResult<GetPlanByClientDto>> Get(long id,
 			CancellationToken cancellationToken)
 		{
 			long userId = 3;
-			var result = await _get.Run(id,userId,cancellationToken);
-			return result ? Ok(result.Value): StatusCode(result, result.Message);
+			var result = await _get.Run(id, userId, cancellationToken);
+			return result ? Ok(result.Value) : StatusCode(result, result.Message);
 		}
 	}
 }

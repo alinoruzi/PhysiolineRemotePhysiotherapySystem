@@ -4,6 +4,6 @@ namespace TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.
 {
 	public interface IDeleteExerciseByExpertAppService
 	{
-		Task<OperationResult> Run(long id, long userid,CancellationToken cancellationToken);
+		Task<OperationResult> Run(long id, long userid, CancellationToken cancellationToken);
 	}
 }

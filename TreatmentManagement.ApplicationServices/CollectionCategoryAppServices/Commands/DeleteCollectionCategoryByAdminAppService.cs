@@ -17,15 +17,15 @@ namespace TreatmentManagement.ApplicationServices.CollectionCategoryAppServices.
 		public async Task<OperationResult> Run(long id, CancellationToken cancellationToken)
 		{
 			ResultMessage message;
-			
+
 			if (!await _unitOfWork.CollectionCategoryRepository
-				    .IsExistAsync(cc 
+				    .IsExistAsync(cc
 					    => cc.Id == id, cancellationToken))
 			{
 				message = ResultMessage.EntityNotFound(nameof(CollectionCategory), id);
 				return OperationResult.Failed(message, HttpStatusCode.NotFound);
 			}
-			
+
 			var collectionCategory = await _unitOfWork.CollectionCategoryRepository
 				.GetAsync(id, cancellationToken);
 

@@ -6,7 +6,7 @@ namespace TreatmentManagement.Domain.Entities
 	{
 		public Collection Collection { get; set; }
 		public required long CollectionId { get; set; }
-		
+
 		public Exercise Exercise { get; set; }
 		public required long ExerciseId { get; set; }
 

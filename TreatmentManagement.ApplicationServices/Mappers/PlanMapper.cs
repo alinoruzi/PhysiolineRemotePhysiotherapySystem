@@ -24,7 +24,7 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 		}
 
 		public static GetPlanByExpertDto MapToExpertDto(Plan entity)
-			=> new GetPlanByExpertDto()
+			=> new GetPlanByExpertDto
 			{
 				Id = entity.Id,
 				Title = entity.Title,
@@ -36,7 +36,7 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 			};
 
 		public static GetPlanByAdminDto MapToAdminDto(Plan entity)
-			=> new GetPlanByAdminDto()
+			=> new GetPlanByAdminDto
 			{
 				Id = entity.Id,
 				Title = entity.Title,
@@ -47,9 +47,9 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 				EndDate = entity.EndDate,
 				CreatedAt = entity.CreatedAt
 			};
-		
+
 		public static GetPlanByClientDto MapToClientDto(Plan entity)
-			=> new GetPlanByClientDto()
+			=> new GetPlanByClientDto
 			{
 				Id = entity.Id,
 				Title = entity.Title,
@@ -57,7 +57,7 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 				CreatorUserId = entity.CreatorUserId,
 				StartDate = entity.StartDate,
 				EndDate = entity.EndDate,
-				IsActive = entity.EndDate >= DateTime.Today 
+				IsActive = entity.EndDate >= DateTime.Today
 			};
 	}
 }

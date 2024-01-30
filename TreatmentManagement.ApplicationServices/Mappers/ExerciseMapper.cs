@@ -1,5 +1,4 @@
 using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.DTOs;
-using TreatmentManagement.ApplicationContracts.ExerciseCategoryAppServicesContracts.DTOs;
 using TreatmentManagement.Domain.Entities;
 using TreatmentManagement.Domain.ValueObjects;
 
@@ -25,14 +24,14 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 				Title = dto.Title,
 				Url = dto.Url
 			};
-		
+
 		public static ExerciseGuidesReferenceDto Map(ExerciseGuideReference dto)
 			=> new ExerciseGuidesReferenceDto
 			{
 				Title = dto.Title,
 				Url = dto.Url
 			};
-		
+
 		public static void Map(Exercise entity, EditExerciseDto dto)
 		{
 			entity.Title = dto.Title;
@@ -44,7 +43,7 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 		}
 
 		public static GetExerciseByAdminDto MapToAdminDto(Exercise entity)
-			=> new GetExerciseByAdminDto()
+			=> new GetExerciseByAdminDto
 			{
 				Id = entity.Id,
 				Title = entity.Title,
@@ -59,7 +58,7 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 			};
 
 		public static GetExerciseByExpertDto MapToExpertDto(Exercise entity)
-			=> new GetExerciseByExpertDto()
+			=> new GetExerciseByExpertDto
 			{
 				Id = entity.Id,
 				Title = entity.Title,
@@ -70,9 +69,9 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 				CategoryId = entity.CategoryId,
 				GuideReferences = entity.GuideReferences.Select(Map).ToList()
 			};
-		
+
 		public static GetExerciseByClientDto MapToClientDto(Exercise entity)
-			=> new GetExerciseByClientDto()
+			=> new GetExerciseByClientDto
 			{
 				Id = entity.Id,
 				Title = entity.Title,
@@ -84,7 +83,7 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 			};
 
 		public static GetExerciseListItemByAdminDto MapToListItemByAdmin(Exercise entity)
-			=> new GetExerciseListItemByAdminDto()
+			=> new GetExerciseListItemByAdminDto
 			{
 				Id = entity.Id,
 				Title = entity.Title,
@@ -93,9 +92,9 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 				IsGlobal = entity.IsGlobal,
 				CreatorUserId = entity.CreatorUserId
 			};
-		
+
 		public static GetExerciseListItemByExpertDto MapToListItemByExpert(Exercise entity)
-			=> new GetExerciseListItemByExpertDto()
+			=> new GetExerciseListItemByExpertDto
 			{
 				Id = entity.Id,
 				Title = entity.Title,
@@ -106,7 +105,7 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 			};
 
 		public static SearchResultExerciseDto MapToSearchResult(Exercise entity)
-			=> new SearchResultExerciseDto()
+			=> new SearchResultExerciseDto
 			{
 				Id = entity.Id,
 				Title = entity.Title

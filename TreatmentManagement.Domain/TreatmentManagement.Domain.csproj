@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Physioline.Framework.Domain\Physioline.Framework.Domain.csproj" />
+        <ProjectReference Include="..\Physioline.Framework.Domain\Physioline.Framework.Domain.csproj"/>
     </ItemGroup>
 
 </Project>

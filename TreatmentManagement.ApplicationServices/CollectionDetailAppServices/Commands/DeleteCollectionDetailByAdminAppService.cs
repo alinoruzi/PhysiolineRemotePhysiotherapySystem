@@ -27,7 +27,7 @@ namespace TreatmentManagement.ApplicationServices.CollectionDetailAppServices.Co
 			if (!collectionDetail.Collection.IsGlobal)
 			{
 				message = ResultMessage.DontHavePermission();
-				return OperationResult.Failed(message,HttpStatusCode.Unauthorized);
+				return OperationResult.Failed(message, HttpStatusCode.Unauthorized);
 			}
 
 			collectionDetail.IsDeleted = true;

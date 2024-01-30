@@ -30,7 +30,7 @@ namespace TreatmentManagement.ApplicationServices.CollectionDetailAppServices.Co
 			if (!collectionDetail.Collection.IsGlobal)
 			{
 				message = ResultMessage.DontHavePermission();
-				return OperationResult.Failed(message,HttpStatusCode.Unauthorized);
+				return OperationResult.Failed(message, HttpStatusCode.Unauthorized);
 			}
 
 			var collection = await _unitOfWork.CollectionDetailRepository.GetAsync(dto.Id, cancellationToken);

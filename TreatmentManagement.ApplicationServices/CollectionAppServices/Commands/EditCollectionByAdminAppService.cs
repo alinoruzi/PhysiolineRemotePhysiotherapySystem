@@ -24,24 +24,24 @@ namespace TreatmentManagement.ApplicationServices.CollectionAppServices.Commands
 					    => c.Id == dto.Id, cancellationToken))
 			{
 				message = ResultMessage.EntityNotFound(nameof(Collection), dto.Id);
-				return OperationResult.Failed(message,HttpStatusCode.NotFound);
+				return OperationResult.Failed(message, HttpStatusCode.NotFound);
 
 			}
-			
+
 			if (!await _unitOfWork.CollectionCategoryRepository
 				    .IsExistAsync(cc => cc.Id == dto.CategoryId, cancellationToken))
 			{
 				message = ResultMessage.EntityNotFound(nameof(CollectionCategory), dto.CategoryId);
-				return OperationResult.Failed(message,HttpStatusCode.NotFound);
+				return OperationResult.Failed(message, HttpStatusCode.NotFound);
 			}
 
-			var collection = await _unitOfWork.CollectionRepository.GetAsync(dto.Id,cancellationToken);
+			var collection = await _unitOfWork.CollectionRepository.GetAsync(dto.Id, cancellationToken);
 
 			CollectionMapper.Map(collection, dto);
-			
+
 			_unitOfWork.CollectionRepository.Update(collection);
 			await _unitOfWork.CommitAsync(cancellationToken);
-			
+
 			message = ResultMessage.SuccessfullyEdited(nameof(collection), collection.Id);
 			return OperationResult.Success(message);
 		}

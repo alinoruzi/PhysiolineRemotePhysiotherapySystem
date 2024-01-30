@@ -9,8 +9,8 @@ namespace Physioline.Framework.Application.CustomValidations
 		{
 			ErrorMessage = $"The required list: {listName}, is null or empty.";
 		}
-		
-		
+
+
 		public override bool IsValid(object? value)
 		{
 			var list = value as IList;

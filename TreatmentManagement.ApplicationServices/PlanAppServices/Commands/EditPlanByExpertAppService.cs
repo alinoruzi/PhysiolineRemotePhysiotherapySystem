@@ -20,22 +20,20 @@ namespace TreatmentManagement.ApplicationServices.PlanAppServices.Commands
 		{
 			ResultMessage message;
 			if (!await _unitOfWork.PlanRepository
-				    .IsExistAsync(p 
+				    .IsExistAsync(p
 					    => p.Id == dto.Id, cancellationToken))
-			{
-				message = ResultMessage.EntityNotFound(nameof(Plan),dto.Id);
-			}
+				message = ResultMessage.EntityNotFound(nameof(Plan), dto.Id);
 
 			var plan = await _unitOfWork.PlanRepository.GetAsync(dto.Id, cancellationToken);
 
 			if (plan.CreatorUserId != userId)
 			{
 				message = ResultMessage.DontHavePermission();
-				return OperationResult.Failed(message,HttpStatusCode.Unauthorized);
+				return OperationResult.Failed(message, HttpStatusCode.Unauthorized);
 			}
-			
+
 			PlanMapper.Map(plan, dto);
-			
+
 			_unitOfWork.PlanRepository.Update(plan);
 			await _unitOfWork.CommitAsync(cancellationToken);
 

@@ -28,7 +28,7 @@ namespace TreatmentManagement.ApplicationServices.CollectionDetailAppServices.Co
 			if (collectionDetail.Collection.CreatorUserId != userId)
 			{
 				message = ResultMessage.DontHavePermission();
-				return OperationResult.Failed(message,HttpStatusCode.Unauthorized);
+				return OperationResult.Failed(message, HttpStatusCode.Unauthorized);
 			}
 
 			collectionDetail.IsDeleted = true;

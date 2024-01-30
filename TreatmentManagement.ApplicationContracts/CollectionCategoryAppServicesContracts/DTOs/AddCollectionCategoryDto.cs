@@ -8,7 +8,7 @@ namespace TreatmentManagement.ApplicationContracts.CollectionCategoryAppServices
 		[MinLength(3)]
 		[MaxLength(255)]
 		public string Title { get; set; }
-		
+
 		[Required]
 		[MinLength(3)]
 		[MaxLength(750)]

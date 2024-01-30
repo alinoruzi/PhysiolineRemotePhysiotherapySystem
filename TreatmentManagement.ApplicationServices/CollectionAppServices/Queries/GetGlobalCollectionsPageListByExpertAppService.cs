@@ -16,7 +16,7 @@ namespace TreatmentManagement.ApplicationServices.CollectionAppServices.Queries
 		public async Task<List<GetCollectionListItemByExpertDto>> Run(int pageNumber,
 			int pageSize, CancellationToken cancellationToken)
 			=> (await _unitOfWork.CollectionRepository
-					.GetPageAsync(c=>c.IsGlobal,pageNumber, pageSize, cancellationToken))
+					.GetPageAsync(c => c.IsGlobal, pageNumber, pageSize, cancellationToken))
 				.Select(CollectionMapper.MapToExpertItem).ToList();
 	}
 }

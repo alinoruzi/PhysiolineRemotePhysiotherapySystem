@@ -13,7 +13,7 @@ namespace AccountManagement.Infrastructure.EntityFrameworkCore.Mappings
 			builder.ToTable("Clients", "AM");
 			builder.Property(c => c.NationalCode).HasMaxLength(10).IsRequired();
 			builder.Property(c => c.BirthDate).IsRequired();
-			
+
 			builder.HasIndex(u => u.NationalCode).IsUnique();
 
 		}

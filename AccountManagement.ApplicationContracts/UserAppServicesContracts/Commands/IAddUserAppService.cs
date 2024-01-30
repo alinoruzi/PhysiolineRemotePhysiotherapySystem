@@ -6,7 +6,7 @@ namespace AccountManagement.ApplicationContracts.UserAppServicesContracts.Comman
 {
 	public interface IAddUserAppService
 	{
-		Task<OperationResult> Run(AddUserDto dto,UserRole role, long userId,
+		Task<OperationResult> Run(AddUserDto dto, UserRole role, long userId,
 			CancellationToken cancellationToken);
 	}
 }

@@ -6,7 +6,5 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.AccountControllers
 	[ApiController]
 	public class ClientController : ControllerBase
 	{
-		
-
 	}
 }

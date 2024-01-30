@@ -15,18 +15,18 @@ namespace TreatmentManagement.ApplicationServices.CollectionAppServices.Queries
 		{
 			_unitOfWork = unitOfWork;
 		}
-		
+
 		public async Task<ValueResult<GetCollectionByExpertDto>> Run(long id, long userId,
 			CancellationToken cancellationToken)
 		{
 			ResultMessage message;
-			
+
 			if (!await _unitOfWork.CollectionRepository
 				    .IsExistAsync(c
 					    => c.Id == id, cancellationToken))
 			{
 				message = ResultMessage.EntityNotFound(nameof(Collection), id);
-				return ValueResult<GetCollectionByExpertDto>.Failed(message,HttpStatusCode.NotFound);
+				return ValueResult<GetCollectionByExpertDto>.Failed(message, HttpStatusCode.NotFound);
 
 			}
 
@@ -35,9 +35,9 @@ namespace TreatmentManagement.ApplicationServices.CollectionAppServices.Queries
 			if (collection.CreatorUserId != userId && !collection.IsGlobal)
 			{
 				message = ResultMessage.DontHavePermission();
-				return ValueResult<GetCollectionByExpertDto>.Failed(message,HttpStatusCode.Unauthorized);
+				return ValueResult<GetCollectionByExpertDto>.Failed(message, HttpStatusCode.Unauthorized);
 			}
-				
+
 			message = ResultMessage.SuccessfullyGetData();
 			return ValueResult<GetCollectionByExpertDto>.Success(CollectionMapper.MapToExpertDto(collection), message);
 		}

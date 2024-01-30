@@ -15,12 +15,12 @@ namespace TreatmentManagement.ApplicationServices.CollectionCategoryAppServices.
 		{
 			_unitOfWork = unitOfWork;
 		}
-		
+
 		public async Task<OperationResult> Run(EditCollectionCategoryDto dto, CancellationToken cancellationToken)
 		{
 			ResultMessage message;
 			if (!await _unitOfWork.CollectionCategoryRepository
-				    .IsExistAsync(cc 
+				    .IsExistAsync(cc
 					    => cc.Id == dto.Id, cancellationToken))
 			{
 				message = ResultMessage.EntityNotFound(nameof(CollectionCategory), dto.Id);
@@ -31,7 +31,6 @@ namespace TreatmentManagement.ApplicationServices.CollectionCategoryAppServices.
 				.GetAsync(dto.Id, cancellationToken);
 
 			if (collectionCategory.Title != dto.Title)
-			{
 				if (await _unitOfWork.CollectionCategoryRepository
 					    .IsExistAsync(cc
 						    => cc.Title == dto.Title, cancellationToken))
@@ -39,7 +38,6 @@ namespace TreatmentManagement.ApplicationServices.CollectionCategoryAppServices.
 					message = ResultMessage.AnUniquePropertyAlreadyExist(nameof(CollectionCategory), nameof(CollectionCategory.Title));
 					return OperationResult.Failed(message, HttpStatusCode.BadRequest);
 				}
-			}
 
 			CollectionCategoryMapper.MapForEdit(collectionCategory, dto);
 

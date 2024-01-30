@@ -9,11 +9,11 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.AdminControllers
 	[ApiController]
 	public class CollectionDetailController : ControllerBase
 	{
-		private readonly IGetCollectionDetailsByAdminAppService _get;
 		private readonly IAddCollectionDetailByAdminAppService _add;
-		private readonly IEditCollectionDetailByAdminAppService _edit;
 		private readonly IDeleteCollectionDetailByAdminAppService _delete;
-		
+		private readonly IEditCollectionDetailByAdminAppService _edit;
+		private readonly IGetCollectionDetailsByAdminAppService _get;
+
 		public CollectionDetailController(IGetCollectionDetailsByAdminAppService get,
 			IAddCollectionDetailByAdminAppService add,
 			IEditCollectionDetailByAdminAppService edit,
@@ -35,8 +35,8 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.AdminControllers
 			CancellationToken cancellationToken)
 		{
 			long userId = 1;
-			var result = await _add.Run(dto,userId, cancellationToken); 
-			return StatusCode(result,result.Message);
+			var result = await _add.Run(dto, userId, cancellationToken);
+			return StatusCode(result, result.Message);
 		}
 
 		[HttpPut]

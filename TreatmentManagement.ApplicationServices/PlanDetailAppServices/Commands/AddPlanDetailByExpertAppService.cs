@@ -5,7 +5,6 @@ using TreatmentManagement.ApplicationContracts.PlanDetailAppServicesContracts.DT
 using TreatmentManagement.ApplicationServices.Mappers;
 using TreatmentManagement.Domain.Entities;
 using TreatmentManagement.Domain.Repositories;
-using TreatmentManagement.Domain.ValueObjects;
 
 namespace TreatmentManagement.ApplicationServices.PlanDetailAppServices.Commands
 {
@@ -22,45 +21,51 @@ namespace TreatmentManagement.ApplicationServices.PlanDetailAppServices.Commands
 			ResultMessage message;
 			if (!await _unitOfWork.PlanRepository.IsExistAsync(p => p.Id == dto.PlanId, cancellationToken))
 			{
-				message = ResultMessage.EntityNotFound(nameof(Plan),dto.PlanId);
-				return OperationResult.Failed(message,HttpStatusCode.NotFound);
+				message = ResultMessage.EntityNotFound(nameof(Plan), dto.PlanId);
+				return OperationResult.Failed(message, HttpStatusCode.NotFound);
 			}
 
 			var plan = await _unitOfWork.PlanRepository.GetAsync(dto.PlanId, cancellationToken);
 			if (plan.CreatorUserId != userId)
 			{
 				message = ResultMessage.DontHavePermission();
-				return OperationResult.Failed(message,HttpStatusCode.Unauthorized);
+				return OperationResult.Failed(message, HttpStatusCode.Unauthorized);
 			}
-			
+
 			if (!await _unitOfWork.CollectionRepository.IsExistAsync(p => p.Id == dto.CollectionId, cancellationToken))
 			{
-				message = ResultMessage.EntityNotFound(nameof(Collection),dto.CollectionId);
-				return OperationResult.Failed(message,HttpStatusCode.NotFound);
+				message = ResultMessage.EntityNotFound(nameof(Collection), dto.CollectionId);
+				return OperationResult.Failed(message, HttpStatusCode.NotFound);
 			}
 
 			var collection = await _unitOfWork.CollectionRepository.GetAsync(dto.CollectionId, cancellationToken);
 			if (!collection.IsGlobal && collection.CreatorUserId != userId)
 			{
 				message = ResultMessage.DontHavePermission();
-				return OperationResult.Failed(message,HttpStatusCode.Unauthorized);
+				return OperationResult.Failed(message, HttpStatusCode.Unauthorized);
 			}
 
-			uint priority = plan.Details.Max(pd => pd.Priority);
-			
+			if (await _unitOfWork.PlanDetailRepository.IsExistAsync(p 
+				    => p.PlanId == plan.Id && p.CollectionId == dto.CollectionId,cancellationToken))
+			{
+				message = ResultMessage.CustomMessage($"Your Collection with Id {dto.CollectionId} already exist with plan Id : {plan.Id}");
+				return OperationResult.Failed(message, HttpStatusCode.BadRequest);
+			}
+
+			uint priority = 0;
+				
+			if ((await _unitOfWork.PlanDetailRepository.GetAllAsync(p => p.PlanId == plan.Id, cancellationToken)).Any())
+			{
+				priority = (await _unitOfWork.PlanDetailRepository.GetAllAsync(p=>p.PlanId == plan.Id,cancellationToken))
+					.Max(pd => pd.Priority);
+			}
+
 			var planDetail = PlanDetailMapper.Map(dto, priority + 1, userId);
-
-			var weekDays = dto.WeekDays.Select(wd => (DayOfWeek)wd).ToList();
-			
-			foreach (var dayOfWeek in weekDays)
-			{			
-				planDetail.WeekDays.Add(new PlanDetailWeekDay(){DayOfWeek = dayOfWeek});
-			}
 			
 			await _unitOfWork.PlanDetailRepository.CreateAsync(planDetail, cancellationToken);
 			await _unitOfWork.CommitAsync(cancellationToken);
-			
-			message = ResultMessage.SuccessfullyAdded(nameof(PlanDetail),planDetail.Id);
+
+			message = ResultMessage.SuccessfullyAdded(nameof(PlanDetail), planDetail.Id);
 			return OperationResult.Success(message);
 		}
 	}

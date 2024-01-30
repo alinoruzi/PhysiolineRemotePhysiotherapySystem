@@ -27,32 +27,32 @@ namespace Physioline.Framework.Infrastructure
 
 		public async Task<IEnumerable<TEntity>> GetPageAsync(int pageNumber, int pageSize,
 			CancellationToken cancellationToken)
-			=> await _dbSet.AsNoTracking().Skip((pageNumber-1)*pageSize)
-				.Take(pageSize).ToListAsync(cancellationToken);
-		
-		public async Task<IEnumerable<TEntity>> GetPageAsync(Expression<Func<TEntity, bool>> expression, int pageNumber, int pageSize, CancellationToken cancellationToken)
-			=> await _dbSet.AsNoTracking().Where(expression)
-				.Skip((pageNumber-1)*pageSize)
+			=> await _dbSet.AsNoTracking().Skip((pageNumber - 1) * pageSize)
 				.Take(pageSize).ToListAsync(cancellationToken);
 
-		public async Task<bool> IsExistAsync(Expression<Func<TEntity, bool>> expression, 
+		public async Task<IEnumerable<TEntity>> GetPageAsync(Expression<Func<TEntity, bool>> expression, int pageNumber, int pageSize,
 			CancellationToken cancellationToken)
-			=> await _dbSet.AnyAsync(expression,cancellationToken);
-		
-		public async Task<IEnumerable<TEntity>> SearchAsync(Expression<Func<TEntity, bool>> expression, 
+			=> await _dbSet.AsNoTracking().Where(expression)
+				.Skip((pageNumber - 1) * pageSize)
+				.Take(pageSize).ToListAsync(cancellationToken);
+
+		public async Task<bool> IsExistAsync(Expression<Func<TEntity, bool>> expression,
+			CancellationToken cancellationToken)
+			=> await _dbSet.AnyAsync(expression, cancellationToken);
+
+		public async Task<IEnumerable<TEntity>> SearchAsync(Expression<Func<TEntity, bool>> expression,
 			CancellationToken cancellationToken)
 			=> await _dbSet.AsNoTracking().Where(expression).ToListAsync(cancellationToken);
-		
-		public async Task CreateAsync(TEntity entity, 
+
+		public async Task CreateAsync(TEntity entity,
 			CancellationToken cancellationToken)
 		{
 			await _dbSet.AddAsync(entity, cancellationToken);
 		}
-		
+
 		public void Update(TEntity entity)
 		{
 			_context.Entry(entity).State = EntityState.Modified;
 		}
-		
 	}
 }

@@ -22,7 +22,7 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Mappings
 				.WithMany(ec => ec.Exercises)
 				.HasForeignKey(e => e.CategoryId)
 				.IsRequired();
-			
+
 			builder.OwnsMany(e => e.GuideReferences, g =>
 			{
 				g.WithOwner().HasForeignKey(g => g.ExerciseId);

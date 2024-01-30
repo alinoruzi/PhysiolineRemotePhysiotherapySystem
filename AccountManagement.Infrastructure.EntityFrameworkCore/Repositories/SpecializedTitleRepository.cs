@@ -1,6 +1,5 @@
 using AccountManagement.Domain.Entities;
 using AccountManagement.Domain.Repositories;
-using Microsoft.EntityFrameworkCore;
 using Physioline.Framework.Infrastructure;
 
 namespace AccountManagement.Infrastructure.EntityFrameworkCore.Repositories

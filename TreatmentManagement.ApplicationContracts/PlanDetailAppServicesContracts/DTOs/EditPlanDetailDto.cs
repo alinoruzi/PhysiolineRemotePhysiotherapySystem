@@ -5,14 +5,11 @@ namespace TreatmentManagement.ApplicationContracts.PlanDetailAppServicesContract
 {
 	public class EditPlanDetailDto
 	{
-		[Required]
-		[RequiredId]
-		public long Id { get; set; }
-		
-		
+		[Required] [RequiredId] public long Id { get; set; }
+
+
 		[Required]
 		[RequiredList(nameof(WeekDays))]
-		[Range(0,6)]
 		public List<byte> WeekDays { get; set; }
 	}
 }

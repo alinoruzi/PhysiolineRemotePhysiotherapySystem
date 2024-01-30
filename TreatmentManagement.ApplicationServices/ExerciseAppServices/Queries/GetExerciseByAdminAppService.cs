@@ -16,7 +16,7 @@ namespace TreatmentManagement.ApplicationServices.ExerciseAppServices.Queries
 			_unitOfWork = unitOfWork;
 		}
 		public async Task<ValueResult<GetExerciseByAdminDto>> Run(long id, CancellationToken cancellationToken)
-		{ 
+		{
 			ResultMessage message;
 
 			if (!await _unitOfWork.ExerciseRepository.IsExistAsync(e => e.Id == id, cancellationToken))
@@ -25,11 +25,11 @@ namespace TreatmentManagement.ApplicationServices.ExerciseAppServices.Queries
 				return ValueResult<GetExerciseByAdminDto>.Failed(message, HttpStatusCode.NotFound);
 			}
 
-			Exercise exercise = await _unitOfWork.ExerciseRepository.GetAsync(id, cancellationToken);
-			GetExerciseByAdminDto dto = ExerciseMapper.MapToAdminDto(exercise);
+			var exercise = await _unitOfWork.ExerciseRepository.GetAsync(id, cancellationToken);
+			var dto = ExerciseMapper.MapToAdminDto(exercise);
 
 			message = ResultMessage.SuccessfullyGetData();
-			return ValueResult<GetExerciseByAdminDto>.Success(dto,message);
+			return ValueResult<GetExerciseByAdminDto>.Success(dto, message);
 		}
 	}
 }

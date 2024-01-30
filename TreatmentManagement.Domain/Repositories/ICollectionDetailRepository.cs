@@ -5,6 +5,5 @@ namespace TreatmentManagement.Domain.Repositories
 {
 	public interface ICollectionDetailRepository : IBaseRepository<CollectionDetail>
 	{
-		
 	}
 }

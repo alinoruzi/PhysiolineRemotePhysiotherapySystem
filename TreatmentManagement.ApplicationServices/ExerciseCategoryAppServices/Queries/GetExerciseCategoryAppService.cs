@@ -1,6 +1,5 @@
 using Physioline.Framework.Application.ResultModels;
 using System.Net;
-using TreatmentManagement.ApplicationContracts.CollectionCategoryAppServicesContracts.DTOs;
 using TreatmentManagement.ApplicationContracts.ExerciseCategoryAppServicesContracts.DTOs;
 using TreatmentManagement.ApplicationContracts.ExerciseCategoryAppServicesContracts.Queries;
 using TreatmentManagement.ApplicationServices.Mappers;
@@ -16,12 +15,12 @@ namespace TreatmentManagement.ApplicationServices.ExerciseCategoryAppServices.Qu
 		{
 			_unitOfWork = unitOfWork;
 		}
-		
+
 		public async Task<ValueResult<GetExerciseCategoryDto>> Run(long id, CancellationToken cancellationToken)
-		{ 
+		{
 			ResultMessage message;
 			if (!await _unitOfWork.ExerciseCategoryRepository
-				    .IsExistAsync(ec 
+				    .IsExistAsync(ec
 					    => ec.Id == id, cancellationToken))
 			{
 				message = ResultMessage.EntityNotFound(nameof(ExerciseCategory), id);
@@ -32,9 +31,9 @@ namespace TreatmentManagement.ApplicationServices.ExerciseCategoryAppServices.Qu
 				.ExerciseCategoryRepository.GetAsync(id, cancellationToken);
 
 			message = ResultMessage.SuccessfullyGetData();
-			
+
 			return ValueResult<GetExerciseCategoryDto>
-				.Success(ExerciseCategoryMapper.Map(exerciseCategory),message);
+				.Success(ExerciseCategoryMapper.Map(exerciseCategory), message);
 		}
 	}
 }

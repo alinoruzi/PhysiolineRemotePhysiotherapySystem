@@ -14,7 +14,7 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Mappings
 			builder.ToTable("CollectionCategories", "TM");
 			builder.Property(cc => cc.Title).IsRequired().HasMaxLength(255);
 			builder.Property(cc => cc.Description).IsRequired(false).HasMaxLength(750);
-			
+
 			builder.HasMany(cc => cc.Collections)
 				.WithOne(c => c.Category);
 		}

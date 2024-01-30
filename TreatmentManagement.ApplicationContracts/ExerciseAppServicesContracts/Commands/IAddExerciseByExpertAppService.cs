@@ -7,5 +7,5 @@ namespace TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.
 	{
 		Task<OperationResult> Run(AddExerciseDto dto, long userId, CancellationToken cancellationToken);
 	}
-	
+
 }

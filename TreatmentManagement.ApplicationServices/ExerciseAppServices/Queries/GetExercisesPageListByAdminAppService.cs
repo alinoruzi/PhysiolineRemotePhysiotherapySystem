@@ -1,4 +1,3 @@
-using Physioline.Framework.Application.ResultModels;
 using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.DTOs;
 using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.Queries;
 using TreatmentManagement.ApplicationServices.Mappers;
@@ -13,7 +12,7 @@ namespace TreatmentManagement.ApplicationServices.ExerciseAppServices.Queries
 		{
 			_unitOfWork = unitOfWork;
 		}
-		
+
 		public async Task<List<GetExerciseListItemByAdminDto>> Run(int pageNumber, int pageSize, CancellationToken cancellationToken)
 		{
 			var exercises = await _unitOfWork.ExerciseRepository.GetPageAsync(pageNumber, pageSize, cancellationToken);

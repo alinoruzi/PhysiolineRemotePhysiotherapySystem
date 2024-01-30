@@ -9,13 +9,13 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.ExpertControllers
 	[ApiController]
 	public class CollectionController : ControllerBase
 	{
+		private readonly IAddCollectionByExpertAppService _add;
+		private readonly IDeleteCollectionByExpertAppService _delete;
+		private readonly IEditCollectionByExpertAppService _edit;
+		private readonly IGetCollectionByExpertAppService _get;
 		private readonly IGetGlobalCollectionsPageListByExpertAppService _getGlobalPage;
 		private readonly IGetSpecificCollectionsPageListByExpertAppService _getSpecificPage;
-		private readonly IGetCollectionByExpertAppService _get;
 		private readonly ISearchCollectionByExpertAppService _search;
-		private readonly IAddCollectionByExpertAppService _add;
-		private readonly IEditCollectionByExpertAppService _edit;
-		private readonly IDeleteCollectionByExpertAppService _delete;
 
 
 		public CollectionController(IGetGlobalCollectionsPageListByExpertAppService getGlobalPage,
@@ -34,18 +34,19 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.ExpertControllers
 			_edit = edit;
 			_delete = delete;
 		}
-		
+
 		[HttpGet]
 		public async Task<ActionResult<List<GetCollectionListItemByExpertDto>>> GetAll(CancellationToken cancellationToken,
 			[FromQuery] bool global = false,
 			[FromQuery] int pageNumber = 1,
-			[FromQuery] int pageSize = 10 )
+			[FromQuery] int pageSize = 10)
 		{
 			long userId = 2;
 			if (global)
 				return await _getGlobalPage.Run(pageNumber, pageSize, cancellationToken);
-			return await _getSpecificPage.Run(pageNumber, pageSize,userId, cancellationToken);
-		} 
+
+			return await _getSpecificPage.Run(pageNumber, pageSize, userId, cancellationToken);
+		}
 
 		[HttpGet("{id}")]
 		public async Task<ActionResult<GetCollectionByExpertDto>> Get(long id, CancellationToken cancellationToken)
@@ -61,32 +62,31 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.ExpertControllers
 			CancellationToken cancellationToken)
 		{
 			long userId = 2;
-			return await _search.Run(dto,userId,cancellationToken);
-		} 
-		
+			return await _search.Run(dto, userId, cancellationToken);
+		}
+
 		[HttpPost]
-		public async Task<ActionResult> Add(AddCollectionDto dto,CancellationToken cancellationToken)
+		public async Task<ActionResult> Add(AddCollectionDto dto, CancellationToken cancellationToken)
 		{
 			long userId = 2;
-			var result = await _add.Run(dto, userId, cancellationToken); 
-			return StatusCode(result,result.Message);
+			var result = await _add.Run(dto, userId, cancellationToken);
+			return StatusCode(result, result.Message);
 		}
-		
+
 		[HttpPut]
 		public async Task<ActionResult> Edit(EditCollectionDto dto, CancellationToken cancellationToken)
 		{
 			long userId = 2;
-			var result = await _edit.Run(dto,userId, cancellationToken);
+			var result = await _edit.Run(dto, userId, cancellationToken);
 			return StatusCode(result, result.Message);
 		}
-		
+
 		[HttpDelete("{id}")]
 		public async Task<ActionResult> Delete(long id, CancellationToken cancellationToken)
 		{
 			long userId = 2;
-			var result = await _delete.Run(id,userId, cancellationToken);
+			var result = await _delete.Run(id, userId, cancellationToken);
 			return StatusCode(result, result.Message);
 		}
-		
 	}
 }

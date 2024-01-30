@@ -7,23 +7,23 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="AdminAppServicesContracts\Commands\" />
-      <Folder Include="AdminAppServicesContracts\DTOs\" />
-      <Folder Include="AdminAppServicesContracts\Queries\" />
-      <Folder Include="ClientAppServicesContracts\Commands\" />
-      <Folder Include="ClientAppServicesContracts\DTOs\" />
-      <Folder Include="ClientAppServicesContracts\Queries\" />
-      <Folder Include="ExpertAppServicesContracts\Commands\" />
-      <Folder Include="ExpertAppServicesContracts\DTOs\" />
-      <Folder Include="ExpertAppServicesContracts\Queries\" />
-      <Folder Include="SpecializedTitleAppServicesContracts\Commands\" />
-      <Folder Include="SpecializedTitleAppServicesContracts\DTOs\" />
-      <Folder Include="SpecializedTitleAppServicesContracts\Queries\" />
+        <Folder Include="AdminAppServicesContracts\Commands\"/>
+        <Folder Include="AdminAppServicesContracts\DTOs\"/>
+        <Folder Include="AdminAppServicesContracts\Queries\"/>
+        <Folder Include="ClientAppServicesContracts\Commands\"/>
+        <Folder Include="ClientAppServicesContracts\DTOs\"/>
+        <Folder Include="ClientAppServicesContracts\Queries\"/>
+        <Folder Include="ExpertAppServicesContracts\Commands\"/>
+        <Folder Include="ExpertAppServicesContracts\DTOs\"/>
+        <Folder Include="ExpertAppServicesContracts\Queries\"/>
+        <Folder Include="SpecializedTitleAppServicesContracts\Commands\"/>
+        <Folder Include="SpecializedTitleAppServicesContracts\DTOs\"/>
+        <Folder Include="SpecializedTitleAppServicesContracts\Queries\"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\AccountManagement.Domain\AccountManagement.Domain.csproj" />
-      <ProjectReference Include="..\Physioline.Framework.Application\Physioline.Framework.Application.csproj" />
+        <ProjectReference Include="..\AccountManagement.Domain\AccountManagement.Domain.csproj"/>
+        <ProjectReference Include="..\Physioline.Framework.Application\Physioline.Framework.Application.csproj"/>
     </ItemGroup>
 
 </Project>

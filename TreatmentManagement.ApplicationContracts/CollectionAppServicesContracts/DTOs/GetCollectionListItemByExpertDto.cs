@@ -7,6 +7,5 @@ namespace TreatmentManagement.ApplicationContracts.CollectionAppServicesContract
 		public string ShortDescription { get; set; }
 		public bool IsGlobal { get; set; }
 		public long CategoryId { get; set; }
-		
 	}
 }

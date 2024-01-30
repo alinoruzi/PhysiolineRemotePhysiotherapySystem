@@ -19,18 +19,18 @@ namespace TreatmentManagement.ApplicationServices.CollectionAppServices.Queries
 		public async Task<ValueResult<GetCollectionByAdminDto>> Run(long id, CancellationToken cancellationToken)
 		{
 			ResultMessage message;
-			
+
 			if (!await _unitOfWork.CollectionRepository
-				       .IsExistAsync(c
-					       => c.Id == id, cancellationToken))
+				    .IsExistAsync(c
+					    => c.Id == id, cancellationToken))
 			{
 				message = ResultMessage.EntityNotFound(nameof(Collection), id);
-				return ValueResult<GetCollectionByAdminDto>.Failed(message,HttpStatusCode.NotFound);
+				return ValueResult<GetCollectionByAdminDto>.Failed(message, HttpStatusCode.NotFound);
 
 			}
 
 			var collection = await _unitOfWork.CollectionRepository.GetAsync(id, cancellationToken);
-			
+
 			message = ResultMessage.SuccessfullyGetData();
 			return ValueResult<GetCollectionByAdminDto>.Success(CollectionMapper.MapToAdminDto(collection), message);
 		}

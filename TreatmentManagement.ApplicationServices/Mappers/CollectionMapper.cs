@@ -24,7 +24,7 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 		}
 
 		public static GetCollectionByAdminDto MapToAdminDto(Collection entity)
-			=> new GetCollectionByAdminDto()
+			=> new GetCollectionByAdminDto
 			{
 				Id = entity.Id,
 				Title = entity.Title,
@@ -34,20 +34,20 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 				CreatedAt = entity.CreatedAt,
 				CreatorUserId = entity.CreatorUserId
 			};
-		
+
 		public static GetCollectionByExpertDto MapToExpertDto(Collection entity)
-			=> new GetCollectionByExpertDto()
+			=> new GetCollectionByExpertDto
 			{
 				Id = entity.Id,
 				Title = entity.Title,
 				ShortDescription = entity.ShortDescription,
 				LongDescription = entity.LongDescription,
 				IsGlobal = entity.IsGlobal,
-				CategoryId = entity.CategoryId,
+				CategoryId = entity.CategoryId
 			};
 
 		public static GetCollectionListItemByAdminDto MapToAdminItem(Collection entity)
-			=> new GetCollectionListItemByAdminDto()
+			=> new GetCollectionListItemByAdminDto
 			{
 				Id = entity.Id,
 				Title = entity.Title,
@@ -58,7 +58,7 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 			};
 
 		public static GetCollectionByClientDto MapToClientDto(Collection entity)
-			=> new GetCollectionByClientDto()
+			=> new GetCollectionByClientDto
 			{
 				Id = entity.Id,
 				Title = entity.Title,
@@ -66,9 +66,9 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 				LongDescription = entity.LongDescription,
 				Category = entity.Category.Title
 			};
-		
+
 		public static GetCollectionListItemByExpertDto MapToExpertItem(Collection entity)
-			=> new GetCollectionListItemByExpertDto()
+			=> new GetCollectionListItemByExpertDto
 			{
 				Id = entity.Id,
 				Title = entity.Title,
@@ -76,14 +76,13 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 				IsGlobal = entity.IsGlobal,
 				CategoryId = entity.CategoryId
 			};
-		
+
 
 		public static SearchCollectionOutputDto MapToSearchResult(Collection entity)
-			=> new SearchCollectionOutputDto()
+			=> new SearchCollectionOutputDto
 			{
 				Id = entity.Id,
 				Title = entity.Title
 			};
-
 	}
 }

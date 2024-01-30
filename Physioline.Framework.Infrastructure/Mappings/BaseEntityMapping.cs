@@ -13,7 +13,7 @@ namespace Physioline.Framework.Infrastructure.Mappings
 			builder.Property(be => be.CreatedAt).IsRequired();
 			builder.Property(be => be.CreatorUserId).IsRequired();
 			builder.Property(be => be.IsDeleted).IsRequired();
-			
+
 			builder.HasQueryFilter(be => !be.IsDeleted);
 		}
 	}

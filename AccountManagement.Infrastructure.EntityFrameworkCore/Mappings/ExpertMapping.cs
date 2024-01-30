@@ -14,11 +14,12 @@ namespace AccountManagement.Infrastructure.EntityFrameworkCore.Mappings
 			builder.Property(e => e.NationalCode).IsRequired().HasMaxLength(10);
 			builder.Property(e => e.MedicalSystemCode).IsRequired().HasMaxLength(10);
 			builder.Property(e => e.ProfilePicturePath).IsRequired().HasMaxLength(1500);
+			builder.Property(e => e.Biography).IsRequired().HasMaxLength(750);
 			builder.HasOne(e => e.SpecializedTitle)
 				.WithMany(st => st.Experts)
 				.HasForeignKey(e => e.SpecializedTitleId)
 				.IsRequired();
-			
+
 			builder.HasIndex(u => u.NationalCode).IsUnique();
 
 		}

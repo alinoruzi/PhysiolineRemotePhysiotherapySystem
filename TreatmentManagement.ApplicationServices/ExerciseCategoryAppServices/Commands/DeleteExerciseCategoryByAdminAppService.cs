@@ -1,6 +1,5 @@
 using Physioline.Framework.Application.ResultModels;
 using System.Net;
-using TreatmentManagement.ApplicationContracts.CollectionCategoryAppServicesContracts.Commands;
 using TreatmentManagement.ApplicationContracts.ExerciseCategoryAppServicesContracts.Commands;
 using TreatmentManagement.Domain.Entities;
 using TreatmentManagement.Domain.Repositories;
@@ -18,15 +17,15 @@ namespace TreatmentManagement.ApplicationServices.ExerciseCategoryAppServices.Co
 		public async Task<OperationResult> Run(long id, CancellationToken cancellationToken)
 		{
 			ResultMessage message;
-			
+
 			if (!await _unitOfWork.ExerciseCategoryRepository
-				    .IsExistAsync(ec 
+				    .IsExistAsync(ec
 					    => ec.Id == id, cancellationToken))
 			{
 				message = ResultMessage.EntityNotFound(nameof(ExerciseCategory), id);
 				return OperationResult.Failed(message, HttpStatusCode.NotFound);
 			}
-			
+
 			var exerciseCategory = await _unitOfWork.ExerciseCategoryRepository
 				.GetAsync(id, cancellationToken);
 

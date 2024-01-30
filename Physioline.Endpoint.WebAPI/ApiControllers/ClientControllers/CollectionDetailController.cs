@@ -17,9 +17,6 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.ClientControllers
 		[HttpGet("{collectionId}")]
 		public async Task<ActionResult<List<GetCollectionDetailItemDto>>> GetAll(long collectionId,
 			CancellationToken cancellationToken)
-		{
-			return await _getAll.Run(collectionId, cancellationToken);
-		}
-		
+			=> await _getAll.Run(collectionId, cancellationToken);
 	}
 }

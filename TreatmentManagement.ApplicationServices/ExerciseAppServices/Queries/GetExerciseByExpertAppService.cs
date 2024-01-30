@@ -26,15 +26,15 @@ namespace TreatmentManagement.ApplicationServices.ExerciseAppServices.Queries
 				return ValueResult<GetExerciseByExpertDto>.Failed(message, HttpStatusCode.NotFound);
 			}
 
-			Exercise exercise = await _unitOfWork.ExerciseRepository.GetAsync(id, cancellationToken);
-			
+			var exercise = await _unitOfWork.ExerciseRepository.GetAsync(id, cancellationToken);
+
 			if (exercise.CreatorUserId != userId && !exercise.IsGlobal)
 			{
 				message = ResultMessage.DontHavePermission();
-				return ValueResult<GetExerciseByExpertDto>.Failed(message,HttpStatusCode.Unauthorized);
+				return ValueResult<GetExerciseByExpertDto>.Failed(message, HttpStatusCode.Unauthorized);
 			}
-			
-			GetExerciseByExpertDto dto = ExerciseMapper.MapToExpertDto(exercise);
+
+			var dto = ExerciseMapper.MapToExpertDto(exercise);
 
 			message = ResultMessage.SuccessfullyGetData();
 			return ValueResult<GetExerciseByExpertDto>.Success(dto, message);

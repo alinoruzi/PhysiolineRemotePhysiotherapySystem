@@ -5,6 +5,5 @@ namespace AccountManagement.Domain.Repositories
 {
 	public interface IAdminRepository : IBaseRepository<Admin>
 	{
-		
 	}
 }

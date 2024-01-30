@@ -16,7 +16,7 @@ namespace TreatmentManagement.ApplicationServices.ExerciseAppServices.Queries
 		public async Task<List<SearchResultExerciseDto>> Run(SearchInputExerciseDto dto, CancellationToken cancellationToken)
 		{
 			var exercises = await _unitOfWork.ExerciseRepository
-				.GetAllAsync(e=>e.Title.Contains(dto.Title),
+				.GetAllAsync(e => e.Title.Contains(dto.Title),
 					cancellationToken);
 			return exercises.Select(ExerciseMapper.MapToSearchResult).ToList();
 		}

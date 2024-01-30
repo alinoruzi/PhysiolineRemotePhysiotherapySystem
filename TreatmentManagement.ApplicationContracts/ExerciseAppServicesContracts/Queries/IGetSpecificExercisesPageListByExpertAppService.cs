@@ -4,7 +4,7 @@ namespace TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.
 {
 	public interface IGetSpecificExercisesPageListByExpertAppService
 	{
-		Task<List<GetExerciseListItemByExpertDto>> Run(int pageNumber, 
+		Task<List<GetExerciseListItemByExpertDto>> Run(int pageNumber,
 			int pageSize, long userId, CancellationToken cancellationToken);
 	}
 }

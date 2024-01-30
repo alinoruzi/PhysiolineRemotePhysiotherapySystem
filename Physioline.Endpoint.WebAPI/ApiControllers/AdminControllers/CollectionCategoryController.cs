@@ -9,18 +9,18 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.AdminControllers
 	[ApiController]
 	public class CollectionCategoryController : ControllerBase
 	{
-		private readonly IGetCollectionCategoriesPageListByAdminAppService _getPage;
-		private readonly IGetCollectionCategoryAppService _get;
-		private readonly ISearchCollectionCategoryAppService _search;
 		private readonly IAddCollectionCategoryByAdminAppService _add;
-		private readonly IEditCollectionCategoryByAdminAppService _edit;
 		private readonly IDeleteCollectionCategoryByAdminAppService _delete;
-		
+		private readonly IEditCollectionCategoryByAdminAppService _edit;
+		private readonly IGetCollectionCategoryAppService _get;
+		private readonly IGetCollectionCategoriesPageListByAdminAppService _getPage;
+		private readonly ISearchCollectionCategoryAppService _search;
+
 		public CollectionCategoryController(
 			IGetCollectionCategoriesPageListByAdminAppService getPage,
 			IGetCollectionCategoryAppService get,
 			ISearchCollectionCategoryAppService search,
-			IAddCollectionCategoryByAdminAppService add, 
+			IAddCollectionCategoryByAdminAppService add,
 			IEditCollectionCategoryByAdminAppService edit,
 			IDeleteCollectionCategoryByAdminAppService delete)
 		{
@@ -35,7 +35,7 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.AdminControllers
 		[HttpGet]
 		public async Task<ActionResult<List<GetCollectionCategoryListItemDto>>> GetAll(CancellationToken cancellationToken,
 			[FromQuery] int pageNumber = 1,
-			[FromQuery] int pageSize = 10 )
+			[FromQuery] int pageSize = 10)
 			=> await _getPage.Run(pageNumber, pageSize, cancellationToken);
 
 		[HttpGet("{id}")]
@@ -44,34 +44,33 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.AdminControllers
 			var result = await _get.Run(id, cancellationToken);
 			return !result ? StatusCode(result, result.Message) : Ok(result.Value);
 		}
-		
+
 		[HttpGet("Search")]
 		public async Task<ActionResult<List<CollectionCategorySearchResultDto>>> Search
-		([FromQuery] CollectionCategorySearchInputDto dto, 
+		([FromQuery] CollectionCategorySearchInputDto dto,
 			CancellationToken cancellationToken)
-			=> await _search.Run(dto,cancellationToken);
-		
+			=> await _search.Run(dto, cancellationToken);
+
 		[HttpPost]
-		public async Task<ActionResult> Add(AddCollectionCategoryDto dto,CancellationToken cancellationToken)
+		public async Task<ActionResult> Add(AddCollectionCategoryDto dto, CancellationToken cancellationToken)
 		{
 			long userId = 1;
-			var result = await _add.Run(dto,userId, cancellationToken); 
-			return StatusCode(result,result.Message);
+			var result = await _add.Run(dto, userId, cancellationToken);
+			return StatusCode(result, result.Message);
 		}
-		
+
 		[HttpPut]
 		public async Task<ActionResult> Edit(EditCollectionCategoryDto dto, CancellationToken cancellationToken)
 		{
 			var result = await _edit.Run(dto, cancellationToken);
 			return StatusCode(result, result.Message);
 		}
-		
+
 		[HttpDelete("{id}")]
 		public async Task<ActionResult> Delete(long id, CancellationToken cancellationToken)
 		{
 			var result = await _delete.Run(id, cancellationToken);
 			return StatusCode(result, result.Message);
 		}
-		
 	}
 }

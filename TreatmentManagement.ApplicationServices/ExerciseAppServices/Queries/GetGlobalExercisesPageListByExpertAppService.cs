@@ -12,12 +12,12 @@ namespace TreatmentManagement.ApplicationServices.ExerciseAppServices.Queries
 		{
 			_unitOfWork = unitOfWork;
 		}
-		
+
 		public async Task<List<GetExerciseListItemByExpertDto>> Run(int pageNumber, int pageSize,
 			CancellationToken cancellationToken)
 		{
 			var exercises = await _unitOfWork.ExerciseRepository
-				.GetPageAsync(e=>e.IsGlobal,pageNumber, pageSize, cancellationToken);
+				.GetPageAsync(e => e.IsGlobal, pageNumber, pageSize, cancellationToken);
 			return exercises.Select(ExerciseMapper.MapToListItemByExpert).ToList();
 		}
 	}

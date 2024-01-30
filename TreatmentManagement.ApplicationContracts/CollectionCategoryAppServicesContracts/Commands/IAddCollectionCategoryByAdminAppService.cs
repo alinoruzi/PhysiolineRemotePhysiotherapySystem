@@ -6,7 +6,7 @@ namespace TreatmentManagement.ApplicationContracts.CollectionCategoryAppServices
 	public interface IAddCollectionCategoryByAdminAppService
 	{
 		Task<OperationResult> Run(AddCollectionCategoryDto dto,
-			long userId,CancellationToken cancellationToken);
+			long userId, CancellationToken cancellationToken);
 	}
 
 }

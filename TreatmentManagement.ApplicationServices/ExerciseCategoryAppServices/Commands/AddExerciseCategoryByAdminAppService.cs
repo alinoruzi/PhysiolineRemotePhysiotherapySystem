@@ -15,7 +15,7 @@ namespace TreatmentManagement.ApplicationServices.ExerciseCategoryAppServices.Co
 		{
 			_unitOfWork = unitOfWork;
 		}
-		
+
 		public async Task<OperationResult> Run(AddExerciseCategoryDto dto, long userId, CancellationToken cancellationToken)
 		{
 			ResultMessage message;

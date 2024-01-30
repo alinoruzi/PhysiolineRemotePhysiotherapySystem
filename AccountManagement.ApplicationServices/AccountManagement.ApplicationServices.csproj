@@ -7,12 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\AccountManagement.ApplicationContracts\AccountManagement.ApplicationContracts.csproj" />
-      <ProjectReference Include="..\AccountManagement.Domain\AccountManagement.Domain.csproj" />
+        <ProjectReference Include="..\AccountManagement.ApplicationContracts\AccountManagement.ApplicationContracts.csproj"/>
+        <ProjectReference Include="..\AccountManagement.Domain\AccountManagement.Domain.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="ClientAppServices\Commands\" />
+        <Folder Include="ClientAppServices\Commands\"/>
     </ItemGroup>
 
 </Project>

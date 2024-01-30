@@ -1,7 +1,5 @@
 using Physioline.Framework.Application.ResultModels;
 using System.Net;
-using TreatmentManagement.ApplicationContracts.CollectionAppServicesContracts.Commands;
-using TreatmentManagement.ApplicationContracts.CollectionAppServicesContracts.DTOs;
 using TreatmentManagement.ApplicationContracts.CollectionDetailAppServiceCaontracts.Commands;
 using TreatmentManagement.ApplicationContracts.CollectionDetailAppServiceCaontracts.DTOs;
 using TreatmentManagement.ApplicationServices.Mappers;
@@ -25,7 +23,7 @@ namespace TreatmentManagement.ApplicationServices.CollectionDetailAppServices.Co
 				    .IsExistAsync(c => c.Id == dto.CollectionId, cancellationToken))
 			{
 				message = ResultMessage.EntityNotFound(nameof(Collection), dto.CollectionId);
-				return OperationResult.Failed(message,HttpStatusCode.NotFound);
+				return OperationResult.Failed(message, HttpStatusCode.NotFound);
 			}
 
 			//Check Permission to selected Collection :
@@ -33,38 +31,47 @@ namespace TreatmentManagement.ApplicationServices.CollectionDetailAppServices.Co
 			if (collection.CreatorUserId != userId)
 			{
 				message = ResultMessage.DontHavePermission();
-				return OperationResult.Failed(message,HttpStatusCode.Unauthorized);
+				return OperationResult.Failed(message, HttpStatusCode.Unauthorized);
 			}
-			
-			
+
+
 			if (!await _unitOfWork.ExerciseRepository
 				    .IsExistAsync(c => c.Id == dto.ExerciseId, cancellationToken))
 			{
 				message = ResultMessage.EntityNotFound(nameof(Exercise), dto.ExerciseId);
-				return OperationResult.Failed(message,HttpStatusCode.NotFound);
+				return OperationResult.Failed(message, HttpStatusCode.NotFound);
 			}
-			
+
 			//Check Permission to selected Exercise:
 			var exercise = await _unitOfWork.ExerciseRepository.GetAsync(dto.ExerciseId, cancellationToken);
 			if (!(exercise.IsGlobal || exercise.CreatorUserId == userId))
 			{
 				message = ResultMessage.DontHavePermission();
-				return OperationResult.Failed(message,HttpStatusCode.Unauthorized);
+				return OperationResult.Failed(message, HttpStatusCode.Unauthorized);
 			}
 
-			var lastPriority = (await _unitOfWork
-					.CollectionDetailRepository.GetAllAsync(cd
-						=> cd.CollectionId == dto.CollectionId, cancellationToken))
-				.Max(x => x.Priority);
+			if (await _unitOfWork.CollectionDetailRepository.IsExistAsync(cd 
+				    => cd.CollectionId == dto.CollectionId && cd.ExerciseId == dto.ExerciseId, cancellationToken))
+			{
+				message = ResultMessage.CustomMessage($"Your Exercise with Id {dto.ExerciseId} already exist with Collection Id : {dto.CollectionId}");
+				return OperationResult.Failed(message, HttpStatusCode.BadRequest);
+			}
 
-			var collectionDetail = CollectionDetailMapper.Map(dto, userId);
+			uint priority = 0;
+				
+			if ((await _unitOfWork.CollectionDetailRepository.GetAllAsync(cd => cd.CollectionId == dto.CollectionId, cancellationToken)).Any())
+			{
+				priority = (await _unitOfWork.CollectionDetailRepository.GetAllAsync(cd=>cd.CollectionId == dto.CollectionId,cancellationToken))
+					.Max(pd => pd.Priority);
+			}
 
-			collectionDetail.Priority = lastPriority + 1;
+			var collectionDetail = CollectionDetailMapper.Map(dto, priority+1, userId);
+			
 
 			await _unitOfWork.CollectionDetailRepository.CreateAsync(collectionDetail, cancellationToken);
 			await _unitOfWork.CommitAsync(cancellationToken);
-			
-			message = ResultMessage.SuccessfullyAdded(nameof(collectionDetail),collectionDetail.Id);
+
+			message = ResultMessage.SuccessfullyAdded(nameof(collectionDetail), collectionDetail.Id);
 			return OperationResult.Success(message);
 		}
 	}

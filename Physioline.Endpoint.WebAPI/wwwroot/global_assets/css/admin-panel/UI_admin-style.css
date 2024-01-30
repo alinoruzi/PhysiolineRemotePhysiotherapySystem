@@ -1,0 +1,52 @@
+#my-sidebar{
+
+}
+
+#my-sidebar ul li a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-right: 0;
+    font-size: 1em;
+    display: block;
+    color: #57267b;
+}
+
+#my-sidebar ul li a:hover {
+    color: #57267b;
+    background: #fff;
+}
+
+a{
+    text-decoration: none;
+}
+
+
+.my-blur-white-background{
+    background: rgba(255,255,255,0.80);
+    backdrop-filter: blur(8px);
+}
+
+.my-page-element{
+    margin-top: 75px;
+    padding-bottom: 50px;
+}
+
+.my-thumb-square{
+    width: 250px;
+    height: 250px;
+}
+
+.my-thumb-square-small{
+    width: 150px;
+    height: 150px;
+}
+
+.my-thumb-rectangle{
+    width: 200px;
+    height: 200px;
+}
+
+#navbar{
+    background: rgba(255,255,255,0.80);
+    backdrop-filter: blur(8px);
+}  

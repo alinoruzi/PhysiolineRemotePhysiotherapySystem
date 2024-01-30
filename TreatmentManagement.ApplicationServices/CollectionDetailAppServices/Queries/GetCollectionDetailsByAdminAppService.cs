@@ -1,9 +1,6 @@
-using Physioline.Framework.Application.ResultModels;
-using System.Net;
 using TreatmentManagement.ApplicationContracts.CollectionDetailAppServiceCaontracts.DTOs;
 using TreatmentManagement.ApplicationContracts.CollectionDetailAppServiceCaontracts.Queries;
 using TreatmentManagement.ApplicationServices.Mappers;
-using TreatmentManagement.Domain.Entities;
 using TreatmentManagement.Domain.Repositories;
 
 namespace TreatmentManagement.ApplicationServices.CollectionDetailAppServices.Queries
@@ -19,9 +16,9 @@ namespace TreatmentManagement.ApplicationServices.CollectionDetailAppServices.Qu
 		public async Task<List<GetCollectionDetailItemDto>> Run(long collectionId, CancellationToken cancellationToken)
 		{
 			return (await _unitOfWork.CollectionDetailRepository
-					.GetAllAsync(cd => cd.CollectionId == collectionId,cancellationToken))
+					.GetAllAsync(cd => cd.CollectionId == collectionId, cancellationToken))
 				.Select(CollectionDetailMapper.Map)
-				.OrderBy(x=>x.Priority).ToList();
+				.OrderBy(x => x.Priority).ToList();
 		}
 	}
 }

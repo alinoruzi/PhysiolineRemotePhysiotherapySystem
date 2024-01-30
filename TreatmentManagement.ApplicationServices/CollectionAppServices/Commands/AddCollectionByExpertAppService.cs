@@ -17,14 +17,14 @@ namespace TreatmentManagement.ApplicationServices.CollectionAppServices.Commands
 		}
 
 		public async Task<OperationResult> Run(AddCollectionDto dto, long userId, CancellationToken cancellationToken)
-		{ 
+		{
 			ResultMessage message;
-			
+
 			if (!await _unitOfWork.CollectionCategoryRepository
 				    .IsExistAsync(cc => cc.Id == dto.CategoryId, cancellationToken))
 			{
 				message = ResultMessage.EntityNotFound(nameof(CollectionCategory), dto.CategoryId);
-				return OperationResult.Failed(message,HttpStatusCode.NotFound);
+				return OperationResult.Failed(message, HttpStatusCode.NotFound);
 			}
 
 			var collection = CollectionMapper.Map(dto, userId);

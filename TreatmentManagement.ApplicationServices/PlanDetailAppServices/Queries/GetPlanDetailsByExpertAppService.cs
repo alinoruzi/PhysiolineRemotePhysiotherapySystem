@@ -1,8 +1,6 @@
-using Physioline.Framework.Application.ResultModels;
 using TreatmentManagement.ApplicationContracts.PlanDetailAppServicesContracts.DTOs;
 using TreatmentManagement.ApplicationContracts.PlanDetailAppServicesContracts.Queries;
 using TreatmentManagement.ApplicationServices.Mappers;
-using TreatmentManagement.Domain.Entities;
 using TreatmentManagement.Domain.Repositories;
 
 namespace TreatmentManagement.ApplicationServices.PlanDetailAppServices.Queries
@@ -14,7 +12,7 @@ namespace TreatmentManagement.ApplicationServices.PlanDetailAppServices.Queries
 		{
 			_unitOfWork = unitOfWork;
 		}
-		
+
 		public async Task<List<GetPlanDetailDto>> Run(long planId, long userId, CancellationToken cancellationToken)
 		{
 			return (await _unitOfWork.PlanDetailRepository.GetAllAsync(p

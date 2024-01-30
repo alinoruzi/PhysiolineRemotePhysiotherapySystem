@@ -1,4 +1,3 @@
-using Physioline.Framework.Application.CustomValidations;
 using Physioline.Framework.Application.ResultModels;
 using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.DTOs;
 

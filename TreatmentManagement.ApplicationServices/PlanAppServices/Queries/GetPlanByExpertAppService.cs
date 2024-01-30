@@ -16,29 +16,27 @@ namespace TreatmentManagement.ApplicationServices.PlanAppServices.Queries
 			_unitOfWork = unitOfWork;
 		}
 
-		public async Task<ValueResult<GetPlanByExpertDto>> Run(long id, 
+		public async Task<ValueResult<GetPlanByExpertDto>> Run(long id,
 			long userId, CancellationToken cancellationToken)
 		{
 			ResultMessage message;
 			if (!await _unitOfWork.PlanRepository
-				    .IsExistAsync(p 
+				    .IsExistAsync(p
 					    => p.Id == id, cancellationToken))
-			{
-				message = ResultMessage.EntityNotFound(nameof(Plan),id);
-			}
+				message = ResultMessage.EntityNotFound(nameof(Plan), id);
 
 			var plan = await _unitOfWork.PlanRepository.GetAsync(id, cancellationToken);
 
 			if (plan.CreatorUserId != userId)
 			{
 				message = ResultMessage.DontHavePermission();
-				return ValueResult<GetPlanByExpertDto>.Failed(message,HttpStatusCode.Unauthorized);
+				return ValueResult<GetPlanByExpertDto>.Failed(message, HttpStatusCode.Unauthorized);
 			}
 
 			message = ResultMessage.SuccessfullyGetData();
 			return ValueResult<GetPlanByExpertDto>.Success(PlanMapper.MapToExpertDto(plan), message);
-			
-			
+
+
 		}
 	}
 }

@@ -7,7 +7,7 @@ using TreatmentManagement.Domain.Repositories;
 
 namespace TreatmentManagement.ApplicationServices.PlanAppServices.Commands
 {
-	public class AddPlanByExpertAppService :IAddPlanByExpertAppService
+	public class AddPlanByExpertAppService : IAddPlanByExpertAppService
 	{
 		private readonly IUnitOfWork _unitOfWork;
 		public AddPlanByExpertAppService(IUnitOfWork unitOfWork)
@@ -20,8 +20,8 @@ namespace TreatmentManagement.ApplicationServices.PlanAppServices.Commands
 			var plan = PlanMapper.Map(dto, userId);
 			await _unitOfWork.PlanRepository.CreateAsync(plan, cancellationToken);
 			await _unitOfWork.CommitAsync(cancellationToken);
-			
-			ResultMessage message = ResultMessage.SuccessfullyAdded(nameof(Plan),plan.Id);
+
+			var message = ResultMessage.SuccessfullyAdded(nameof(Plan), plan.Id);
 			return OperationResult.Success(message);
 		}
 	}

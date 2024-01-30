@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.InteropServices;
 
 namespace Physioline.Framework.Application.CustomValidations
 {
@@ -14,9 +13,9 @@ namespace Physioline.Framework.Application.CustomValidations
 		{
 			if (value == null)
 				return false;
-			if (!long.TryParse(value.ToString(), out long id))
+			if (!long.TryParse(value.ToString(), out var id))
 				return false;
-			
+
 			return id > 0;
 		}
 	}

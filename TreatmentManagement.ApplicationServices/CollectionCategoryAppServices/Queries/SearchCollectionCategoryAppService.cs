@@ -1,4 +1,3 @@
-using Physioline.Framework.Application.ResultModels;
 using TreatmentManagement.ApplicationContracts.CollectionCategoryAppServicesContracts.DTOs;
 using TreatmentManagement.ApplicationContracts.CollectionCategoryAppServicesContracts.Queries;
 using TreatmentManagement.ApplicationServices.Mappers;
@@ -6,7 +5,7 @@ using TreatmentManagement.Domain.Repositories;
 
 namespace TreatmentManagement.ApplicationServices.CollectionCategoryAppServices.Queries
 {
-	public class SearchCollectionCategoryAppService: ISearchCollectionCategoryAppService
+	public class SearchCollectionCategoryAppService : ISearchCollectionCategoryAppService
 	{
 		private readonly IUnitOfWork _unitOfWork;
 		public SearchCollectionCategoryAppService(IUnitOfWork unitOfWork)

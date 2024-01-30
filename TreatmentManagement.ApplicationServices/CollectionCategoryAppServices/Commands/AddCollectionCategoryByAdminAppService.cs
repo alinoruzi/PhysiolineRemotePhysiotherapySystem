@@ -15,7 +15,7 @@ namespace TreatmentManagement.ApplicationServices.CollectionCategoryAppServices.
 		{
 			_unitOfWork = unitOfWork;
 		}
-		
+
 		public async Task<OperationResult> Run(AddCollectionCategoryDto dto, long userId, CancellationToken cancellationToken)
 		{
 			ResultMessage message;

@@ -20,15 +20,15 @@ namespace AccountManagement.ApplicationServices.UserAppServices.Commands
 			UserRole role, long userId, CancellationToken cancellationToken)
 		{
 			ResultMessage message;
-			if (! await _unitOfWork.UserRepository
+			if (!await _unitOfWork.UserRepository
 				    .IsExistAsync(u
 					    => u.Email == dto.Email || u.Mobile == dto.Mobile, cancellationToken))
 			{
-				message = ResultMessage.AnUniquePropertyAlreadyExist(nameof(User),nameof(User.Email) + " or " + nameof(User.Mobile));
+				message = ResultMessage.AnUniquePropertyAlreadyExist(nameof(User), nameof(User.Email) + " or " + nameof(User.Mobile));
 				return OperationResult.Failed(message, HttpStatusCode.BadRequest);
 			}
 
-			var user = UserMapper.Map(dto, role ,userId);
+			var user = UserMapper.Map(dto, role, userId);
 
 			await _unitOfWork.UserRepository.CreateAsync(user, cancellationToken);
 

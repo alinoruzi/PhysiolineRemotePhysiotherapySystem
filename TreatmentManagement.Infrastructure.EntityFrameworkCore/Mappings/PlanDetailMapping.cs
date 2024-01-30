@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Physioline.Framework.Domain;
 using TreatmentManagement.Domain.Entities;
-using TreatmentManagement.Domain.ValueObjects;
 
 namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Mappings
 {

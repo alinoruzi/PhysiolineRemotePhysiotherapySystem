@@ -15,7 +15,7 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Mappings
 			builder.Property(cd => cd.NumberPerDuration).IsRequired();
 			builder.Property(cd => cd.SecondsOfDuration).IsRequired();
 			builder.Property(cd => cd.Priority).IsRequired();
-			
+
 			builder.HasOne(cd => cd.Collection)
 				.WithMany(c => c.Details)
 				.HasForeignKey(cd => cd.CollectionId)

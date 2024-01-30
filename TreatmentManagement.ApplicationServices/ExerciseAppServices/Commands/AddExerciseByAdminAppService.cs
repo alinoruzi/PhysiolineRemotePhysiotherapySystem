@@ -15,19 +15,19 @@ namespace TreatmentManagement.ApplicationServices.ExerciseAppServices.Commands
 		{
 			_unitOfWork = unitOfWork;
 		}
-		
+
 		public async Task<OperationResult> Run(AddExerciseDto dto, long userId, CancellationToken cancellationToken)
 		{
 			ResultMessage message;
-			
+
 			if (!await _unitOfWork.ExerciseCategoryRepository
 				    .IsExistAsync(ec => ec.Id == dto.CategoryId, cancellationToken))
 			{
 				message = ResultMessage.EntityNotFound(nameof(ExerciseCategory), dto.CategoryId);
 				return OperationResult.Failed(message, HttpStatusCode.NotFound);
 			}
-			
-			Exercise exercise = ExerciseMapper.Map(dto, userId);
+
+			var exercise = ExerciseMapper.Map(dto, userId);
 			exercise.IsGlobal = true;
 			await _unitOfWork.ExerciseRepository.CreateAsync(exercise, cancellationToken);
 			await _unitOfWork.CommitAsync(cancellationToken);

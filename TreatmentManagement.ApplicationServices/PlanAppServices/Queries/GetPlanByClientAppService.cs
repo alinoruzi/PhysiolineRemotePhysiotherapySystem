@@ -21,7 +21,7 @@ namespace TreatmentManagement.ApplicationServices.PlanAppServices.Queries
 			ResultMessage message;
 			if (!await _unitOfWork.PlanRepository.IsExistAsync(p => p.Id == id, cancellationToken))
 			{
-				message = ResultMessage.EntityNotFound(nameof(Plan),id);
+				message = ResultMessage.EntityNotFound(nameof(Plan), id);
 				return ValueResult<GetPlanByClientDto>.Failed(message, HttpStatusCode.NotFound);
 			}
 

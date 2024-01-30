@@ -6,7 +6,7 @@ namespace TreatmentManagement.ApplicationContracts.ExerciseCategoryAppServicesCo
 	public interface IAddExerciseCategoryByAdminAppService
 	{
 		Task<OperationResult> Run(AddExerciseCategoryDto dto,
-			long userId,CancellationToken cancellationToken);
+			long userId, CancellationToken cancellationToken);
 	}
 
 }

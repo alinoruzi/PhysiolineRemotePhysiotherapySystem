@@ -1,0 +1,85 @@
+@model Physioline.Endpoint.WebAPI.Areas.Admin.Models.ExerciseModels.ExerciseGetPageListViewModel
+
+@{
+    ViewData["Title"] = "فهرست تمرینات";
+}
+
+<div class="row justify-content-center mt-5" >
+    <div class="col-11">
+        <div class="d-flex justify-content-between">
+            <div>
+                <h2 class="h2">فهرست تمرینات</h2>
+            </div>
+            <div>
+                <a asp-controller="" asp-action="">
+                    <button class="btn btn-outline-primary">
+                        ایجاد تمرین جدید
+                    </button>
+                </a>
+            </div>
+        </div>
+        <hr/>
+            <div class="d-flex justify-content-between">
+                <div class="">
+                    <form asp-controller="Exercise" asp-action="PageList" method="get" id="pageForm">
+                        <select class="form-select" name="pageSize" id="pageSize" onchange='if(this.value != 0) { this.form.submit(); }'>
+                            <option value="0">تعداد در صفحه</option>
+                            <option value="1">1</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </form>
+                </div>
+                <div class="d-flex">
+                    <button class="btn btn-sm btn-outline-info"> قبلی</button>
+                    <span class="text-primary mx-2 pt-2">صفحه:  @Model.PageNumber </span>
+                    <button class="btn btn-sm btn-outline-info"> بعدی</button>
+                </div>
+            </div>
+        <table class="table table-striped table-hover mt-3">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>عنوان</th>
+                <th>توضیحات</th>
+                <th>وضعیت</th>
+                <th>تاریخ ایجاد</th>
+                <th>شناسه ایجاد کننده</th>
+                <th>عملیات</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach(var item in Model.Exercises)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Title</td>
+                    <td>@item.ShortDescription</td>
+                    <td>
+                        @(item.IsGlobal ? "عمومی" : "اختصاصی کاربر")
+                    </td>
+                    <td>@item.CreatedAt</td>
+                    <td>@item.CreatorUserId</td>
+                    <td>
+                        <div class="d-flex justify-content-center gap-1">
+                            <div>
+                                <a asp-controller="" asp-action="" asp-route-bookId="@item.Id">
+                                    <button class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+                                </a>
+                            </div>
+                            <div>
+                                <a asp-controller="" asp-action="" asp-route-bookId="@item.Id">
+                                    <button class="btn btn-warning btn-sm"><i class="fa-solid fa-pencil"></i></button>
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+

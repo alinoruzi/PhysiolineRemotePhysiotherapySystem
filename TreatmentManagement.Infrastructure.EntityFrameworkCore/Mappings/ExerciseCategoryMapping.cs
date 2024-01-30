@@ -16,7 +16,7 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Mappings
 
 			builder.HasMany(ec => ec.Exercises)
 				.WithOne(e => e.Category);
-			
+
 		}
 	}
 }

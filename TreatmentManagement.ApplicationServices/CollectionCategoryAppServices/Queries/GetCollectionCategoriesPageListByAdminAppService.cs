@@ -12,10 +12,10 @@ namespace TreatmentManagement.ApplicationServices.CollectionCategoryAppServices.
 		{
 			_unitOfWork = unitOfWork;
 		}
-		
+
 		public async Task<List<GetCollectionCategoryListItemDto>> Run(int pageNumber, int pageSize, CancellationToken cancellationToken)
-		=> (await _unitOfWork.CollectionCategoryRepository
-				.GetPageAsync(pageNumber, pageSize, cancellationToken))
-			.Select(CollectionCategoryMapper.MapToListItem).ToList();
+			=> (await _unitOfWork.CollectionCategoryRepository
+					.GetPageAsync(pageNumber, pageSize, cancellationToken))
+				.Select(CollectionCategoryMapper.MapToListItem).ToList();
 	}
 }

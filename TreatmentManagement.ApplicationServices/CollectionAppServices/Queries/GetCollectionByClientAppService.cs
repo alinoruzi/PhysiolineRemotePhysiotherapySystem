@@ -15,12 +15,12 @@ namespace TreatmentManagement.ApplicationServices.CollectionAppServices.Queries
 		{
 			_unitOfWork = unitOfWork;
 		}
-		
+
 		public async Task<ValueResult<GetCollectionByClientDto>> Run(long id, CancellationToken cancellationToken)
 		{
 			ResultMessage message;
 			if (!await _unitOfWork.CollectionRepository
-				    .IsExistAsync(c => c.Id == id,cancellationToken))
+				    .IsExistAsync(c => c.Id == id, cancellationToken))
 			{
 				message = ResultMessage.EntityNotFound(nameof(Collection), id);
 				return ValueResult<GetCollectionByClientDto>.Failed(message, HttpStatusCode.NotFound);

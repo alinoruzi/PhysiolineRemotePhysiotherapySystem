@@ -17,32 +17,28 @@ namespace TreatmentManagement.ApplicationServices.CollectionAppServices.Commands
 		public async Task<OperationResult> Run(long id, CancellationToken cancellationToken)
 		{
 			ResultMessage message;
-			
+
 			if (!await _unitOfWork.CollectionRepository
 				    .IsExistAsync(c
 					    => c.Id == id, cancellationToken))
 			{
 				message = ResultMessage.EntityNotFound(nameof(Collection), id);
-				return OperationResult.Failed(message,HttpStatusCode.NotFound);
+				return OperationResult.Failed(message, HttpStatusCode.NotFound);
 
 			}
 
 			var collection = await _unitOfWork.CollectionRepository.GetAsync(id, cancellationToken);
-			
+
 			foreach (var collectionDetail in collection.Details)
-			{
 				collectionDetail.IsDeleted = true;
-			}
-			
+
 			foreach (var planDetail in collection.Plans)
-			{
 				planDetail.IsDeleted = true;
-			}
 
 			collection.IsDeleted = true;
 
 			await _unitOfWork.CommitAsync(cancellationToken);
-			
+
 			message = ResultMessage.SuccessfullyDeleted(nameof(collection), collection.Id);
 			return OperationResult.Success(message);
 		}

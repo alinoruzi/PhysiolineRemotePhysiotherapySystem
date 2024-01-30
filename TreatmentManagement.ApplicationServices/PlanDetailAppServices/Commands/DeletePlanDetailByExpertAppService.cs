@@ -20,8 +20,8 @@ namespace TreatmentManagement.ApplicationServices.PlanDetailAppServices.Commands
 			if (!await _unitOfWork.PlanDetailRepository
 				    .IsExistAsync(p => p.Id == id, cancellationToken))
 			{
-				message = ResultMessage.EntityNotFound(nameof(PlanDetail),id);
-				return OperationResult.Failed(message,HttpStatusCode.NotFound);
+				message = ResultMessage.EntityNotFound(nameof(PlanDetail), id);
+				return OperationResult.Failed(message, HttpStatusCode.NotFound);
 			}
 
 			var planDetail = await _unitOfWork.PlanDetailRepository.GetAsync(id, cancellationToken);
@@ -29,13 +29,13 @@ namespace TreatmentManagement.ApplicationServices.PlanDetailAppServices.Commands
 			if (planDetail.CreatorUserId != userId)
 			{
 				message = ResultMessage.DontHavePermission();
-				return OperationResult.Failed(message,HttpStatusCode.Unauthorized);
+				return OperationResult.Failed(message, HttpStatusCode.Unauthorized);
 			}
 
 			planDetail.IsDeleted = true;
 
 			await _unitOfWork.CommitAsync(cancellationToken);
-			
+
 			message = ResultMessage.SuccessfullyEdited(nameof(PlanDetail), planDetail.Id);
 			return OperationResult.Success(message);
 		}

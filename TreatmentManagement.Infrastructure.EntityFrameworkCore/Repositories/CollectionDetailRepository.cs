@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using Physioline.Framework.Infrastructure;
 using TreatmentManagement.Domain.Entities;
 using TreatmentManagement.Domain.Repositories;
