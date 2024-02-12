@@ -1,6 +1,7 @@
 using Physioline.Framework.Application.CustomValidations;
 using System.ComponentModel.DataAnnotations;
 using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.DTOs;
+using Physioline.Endpoint.WebAPI.CustomUtilities.Validations;
 
 namespace Physioline.Endpoint.WebAPI.Areas.Admin.Models.ExerciseModels
 {
@@ -19,9 +20,9 @@ namespace Physioline.Endpoint.WebAPI.Areas.Admin.Models.ExerciseModels
 		[MaxLength(2500)] public string LongDescription { get; set; }
 
 		[Required]
-		[MinLength(5)]
-		[MaxLength(1000)]
-		public string PicturePath { get; set; }
+		[FileExtensions(Extensions = "png,jpg,gif")]
+		[MaxFileSize(5 * 1024 * 1024)]
+		public IFormFile Picture { get; set; }
 
 		[Required] [RequiredId] public long CategoryId { get; set; }
 

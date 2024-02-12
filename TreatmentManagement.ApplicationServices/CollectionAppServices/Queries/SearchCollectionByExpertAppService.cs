@@ -15,9 +15,17 @@ namespace TreatmentManagement.ApplicationServices.CollectionAppServices.Queries
 
 		public async Task<List<SearchCollectionOutputDto>> Run(SearchCollectionInputDto dto,
 			long userId, CancellationToken cancellationToken)
-			=> (await _unitOfWork.CollectionRepository
+		{
+			if (dto.Title == null)
+				return (await _unitOfWork.CollectionRepository
+						.GetAllAsync(c
+							=> c.IsGlobal || c.CreatorUserId == userId, cancellationToken))
+					.Select(CollectionMapper.MapToSearchResult).ToList();
+			
+			return (await _unitOfWork.CollectionRepository
 					.GetAllAsync(c
 						=> c.Title.Contains(dto.Title) && (c.IsGlobal || c.CreatorUserId == userId), cancellationToken))
 				.Select(CollectionMapper.MapToSearchResult).ToList();
+		}
 	}
 }

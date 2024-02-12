@@ -12,6 +12,7 @@ namespace TreatmentManagement.Domain.Entities
 			Collections = new List<CollectionDetail>();
 			IsGlobal = false;
 		}
+		
 		public required string Title { get; set; }
 		public required string ShortDescription { get; set; }
 		public string LongDescription { get; set; }

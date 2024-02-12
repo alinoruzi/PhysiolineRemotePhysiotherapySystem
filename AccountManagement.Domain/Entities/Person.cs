@@ -11,6 +11,7 @@ namespace AccountManagement.Domain.Entities
 
 		public User User { get; set; }
 		public long? UserId { get; set; }
+		
 	}
 
 }

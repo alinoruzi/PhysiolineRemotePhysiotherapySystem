@@ -11,7 +11,7 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore
 		{
 
 		}
-
+		
 		public DbSet<Exercise> Exercises { get; set; }
 		public DbSet<ExerciseCategory> ExerciseCategories { get; set; }
 

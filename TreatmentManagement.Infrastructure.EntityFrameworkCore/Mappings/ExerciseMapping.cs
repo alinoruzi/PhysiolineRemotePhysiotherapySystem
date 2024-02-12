@@ -7,7 +7,6 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Mappings
 {
 	public class ExerciseMapping : IEntityTypeConfiguration<Exercise>
 	{
-
 		public void Configure(EntityTypeBuilder<Exercise> builder)
 		{
 			builder.HasBaseType<BaseEntity>();

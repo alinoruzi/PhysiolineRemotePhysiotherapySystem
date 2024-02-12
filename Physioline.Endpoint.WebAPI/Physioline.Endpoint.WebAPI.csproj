@@ -8,6 +8,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.1"/>
+        <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="6.0.0-preview.4.21253.5" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.1"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
             <PrivateAssets>all</PrivateAssets>
@@ -29,8 +30,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="wwwroot\images\exercise-images\"/>
-        <Folder Include="wwwroot\images\expert-profile-images\"/>
+        <Folder Include="wwwroot\ExercisePictures\" />
+        <Folder Include="wwwroot\ProfilePictures\" />
     </ItemGroup>
 
 </Project>

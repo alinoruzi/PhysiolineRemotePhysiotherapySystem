@@ -13,13 +13,19 @@ namespace TreatmentManagement.ApplicationServices.ExerciseAppServices.Queries
 			_unitOfWork = unitOfWork;
 		}
 
-		public async Task<List<SearchResultExerciseDto>> Run(SearchInputExerciseDto dto, long userId, CancellationToken cancellationToken)
+		public async Task<List<SearchResultExerciseDto>> Run(SearchInputExerciseDto dto, 
+			long userId, CancellationToken cancellationToken)
 		{
-			var exercises = await _unitOfWork.ExerciseRepository
+			if (dto.Title == null)
+				return (await _unitOfWork.ExerciseRepository
+				.GetAllAsync(e
+						=> e.IsGlobal || e.CreatorUserId == userId,
+					cancellationToken)).Select(ExerciseMapper.MapToSearchResult).ToList();
+			
+			return (await _unitOfWork.ExerciseRepository
 				.GetAllAsync(e
 						=> e.Title.Contains(dto.Title) && (e.IsGlobal || e.CreatorUserId == userId),
-					cancellationToken);
-			return exercises.Select(ExerciseMapper.MapToSearchResult).ToList();
+					cancellationToken)).Select(ExerciseMapper.MapToSearchResult).ToList();
 
 		}
 	}

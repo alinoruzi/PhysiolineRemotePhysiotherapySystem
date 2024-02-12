@@ -1,10 +1,13 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.Commands;
 using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.DTOs;
 using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.Queries;
 
 namespace Physioline.Endpoint.WebAPI.ApiControllers.AdminControllers
 {
+	[Authorize(Roles = "Admin")]
 	[Route("api/admin/[controller]/")]
 	[ApiController]
 	public class ExerciseController : ControllerBase
@@ -54,7 +57,7 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.AdminControllers
 		[HttpPost]
 		public async Task<ActionResult> Add(AddExerciseDto dto, CancellationToken cancellationToken)
 		{
-			long userId = 1;
+			var userId = long.Parse(HttpContext.User.Claims.First(c=>c.Type == "userId").Value);
 			var result = await _add.Run(dto, userId, cancellationToken);
 			return StatusCode(result, result.Message);
 		}

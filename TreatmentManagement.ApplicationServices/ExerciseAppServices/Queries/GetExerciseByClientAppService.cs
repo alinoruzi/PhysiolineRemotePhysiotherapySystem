@@ -26,7 +26,8 @@ namespace TreatmentManagement.ApplicationServices.ExerciseAppServices.Queries
 			}
 
 			var exercise = await _unitOfWork.ExerciseRepository.GetAsync(id, cancellationToken);
-			var dto = ExerciseMapper.MapToClientDto(exercise);
+			var exerciseCategory = await _unitOfWork.ExerciseCategoryRepository.GetAsync(exercise.CategoryId, cancellationToken);
+			var dto = ExerciseMapper.MapToClientDto(exercise,exerciseCategory.Title);
 
 			message = ResultMessage.SuccessfullyGetData();
 			return ValueResult<GetExerciseByClientDto>.Success(dto, message);

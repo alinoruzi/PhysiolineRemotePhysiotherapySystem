@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TreatmentManagement.ApplicationContracts.CollectionAppServicesContracts.DTOs;
 using TreatmentManagement.ApplicationContracts.CollectionAppServicesContracts.Queries;
 
 namespace Physioline.Endpoint.WebAPI.ApiControllers.ClientControllers
 {
+	[Authorize(Roles = "Client")]
 	[Route("api/client/[controller]")]
 	[ApiController]
 	public class CollectionController : ControllerBase
@@ -19,7 +21,7 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.ClientControllers
 			CancellationToken cancellationToken)
 		{
 			var result = await _get.Run(id, cancellationToken);
-			return result ? Ok(result.Value) : StatusCode(result, result.Message);
+			return !result ? StatusCode(result, result.Message) : Ok(result.Value);
 		}
 	}
 }

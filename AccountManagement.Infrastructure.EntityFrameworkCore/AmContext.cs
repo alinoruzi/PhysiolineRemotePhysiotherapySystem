@@ -12,6 +12,7 @@ namespace AccountManagement.Infrastructure.EntityFrameworkCore
 
 		}
 
+		public DbSet<User> Users { get; set; }
 		public DbSet<Person> People { get; set; }
 		public DbSet<Admin> Admins { get; set; }
 		public DbSet<Expert> Experts { get; set; }

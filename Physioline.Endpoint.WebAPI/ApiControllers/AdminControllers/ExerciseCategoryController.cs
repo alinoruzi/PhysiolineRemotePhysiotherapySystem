@@ -1,4 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
+using System.Runtime.InteropServices;
 using TreatmentManagement.ApplicationContracts.CollectionCategoryAppServicesContracts.DTOs;
 using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.Commands;
 using TreatmentManagement.ApplicationContracts.ExerciseCategoryAppServicesContracts.Commands;
@@ -7,6 +10,7 @@ using TreatmentManagement.ApplicationContracts.ExerciseCategoryAppServicesContra
 
 namespace Physioline.Endpoint.WebAPI.ApiControllers.AdminControllers
 {
+	[Authorize(Roles = "Admin")]
 	[Route("api/admin/exercise-category/")]
 	[ApiController]
 	public class ExerciseCategoryController : ControllerBase
@@ -56,7 +60,7 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.AdminControllers
 		public async Task<ActionResult> Add(AddExerciseCategoryDto dto,
 			CancellationToken cancellationToken)
 		{
-			long userId = 1;
+			var userId = long.Parse(HttpContext.User.Claims.First(c=>c.Type == "userId").Value);
 			var result = await _add.Run(dto, userId, cancellationToken);
 			return StatusCode(result, result.Message);
 		}

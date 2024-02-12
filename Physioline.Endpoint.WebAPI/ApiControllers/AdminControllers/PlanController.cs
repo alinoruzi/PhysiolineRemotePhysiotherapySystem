@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TreatmentManagement.ApplicationContracts.PlanAppServicesContracts.Commands;
 using TreatmentManagement.ApplicationContracts.PlanAppServicesContracts.DTOs;
@@ -5,6 +6,7 @@ using TreatmentManagement.ApplicationContracts.PlanAppServicesContracts.Queries;
 
 namespace Physioline.Endpoint.WebAPI.ApiControllers.AdminControllers
 {
+	[Authorize(Roles = "Admin")]
 	[Route("api/admin/[controller]")]
 	[ApiController]
 	public class PlanController : ControllerBase

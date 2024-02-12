@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.Commands;
 using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.DTOs;
@@ -5,6 +6,7 @@ using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.Quer
 
 namespace Physioline.Endpoint.WebAPI.ApiControllers.ExpertControllers
 {
+	[Authorize(Roles = "Expert")]
 	[Route("api/expert/[controller]/")]
 	[ApiController]
 	public class ExerciseController : ControllerBase
@@ -41,7 +43,7 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.ExpertControllers
 			[FromQuery] int pageNumber = 1,
 			[FromQuery] int pageSize = 10)
 		{
-			long userId = 2;
+			var userId = long.Parse(HttpContext.User.Claims.First(c=>c.Type == "userId").Value);
 
 			if (global)
 				return await _getGlobalPage.Run(pageNumber, pageSize, cancellationToken);
@@ -53,7 +55,7 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.ExpertControllers
 		public async Task<ActionResult<GetExerciseByExpertDto>> Get(long id,
 			CancellationToken cancellationToken)
 		{
-			long userId = 2;
+			var userId = long.Parse(HttpContext.User.Claims.First(c=>c.Type == "userId").Value);
 			var result = await _get.Run(id, userId, cancellationToken);
 			return !result ? StatusCode(result, result.Message) : Ok(result.Value);
 		}
@@ -63,14 +65,14 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.ExpertControllers
 			[FromQuery] SearchInputExerciseDto dto,
 			CancellationToken cancellationToken)
 		{
-			long userId = 2;
+			var userId = long.Parse(HttpContext.User.Claims.First(c=>c.Type == "userId").Value);
 			return await _search.Run(dto, userId, cancellationToken);
 		}
 
 		[HttpPost]
 		public async Task<ActionResult> Add(AddExerciseDto dto, CancellationToken cancellationToken)
 		{
-			long userId = 2;
+			var userId = long.Parse(HttpContext.User.Claims.First(c=>c.Type == "userId").Value);
 			var result = await _add.Run(dto, userId, cancellationToken);
 			return StatusCode(result, result.Message);
 		}
@@ -78,7 +80,7 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.ExpertControllers
 		[HttpPut]
 		public async Task<ActionResult> Edit(EditExerciseDto dto, CancellationToken cancellationToken)
 		{
-			long userId = 2;
+			var userId = long.Parse(HttpContext.User.Claims.First(c=>c.Type == "userId").Value);
 			var result = await _edit.Run(dto, userId, cancellationToken);
 			return StatusCode(result, result.Message);
 		}
@@ -86,7 +88,7 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.ExpertControllers
 		[HttpDelete("{id}")]
 		public async Task<ActionResult> Delete(long id, CancellationToken cancellationToken)
 		{
-			long userId = 2;
+			var userId = long.Parse(HttpContext.User.Claims.First(c=>c.Type == "userId").Value);
 			var result = await _delete.Run(id, userId, cancellationToken);
 			return StatusCode(result, result.Message);
 		}

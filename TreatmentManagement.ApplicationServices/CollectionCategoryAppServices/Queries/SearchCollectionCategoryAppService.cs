@@ -14,9 +14,15 @@ namespace TreatmentManagement.ApplicationServices.CollectionCategoryAppServices.
 		}
 
 		public async Task<List<CollectionCategorySearchResultDto>> Run(CollectionCategorySearchInputDto dto, CancellationToken cancellationToken)
-			=> (await _unitOfWork.CollectionCategoryRepository
+		{
+			if (dto.Title == null)
+				return (await _unitOfWork.CollectionCategoryRepository
+						.GetAllAsync(cancellationToken))
+					.Select(CollectionCategoryMapper.MapToSearchResult).ToList();
+			return (await _unitOfWork.CollectionCategoryRepository
 					.GetAllAsync(cc
 						=> cc.Title.Contains(dto.Title), cancellationToken))
 				.Select(CollectionCategoryMapper.MapToSearchResult).ToList();
+		}
 	}
 }

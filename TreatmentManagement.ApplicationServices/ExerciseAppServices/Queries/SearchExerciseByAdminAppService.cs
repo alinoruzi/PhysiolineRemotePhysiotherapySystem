@@ -15,10 +15,14 @@ namespace TreatmentManagement.ApplicationServices.ExerciseAppServices.Queries
 
 		public async Task<List<SearchResultExerciseDto>> Run(SearchInputExerciseDto dto, CancellationToken cancellationToken)
 		{
-			var exercises = await _unitOfWork.ExerciseRepository
-				.GetAllAsync(e => e.Title.Contains(dto.Title),
-					cancellationToken);
-			return exercises.Select(ExerciseMapper.MapToSearchResult).ToList();
+			if (dto.Title == null)
+				return (await _unitOfWork.ExerciseRepository
+					.GetAllAsync(e=>e.IsGlobal,cancellationToken))
+					.Select(ExerciseMapper.MapToSearchResult).ToList();
+			
+			return (await _unitOfWork.ExerciseRepository
+				.GetAllAsync(e => e.Title.Contains(dto.Title) && e.IsGlobal,
+					cancellationToken)).Select(ExerciseMapper.MapToSearchResult).ToList();
 		}
 	}
 }

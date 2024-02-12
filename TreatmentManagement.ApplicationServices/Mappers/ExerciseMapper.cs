@@ -70,7 +70,7 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 				GuideReferences = entity.GuideReferences.Select(Map).ToList()
 			};
 
-		public static GetExerciseByClientDto MapToClientDto(Exercise entity)
+		public static GetExerciseByClientDto MapToClientDto(Exercise entity, string categoryTitle)
 			=> new GetExerciseByClientDto
 			{
 				Id = entity.Id,
@@ -78,7 +78,7 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 				ShortDescription = entity.ShortDescription,
 				LongDescription = entity.LongDescription,
 				PicturePath = entity.PicturePath,
-				Category = entity.Category.Title,
+				Category = categoryTitle,
 				GuideReferences = entity.GuideReferences.Select(Map).ToList()
 			};
 

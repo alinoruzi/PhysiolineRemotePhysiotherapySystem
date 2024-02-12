@@ -7,14 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="AdminAppServicesContracts\Commands\"/>
-        <Folder Include="AdminAppServicesContracts\DTOs\"/>
         <Folder Include="AdminAppServicesContracts\Queries\"/>
-        <Folder Include="ClientAppServicesContracts\Commands\"/>
-        <Folder Include="ClientAppServicesContracts\DTOs\"/>
         <Folder Include="ClientAppServicesContracts\Queries\"/>
-        <Folder Include="ExpertAppServicesContracts\Commands\"/>
-        <Folder Include="ExpertAppServicesContracts\DTOs\"/>
         <Folder Include="ExpertAppServicesContracts\Queries\"/>
         <Folder Include="SpecializedTitleAppServicesContracts\Commands\"/>
         <Folder Include="SpecializedTitleAppServicesContracts\DTOs\"/>

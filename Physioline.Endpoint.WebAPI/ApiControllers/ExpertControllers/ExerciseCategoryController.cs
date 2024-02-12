@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TreatmentManagement.ApplicationContracts.CollectionCategoryAppServicesContracts.DTOs;
 using TreatmentManagement.ApplicationContracts.ExerciseCategoryAppServicesContracts.DTOs;
@@ -5,6 +6,7 @@ using TreatmentManagement.ApplicationContracts.ExerciseCategoryAppServicesContra
 
 namespace Physioline.Endpoint.WebAPI.ApiControllers.ExpertControllers
 {
+	[Authorize(Roles = "Expert")]
 	[Route("api/expert/exercise-category/")]
 	[ApiController]
 	public class ExerciseCategoryController : ControllerBase
@@ -24,7 +26,7 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.ExpertControllers
 			CancellationToken cancellationToken)
 		{
 			var result = await _get.Run(id, cancellationToken);
-			return !result ? StatusCode(result, result.Message) : Ok(result.Value);
+			return result ? Ok(result.Value) : StatusCode(result, result.Message);
 		}
 
 		[HttpGet("Search")]

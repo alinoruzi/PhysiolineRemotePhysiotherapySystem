@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TreatmentManagement.ApplicationContracts.PlanDetailAppServicesContracts.Commands;
 using TreatmentManagement.ApplicationContracts.PlanDetailAppServicesContracts.DTOs;
@@ -5,6 +6,7 @@ using TreatmentManagement.ApplicationContracts.PlanDetailAppServicesContracts.Qu
 
 namespace Physioline.Endpoint.WebAPI.ApiControllers.ExpertControllers
 {
+	[Authorize(Roles = "Expert")]
 	[Route("api/expert/plan-detail")]
 	[ApiController]
 	public class PlanDetailController : ControllerBase
@@ -29,14 +31,14 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.ExpertControllers
 		public async Task<List<GetPlanDetailDto>> Get(long planId,
 			CancellationToken cancellationToken)
 		{
-			long userId = 2;
+			var userId = long.Parse(HttpContext.User.Claims.First(c=>c.Type == "userId").Value);
 			return await _get.Run(planId, userId, cancellationToken);
 		}
 
 		[HttpPost]
 		public async Task<ActionResult> Add(AddPlanDetailDto dto, CancellationToken cancellationToken)
 		{
-			long userId = 2;
+			var userId = long.Parse(HttpContext.User.Claims.First(c=>c.Type == "userId").Value);
 			var result = await _add.Run(dto, userId, cancellationToken);
 			return StatusCode(result, result.Message);
 		}
@@ -44,7 +46,7 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.ExpertControllers
 		[HttpPut]
 		public async Task<ActionResult> Edit(EditPlanDetailDto dto, CancellationToken cancellationToken)
 		{
-			long userId = 2;
+			var userId = long.Parse(HttpContext.User.Claims.First(c=>c.Type == "userId").Value);
 			var result = await _edit.Run(dto, userId, cancellationToken);
 			return StatusCode(result, result.Message);
 		}
@@ -52,7 +54,7 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.ExpertControllers
 		[HttpDelete("{id}")]
 		public async Task<ActionResult> Delete(long id, CancellationToken cancellationToken)
 		{
-			long userId = 2;
+			var userId = long.Parse(HttpContext.User.Claims.First(c=>c.Type == "userId").Value);
 			var result = await _delete.Run(id, userId, cancellationToken);
 			return StatusCode(result, result.Message);
 		}

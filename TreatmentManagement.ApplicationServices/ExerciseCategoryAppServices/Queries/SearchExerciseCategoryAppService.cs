@@ -16,9 +16,16 @@ namespace TreatmentManagement.ApplicationServices.ExerciseCategoryAppServices.Qu
 
 		public async Task<List<ExerciseCategorySearchResultDto>> Run(ExerciseCategorySearchInputDto dto,
 			CancellationToken cancellationToken)
-			=> (await _unitOfWork.ExerciseCategoryRepository
+		{
+			if (dto.Title == null)
+				return (await _unitOfWork.ExerciseCategoryRepository
+						.GetAllAsync(cancellationToken))
+					.Select(ExerciseCategoryMapper.MapToSearchResult).ToList();
+
+			return (await _unitOfWork.ExerciseCategoryRepository
 					.GetAllAsync(ec
 						=> ec.Title.Contains(dto.Title), cancellationToken))
 				.Select(ExerciseCategoryMapper.MapToSearchResult).ToList();
+		}
 	}
 }

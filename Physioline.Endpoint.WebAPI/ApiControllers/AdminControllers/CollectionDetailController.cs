@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TreatmentManagement.ApplicationContracts.CollectionDetailAppServiceCaontracts.Commands;
 using TreatmentManagement.ApplicationContracts.CollectionDetailAppServiceCaontracts.DTOs;
@@ -5,6 +6,7 @@ using TreatmentManagement.ApplicationContracts.CollectionDetailAppServiceCaontra
 
 namespace Physioline.Endpoint.WebAPI.ApiControllers.AdminControllers
 {
+	[Authorize(Roles = "Admin")]
 	[Route("api/admin/collection-detail/")]
 	[ApiController]
 	public class CollectionDetailController : ControllerBase
@@ -34,7 +36,7 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.AdminControllers
 		public async Task<ActionResult> Add(AddCollectionDetailDto dto,
 			CancellationToken cancellationToken)
 		{
-			long userId = 1;
+			var userId = long.Parse(HttpContext.User.Claims.First(c=>c.Type == "userId").Value);
 			var result = await _add.Run(dto, userId, cancellationToken);
 			return StatusCode(result, result.Message);
 		}

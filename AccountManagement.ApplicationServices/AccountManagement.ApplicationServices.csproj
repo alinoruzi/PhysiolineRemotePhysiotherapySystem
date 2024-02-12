@@ -11,8 +11,4 @@
         <ProjectReference Include="..\AccountManagement.Domain\AccountManagement.Domain.csproj"/>
     </ItemGroup>
 
-    <ItemGroup>
-        <Folder Include="ClientAppServices\Commands\"/>
-    </ItemGroup>
-
 </Project>

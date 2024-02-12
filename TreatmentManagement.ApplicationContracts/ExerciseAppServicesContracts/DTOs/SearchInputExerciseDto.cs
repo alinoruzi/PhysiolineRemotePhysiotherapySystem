@@ -4,6 +4,7 @@ namespace TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.
 {
 	public class SearchInputExerciseDto
 	{
-		[Required] [MaxLength(255)] public string Title { get; set; }
+		[MaxLength(255)] 
+		public string? Title { get; set; }
 	}
 }

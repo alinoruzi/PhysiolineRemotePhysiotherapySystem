@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TreatmentManagement.ApplicationContracts.PlanAppServicesContracts.DTOs
 {
-	public class AddPlanDto
+	public record AddPlanDto
 	{
 		[Required]
 		[MinLength(3)]

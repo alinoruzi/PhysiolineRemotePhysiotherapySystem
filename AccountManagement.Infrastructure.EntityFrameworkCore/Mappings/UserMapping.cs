@@ -13,10 +13,9 @@ namespace AccountManagement.Infrastructure.EntityFrameworkCore.Mappings
 		{
 			builder.HasBaseType<BaseEntity>();
 			builder.ToTable("Users", "AM");
-			builder.Property(u => u.Identifier).IsRequired().HasMaxLength(36);
 			builder.Property(u => u.Email).IsRequired().HasMaxLength(255);
 			builder.Property(u => u.Mobile).IsRequired().HasMaxLength(11);
-			builder.Property(u => u.Password).IsRequired(false).HasMaxLength(1500);
+			builder.Property(u => u.Password).IsRequired(false).HasMaxLength(2500);
 			builder.Property(u => u.IsConfirmed).IsRequired().HasDefaultValue(false);
 			builder.Property(u => u.IsConfirmed).IsRequired().HasDefaultValue(false);
 			builder.Property(u => u.UserRole).HasConversion(
@@ -24,7 +23,6 @@ namespace AccountManagement.Infrastructure.EntityFrameworkCore.Mappings
 				ut => (UserRole)Enum.Parse(typeof(UserRole), ut)
 			).IsRequired();
 
-			builder.HasIndex(u => u.Identifier).IsUnique();
 			builder.HasIndex(u => u.Email).IsUnique();
 			builder.HasIndex(u => u.Mobile).IsUnique();
 

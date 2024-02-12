@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TreatmentManagement.ApplicationContracts.CollectionDetailAppServiceCaontracts.DTOs;
 using TreatmentManagement.ApplicationContracts.CollectionDetailAppServiceCaontracts.Queries;
 
 namespace Physioline.Endpoint.WebAPI.ApiControllers.ClientControllers
 {
+	[Authorize(Roles = "Client")]
 	[Route("api/client/collection-detail")]
 	[ApiController]
 	public class CollectionDetailController : ControllerBase

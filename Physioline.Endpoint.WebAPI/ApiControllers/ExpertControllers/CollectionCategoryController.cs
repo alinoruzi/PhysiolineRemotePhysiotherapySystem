@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TreatmentManagement.ApplicationContracts.CollectionCategoryAppServicesContracts.DTOs;
 using TreatmentManagement.ApplicationContracts.CollectionCategoryAppServicesContracts.Queries;
 
 namespace Physioline.Endpoint.WebAPI.ApiControllers.ExpertControllers
 {
+	[Authorize(Roles = "Expert")]
 	[Route("api/expert/collection-category/")]
 	[ApiController]
 	public class CollectionCategoryController : ControllerBase

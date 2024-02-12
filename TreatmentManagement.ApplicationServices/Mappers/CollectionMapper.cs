@@ -57,14 +57,14 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 				CreatorUserId = entity.CreatorUserId
 			};
 
-		public static GetCollectionByClientDto MapToClientDto(Collection entity)
+		public static GetCollectionByClientDto MapToClientDto(Collection entity, string categoryTitle)
 			=> new GetCollectionByClientDto
 			{
 				Id = entity.Id,
 				Title = entity.Title,
 				ShortDescription = entity.ShortDescription,
 				LongDescription = entity.LongDescription,
-				Category = entity.Category.Title
+				Category = categoryTitle
 			};
 
 		public static GetCollectionListItemByExpertDto MapToExpertItem(Collection entity)

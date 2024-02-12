@@ -5,7 +5,6 @@ namespace AccountManagement.ApplicationContracts.UserAppServicesContracts.Querie
 {
 	public interface IGetUserIdAppService
 	{
-		Task<ValueResult<long>> Run(string identifier, CancellationToken cancellationToken);
 		Task<ValueResult<long>> Run(EmailDto dto, CancellationToken cancellationToken);
 	}
 }

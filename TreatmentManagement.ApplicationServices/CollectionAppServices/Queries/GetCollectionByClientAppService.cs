@@ -28,8 +28,10 @@ namespace TreatmentManagement.ApplicationServices.CollectionAppServices.Queries
 
 			var collection = await _unitOfWork.CollectionRepository.GetAsync(id, cancellationToken);
 
+			var category = await _unitOfWork.CollectionCategoryRepository.GetAsync(collection.CategoryId, cancellationToken);
+			
 			message = ResultMessage.SuccessfullyGetData();
-			return ValueResult<GetCollectionByClientDto>.Success(CollectionMapper.MapToClientDto(collection), message);
+			return ValueResult<GetCollectionByClientDto>.Success(CollectionMapper.MapToClientDto(collection, category.Title), message);
 		}
 	}
 }

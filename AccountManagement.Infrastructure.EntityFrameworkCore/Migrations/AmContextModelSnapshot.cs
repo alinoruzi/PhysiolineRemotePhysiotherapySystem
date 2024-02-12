@@ -103,18 +103,13 @@ namespace AccountManagement.Infrastructure.EntityFrameworkCore.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<string>("Identifier")
-                        .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsConfirmed")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
+
+                    b.Property<bool>("IsRegistered")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Mobile")
                         .IsRequired()
@@ -122,8 +117,8 @@ namespace AccountManagement.Infrastructure.EntityFrameworkCore.Migrations
                         .HasColumnType("nvarchar(11)");
 
                     b.Property<string>("Password")
-                        .HasMaxLength(1500)
-                        .HasColumnType("nvarchar(1500)");
+                        .HasMaxLength(2500)
+                        .HasColumnType("nvarchar(2500)");
 
                     b.Property<long?>("PersonId")
                         .HasColumnType("bigint");
@@ -135,10 +130,6 @@ namespace AccountManagement.Infrastructure.EntityFrameworkCore.Migrations
                     b.HasIndex("Email")
                         .IsUnique()
                         .HasFilter("[Email] IS NOT NULL");
-
-                    b.HasIndex("Identifier")
-                        .IsUnique()
-                        .HasFilter("[Identifier] IS NOT NULL");
 
                     b.HasIndex("Mobile")
                         .IsUnique()
@@ -176,6 +167,11 @@ namespace AccountManagement.Infrastructure.EntityFrameworkCore.Migrations
             modelBuilder.Entity("AccountManagement.Domain.Entities.Expert", b =>
                 {
                     b.HasBaseType("AccountManagement.Domain.Entities.Person");
+
+                    b.Property<string>("Biography")
+                        .IsRequired()
+                        .HasMaxLength(750)
+                        .HasColumnType("nvarchar(750)");
 
                     b.Property<string>("MedicalSystemCode")
                         .IsRequired()
