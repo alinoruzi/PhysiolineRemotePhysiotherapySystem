@@ -23,7 +23,7 @@ namespace AccountManagement.ApplicationServices.UserAppServices.Queries
 			if (!await _unitOfWork.UserRepository
 				    .IsExistAsync(u => u.Email == dto.Username, cancellationToken))
 			{
-				message = ResultMessage.CustomMessage("The username or password is incorrect.");
+				message = ResultMessage.IncorrectUsernamePassword();
 				return ValueResult<LoginResultDto>.Failed(message, HttpStatusCode.NotFound);
 			}
 
@@ -33,20 +33,20 @@ namespace AccountManagement.ApplicationServices.UserAppServices.Queries
 
 			if (!user.IsRegistered)
 			{
-				message = ResultMessage.CustomMessage("User registration is not complete");
+				message = ResultMessage.RegistrationNotCompleted();
 				return ValueResult<LoginResultDto>.Failed(message, HttpStatusCode.NotFound);
 			}
 
 			if (user.Password != hashedPassword)
 			{
-				message = ResultMessage.CustomMessage("The username or password is incorrect.");
+				message = ResultMessage.IncorrectUsernamePassword();
 				return ValueResult<LoginResultDto>.Failed(message, HttpStatusCode.NotFound);
 			}
 
 			if (!user.IsConfirmed)
 			{
-				message = ResultMessage.CustomMessage("Account not confirmed.");
-				return ValueResult<LoginResultDto>.Failed(message, HttpStatusCode.NotFound);
+				message = ResultMessage.UserIsNotConfirmed();
+				return ValueResult<LoginResultDto>.Failed(message, HttpStatusCode.BadRequest);
 			}
 
 			var result = UserMapper.MapToLoginResult(user);

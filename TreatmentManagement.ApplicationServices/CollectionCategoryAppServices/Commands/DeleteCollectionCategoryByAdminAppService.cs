@@ -29,14 +29,14 @@ namespace TreatmentManagement.ApplicationServices.CollectionCategoryAppServices.
 			var collectionCategory = await _unitOfWork.CollectionCategoryRepository
 				.GetAsync(id, cancellationToken);
 
-			if (collectionCategory.Collections.Any())
+			if (await _unitOfWork.CollectionRepository.IsExistAsync(c=>c.CategoryId == id,cancellationToken))
 			{
 				message = ResultMessage.CategoryCanNotBeDelete();
 				return OperationResult.Failed(message, HttpStatusCode.BadRequest);
 			}
 
 			collectionCategory.IsDeleted = true;
-
+			_unitOfWork.CollectionCategoryRepository.Update(collectionCategory);
 			await _unitOfWork.CommitAsync(cancellationToken);
 
 			message = ResultMessage.SuccessfullyDeleted(nameof(CollectionCategory), collectionCategory.Id);

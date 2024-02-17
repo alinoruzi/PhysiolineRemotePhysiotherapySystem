@@ -53,7 +53,7 @@ namespace TreatmentManagement.ApplicationServices.CollectionDetailAppServices.Co
 			if (await _unitOfWork.CollectionDetailRepository.IsExistAsync(cd 
 				    => cd.CollectionId == dto.CollectionId && cd.ExerciseId == dto.ExerciseId, cancellationToken))
 			{
-				message = ResultMessage.CustomMessage($"Your Exercise with Id {dto.ExerciseId} already exist with Collection Id : {dto.CollectionId}");
+				message = ResultMessage.CustomMessage($"تمرین مورد نظر با شناسه  {dto.ExerciseId} قبلا در مجموعه مورد نظر قرارگرفته است. ");
 				return OperationResult.Failed(message, HttpStatusCode.BadRequest);
 			}
 

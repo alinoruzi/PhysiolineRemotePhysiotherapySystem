@@ -26,8 +26,10 @@ namespace TreatmentManagement.ApplicationServices.ExerciseAppServices.Commands
 
 			var exercise = await _unitOfWork.ExerciseRepository.GetAsync(id, cancellationToken);
 
-
-			foreach (var item in exercise.Collections)
+			var collectionDetails = await _unitOfWork.CollectionDetailRepository
+				.GetAllAsync(cd => cd.ExerciseId == exercise.Id,cancellationToken);
+			
+			foreach (var item in collectionDetails)
 				item.IsDeleted = true;
 
 			exercise.IsDeleted = true;

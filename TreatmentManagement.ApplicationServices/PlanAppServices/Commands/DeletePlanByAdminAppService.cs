@@ -23,8 +23,9 @@ namespace TreatmentManagement.ApplicationServices.PlanAppServices.Commands
 
 			var plan = await _unitOfWork.PlanRepository.GetAsync(id, cancellationToken);
 
-
-			foreach (var planDetail in plan.Details)
+			var planDetails = await _unitOfWork.PlanDetailRepository
+				.GetAllAsync(pd => pd.PlanId == plan.Id,cancellationToken);
+			foreach (var planDetail in planDetails)
 				planDetail.IsDeleted = true;
 
 			plan.IsDeleted = true;

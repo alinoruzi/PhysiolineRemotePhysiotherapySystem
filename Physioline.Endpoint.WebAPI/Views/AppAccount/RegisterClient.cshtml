@@ -1,0 +1,73 @@
+@model AccountManagement.ApplicationContracts.ClientAppServicesContracts.DTOs.RegisterClientDto
+
+@{
+    Layout = "_LoginLayout";
+    ViewData["Title"] = "ثبت نام بیمار";
+}
+
+<form asp-area="" asp-controller="AppAccount" asp-action="RegisterClient" method="post" role="form">
+    <div class="row g-2 justify-content-center align-content-center">
+        <div class="col-12 col-md-6 mb-1">
+            <label asp-for="Username" for="text" class="form-label"></label>
+            <input type="text" class="form-control" asp-for="@Model.Username">
+            <span class="text-danger form-text" asp-validation-for="@Model.Username"></span>
+        </div>
+        <div class="col-12 col-md-6 mb-1">
+            <label asp-for="Mobile" for="text" class="form-label"></label>
+            <input type="text" class="form-control" asp-for="@Model.Mobile">
+            <span class="text-danger form-text" asp-validation-for="@Model.Mobile"></span>
+        </div>
+        <span class="text-secondary">توجه: میبایست ایمیل و تلفن همراه شما قبلا توسط یکی از متخصصان در سیستم ثبت شده باشد.</span>
+        <hr/>
+    </div>
+    <div class="row g-2 justify-content-center align-content-center mt-2">
+        <div class="col-12 col-md-6 mb-1">
+            <label asp-for="FirstName" for="text" class="form-label"></label>
+            <input type="text" class="form-control" asp-for="@Model.FirstName">
+            <span class="text-danger form-text" asp-validation-for="@Model.FirstName"></span>
+        </div>
+        <div class="col-12 col-md-6 mb-1">
+            <label asp-for="LastName" for="text" class="form-label"></label>
+            <input type="text" class="form-control" asp-for="@Model.LastName">
+            <span class="text-danger form-text" asp-validation-for="@Model.LastName"></span>
+        </div>
+    </div>
+    <div class="row g-2 justify-content-center align-content-center mt-2">
+        <div class="col-12 col-md-6 mb-1">
+            <label asp-for="Gender" for="text" class="form-label"></label>
+            <select asp-for="Gender" class="form-select" aria-label="جنسیت را انتخاب کنید">
+                <option value="1">مرد</option>
+                <option value="2">زن</option>
+            </select>
+            <span class="text-danger form-text" asp-validation-for="@Model.Gender"></span>
+        </div>
+        <div class="col-12 col-md-6 mb-1">
+            <label asp-for="BirthDate" for="text" class="form-label"></label>
+            <input type="date" class="form-control" asp-for="@Model.BirthDate">
+            <span class="text-danger form-text" asp-validation-for="@Model.BirthDate"></span>
+        </div>
+    </div>
+    <div class="row g-2 justify-content-center align-content-center mt-2">
+        <div class="col-12 col-md-6 mb-1">
+            <label asp-for="NationalCode" for="text" class="form-label"></label>
+            <input type="text" class="form-control" asp-for="@Model.NationalCode">
+            <span class="text-danger form-text" asp-validation-for="@Model.NationalCode"></span>
+        </div>
+        <div class="col-12 col-md-6 mb-1">
+            <label asp-for="Password" for="text" class="form-label"></label>
+            <input type="password" class="form-control" asp-for="@Model.Password">
+            <span class="text-danger form-text" asp-validation-for="@Model.Password"></span>
+        </div>
+    </div>
+    <div class="d-grid g-2 pt-3">
+        <button type="submit" class="btn btn-outline-primary">ثبت نام</button>
+        <a asp-controller="AppAccount" asp-action="Login" type="submit" class="btn btn-outline-secondary mt-2">ورود به سایت</a>
+    </div>
+</form>
+
+@if (ViewData.ModelState.ContainsKey("RegisterField"))
+{
+    <div class="alert alert-danger my-3" role="alert">
+        خطا در هنگام ثبت نام - @ViewData.ModelState.GetValueOrDefault("RegisterField")
+    </div>
+}

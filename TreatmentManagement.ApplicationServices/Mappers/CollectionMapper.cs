@@ -32,6 +32,7 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 				LongDescription = entity.LongDescription,
 				IsGlobal = entity.IsGlobal,
 				CreatedAt = entity.CreatedAt,
+				CategoryId = entity.CategoryId,
 				CreatorUserId = entity.CreatorUserId
 			};
 

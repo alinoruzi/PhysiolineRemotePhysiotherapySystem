@@ -20,7 +20,7 @@ namespace AccountManagement.ApplicationServices.UserAppServices.Commands
 			UserRole role, long userId, CancellationToken cancellationToken)
 		{
 			ResultMessage message;
-			if (!await _unitOfWork.UserRepository
+			if (await _unitOfWork.UserRepository
 				    .IsExistAsync(u
 					    => u.Email == dto.Email || u.Mobile == dto.Mobile, cancellationToken))
 			{

@@ -1,0 +1,62 @@
+@model TreatmentManagement.ApplicationContracts.CollectionAppServicesContracts.DTOs.AddCollectionDto
+
+@{
+    ViewData["Title"] = "ایجاد مجموعه تمرین جدید";
+}
+<div class="container-fluid px-5 d-flex justify-content-between">
+    <div>
+        <h2 class="h2 titr-small badge bg-dark">@ViewData["Title"]</h2>
+    </div>
+    <div>
+        <a asp-area="Admin" asp-controller="Collection" asp-action="PageList">
+            <button class="btn btn-sm btn-outline-primary">
+                بازگشت به فهرست
+                <i class="fa-solid fa-arrow-circle-left"></i>
+            </button>
+        </a>
+    </div>
+</div>
+<hr/>
+<div class="row justify-content-center mt-3">
+    <div class="mt-5 col-sm-10 col-lg-6 ps-lg-5">
+        <form asp-area="Admin" asp-controller="Collection" asp-action="CreateCollection" method="post">
+            <div class="row mb-3 mt-3">
+                <div class="col-6">
+                    <label asp-for="Title"></label>
+                    <input type="text" asp-for="Title" name="Title" class="form-control"/>
+                    <span class="text-danger form-text" asp-validation-for="Title"></span>
+                </div>
+                <div class="col-6">
+                    <label asp-for="CategoryId"></label>
+                    <select asp-for="CategoryId" asp-items="@((IEnumerable<SelectListItem>)ViewData["categories"])" name="CategoryId" class="form-select" required>
+                        <option value="">یک دسته بندی را انتخاب کنید</option>
+                    </select>
+                    <span class="text-danger form-text" asp-validation-for="CategoryId"></span>
+
+                </div>
+            </div>
+
+            <div class="row mb-3 mt-3">
+                <div class="col-12">
+                    <label asp-for="ShortDescription"></label>
+                    <input type="text" asp-for="ShortDescription" name="ShortDescription" class="form-control"/>
+                    <span class="text-danger form-text" asp-validation-for="ShortDescription"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="LongDescription"></label>
+                    <textarea asp-for="LongDescription" name="LongDescription" class="form-control"></textarea>
+                    <span class="text-danger form-text" asp-validation-for="LongDescription"></span>
+                </div>
+            </div>
+
+            <div class="mb-3 mt-5">
+                <div class="d-grid gap-2">
+                    <input type="submit" class="btn btn-outline-primary" value="ایجاد مجموعه"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@await Html.PartialAsync("_ValidationScriptsPartial")

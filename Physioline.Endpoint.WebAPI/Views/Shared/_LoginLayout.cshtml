@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fa-IR" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@ViewData["Title"] - فیزیولاین</title>
+    <link rel="stylesheet" href="~/global_assets/library/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/global_assets/library/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/global_assets/library/swiper/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="~/global_assets/typography/main-typography.css">
+    <style rel="stylesheet">
+    
+    html, body {
+        margin: 0;
+        padding: 0;
+        min-height: 100%;
+    }
+    
+    body {
+        background-image: url("../global_assets/image/grayBack01.jpg");
+        background-position-x: center;
+        background-position-y: bottom;
+        background-repeat: no-repeat;
+        background-attachment: scroll;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        overflow-x: hidden;
+    }
+    </style>
+</head>
+<body>
+
+<main>
+<div class="row justify-content-center">
+<div class="col-10 col-md-4 mt-5">
+<div class="card mt-5 mb-5">
+<div class="card-body px-5 py-5">
+@RenderBody()
+
+</div>
+    <div class="card-footer text-center">
+        توسعه دهنده: علی نوروزی - All right reserved
+    </div>
+</div>
+</div>
+</div>
+</main>
+
+<script src="/global_assets/library/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/global_assets/library/jquery/jquery-3.7.1.min.js"></script>
+<script src="/global_assets/library/swiper/js/swiper-bundle.min.js"></script>
+<script src="/global_assets/js/UI_site_script.js"></script>
+</body>
+</html>

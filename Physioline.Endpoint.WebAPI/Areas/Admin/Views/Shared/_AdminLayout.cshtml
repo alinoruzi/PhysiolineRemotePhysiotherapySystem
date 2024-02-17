@@ -61,72 +61,95 @@
 <!-- Sidebar Section -->
 <div class="">
     <div class="d-inline d-md-flex mt-4 me-4">
-            <div class="collapse col-md-2 sticky-top pe-0" id="my-sidebar" >
-                <nav class="bg-light rounded-5 pe-0 me-0 py-3">
-                    <div>
-                        <!-- Navigation Links -->
-                        <ul class="nav text-primary link-primary flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">داشبورد</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">آمارگیر</a>
-                            </li>
+        <div class="collapse col-md-2 sticky-top pe-0" id="my-sidebar">
+            <nav class="bg-light rounded-5 pe-0 me-0 py-3">
+                <div>
+                    <!-- Navigation Links -->
+                    <ul class="nav text-primary link-primary flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">داشبورد</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">آمارگیر</a>
+                        </li>
 
-                            <li>
-                                <a class="nav-item" data-bs-toggle="collapse" data-bs-target="#my-exercise-menu" aria-expanded="false"
-                                   aria-controls="my-exercise-menu">
-                                    <span class="badge rounded-pill text-bg-primary mx-2">
-                                        <i class="fa-solid fa-person-walking"></i>
-                                    </span>
-                                    تمرینات
-                                    <i class="fa-solid fa-caret-down"></i>
-                                </a>
-                                <ul class="collapse list-unstyled text-primary" id="my-exercise-menu">
-                                    <li>
-                                        <a asp-area="admin" asp-controller="Exercise" asp-action="PageList">فهرست تمرینات</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">ایجاد تمرین</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">دسته بندی تمرین</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            
-                            <li>
-                                <a class="nav-item" data-bs-toggle="collapse" data-bs-target="#my-exercise-menu" aria-expanded="false"
-                                   aria-controls="my-exercise-menu">
-                                    <span class="badge rounded-pill text-bg-primary mx-2">
-                                        <i class="fa-solid fa-open-box"></i>
-                                    </span>
-                                    کالکشن ها
-                                    <i class="fa-solid fa-caret-down"></i>
-                                </a>
-                                <ul class="collapse list-unstyled text-primary" id="my-exercise-menu">
-                                    <li>
-                                        <a href="#">فهرست کالکشن ها</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">ایجاد کالکشن</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">دسته بندی کالکشن</a>
-                                    </li>
-                                </ul>
-                            </li>
+                        <li>
+                            <a class="nav-item" data-bs-toggle="collapse" data-bs-target="#my-user-menu" aria-expanded="false"
+                               aria-controls="my-user-menu">
+                                <span class="badge rounded-pill text-bg-primary mx-2">
+                                    <i class="fa-solid fa-open-box"></i>
+                                </span>
+                                مدیریت کاربران
+                                <i class="fa-solid fa-caret-down"></i>
+                            </a>
+                            <ul class="collapse list-unstyled text-primary" id="my-user-menu">
+                                <li>
+                                    <a asp-area="Admin" asp-controller="UserManager" asp-action="PageList">کاربران ثبت نام شده</a>
+                                </li>
+                                <li>
+                                    <a href="#">فهرست پیش ثبت نام ها</a>
+                                </li>
+                                <li>
+                                    <a href="#">افزودن مدیر سیستم</a>
+                                </li>
+                            </ul>
+                        </li>
 
-                            
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
+                        
+                        <li>
+                            <a class="nav-item" data-bs-toggle="collapse" data-bs-target="#my-exercise-menu" aria-expanded="false"
+                               aria-controls="my-exercise-menu">
+                                <span class="badge rounded-pill text-bg-primary mx-2">
+                                    <i class="fa-solid fa-person-walking"></i>
+                                </span>
+                                تمرینات
+                                <i class="fa-solid fa-caret-down"></i>
+                            </a>
+                            <ul class="collapse list-unstyled text-primary" id="my-exercise-menu">
+                                <li>
+                                    <a asp-area="admin" asp-controller="Exercise" asp-action="PageList">فهرست تمرینات</a>
+                                </li>
+                                <li>
+                                    <a href="#">ایجاد تمرین</a>
+                                </li>
+                                <li>
+                                    <a href="#">دسته بندی تمرین</a>
+                                </li>
+                            </ul>
+                        </li>
 
-            <!-- Main Content Container -->
+                        <li>
+                            <a class="nav-item" data-bs-toggle="collapse" data-bs-target="#my-collection-menu" aria-expanded="false"
+                               aria-controls="my-collection-menu">
+                                <span class="badge rounded-pill text-bg-primary mx-2">
+                                    <i class="fa-solid fa-bank"></i>
+                                </span>
+                                کالکشن ها
+                                <i class="fa-solid fa-caret-down"></i>
+                            </a>
+                            <ul class="collapse list-unstyled text-primary" id="my-collection-menu">
+                                <li>
+                                    <a asp-area="Admin" asp-controller="Collection" asp-action="PageList">فهرست کالکشن ها</a>
+                                </li>
+                                <li>
+                                    <a asp-area="Admin" asp-controller="Collection" asp-action="CreateCollection">ایجاد کالکشن</a>
+                                </li>
+                                <li>
+                                    <a href="#">دسته بندی کالکشن</a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Main Content Container -->
         <div class="flex-grow-1 col-md-10 py-2 px-3">
             @RenderBody()
             <!-- Your content goes here -->

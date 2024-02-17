@@ -22,7 +22,7 @@ namespace AccountManagement.ApplicationServices.AdminAppServices.Commands
 			if (await _unitOfWork.UserRepository
 				    .IsExistAsync(u => u.Email == dto.Email || u.Mobile == dto.Mobile,cancellationToken))
 			{
-				message = ResultMessage.CustomMessage("Email or mobile is already registered.");
+				message = ResultMessage.CustomMessage("ایمیل یا شماره موبایل وارد شده تکراری است.");
 				return OperationResult.Failed(message, HttpStatusCode.BadRequest);
 			}
 

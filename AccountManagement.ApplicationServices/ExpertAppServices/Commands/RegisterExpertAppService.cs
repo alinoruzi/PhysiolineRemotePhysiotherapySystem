@@ -24,8 +24,20 @@ namespace AccountManagement.ApplicationServices.ExpertAppServices.Commands
 			if (!await _unitOfWork.UserRepository.IsExistAsync(u
 				    => u.Email == dto.Email && u.Mobile == dto.Mobile ,cancellationToken))
 			{
-				message = ResultMessage.CustomMessage($"The email and mobile number don't match.");
+				message = ResultMessage.EmailMobileNotMatchForRegistration();
 				return OperationResult.Failed(message, HttpStatusCode.NotFound);
+			}
+			
+			if (await _unitOfWork.ExpertRepository.IsExistAsync(u => u.NationalCode == dto.NationalCode,cancellationToken))
+			{
+				message = ResultMessage.AnUniquePropertyAlreadyExist(nameof(Expert), nameof(Expert.NationalCode));
+				return OperationResult.Failed(message, HttpStatusCode.BadRequest);
+			}
+			
+			if (await _unitOfWork.ExpertRepository.IsExistAsync(u => u.MedicalSystemCode == dto.MedicalSystemCode,cancellationToken))
+			{
+				message = ResultMessage.AnUniquePropertyAlreadyExist(nameof(Expert), nameof(Expert.MedicalSystemCode));
+				return OperationResult.Failed(message, HttpStatusCode.BadRequest);
 			}
 			
 			var user = await _unitOfWork.UserRepository
@@ -33,13 +45,13 @@ namespace AccountManagement.ApplicationServices.ExpertAppServices.Commands
 			
 			if (user.IsRegistered)
 			{
-				message = ResultMessage.CustomMessage($"The user is already registered.");
+				message = ResultMessage.UserAlreadyRegistered();
 				return OperationResult.Failed(message, HttpStatusCode.BadRequest);
 			}
 			
 			if (user.UserRole != UserRole.Expert)
 			{
-				message = ResultMessage.CustomMessage($"User role of the target user is not allowed.");
+				message = ResultMessage.DontHavePermission();
 				return OperationResult.Failed(message, HttpStatusCode.Unauthorized);
 			}
 
@@ -64,7 +76,7 @@ namespace AccountManagement.ApplicationServices.ExpertAppServices.Commands
 
 			await _unitOfWork.CommitAsync(cancellationToken);
 
-			message = ResultMessage.CustomMessage($"User with id: {user.Id} successfully created and verified");
+			message = ResultMessage.SuccessfullyRegistered();
 
 			return OperationResult.Success(message);
 		}

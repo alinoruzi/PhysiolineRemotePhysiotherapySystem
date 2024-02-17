@@ -29,14 +29,14 @@ namespace TreatmentManagement.ApplicationServices.ExerciseCategoryAppServices.Co
 			var exerciseCategory = await _unitOfWork.ExerciseCategoryRepository
 				.GetAsync(id, cancellationToken);
 
-			if (exerciseCategory.Exercises.Any())
+			if (await _unitOfWork.ExerciseRepository.IsExistAsync(c=>c.CategoryId == id,cancellationToken))
 			{
 				message = ResultMessage.CategoryCanNotBeDelete();
 				return OperationResult.Failed(message, HttpStatusCode.BadRequest);
 			}
 
 			exerciseCategory.IsDeleted = true;
-
+			_unitOfWork.ExerciseCategoryRepository.Update(exerciseCategory);
 			await _unitOfWork.CommitAsync(cancellationToken);
 
 			message = ResultMessage.SuccessfullyDeleted(nameof(exerciseCategory), exerciseCategory.Id);

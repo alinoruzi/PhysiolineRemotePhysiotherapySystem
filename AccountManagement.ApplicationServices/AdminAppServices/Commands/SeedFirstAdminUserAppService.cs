@@ -32,7 +32,7 @@ namespace AccountManagement.ApplicationServices.AdminAppServices.Commands
 
 			if ((await _unitOfWork.AdminRepository.GetAllAsync(cancellationToken)).Any())
 			{
-				message = ResultMessage.CustomMessage("Admin user already exist.");
+				message = ResultMessage.CustomMessage("مدیر سیستم قبلا تعریف شده است.");
 				return OperationResult.Failed(message, HttpStatusCode.BadRequest);
 			}
 

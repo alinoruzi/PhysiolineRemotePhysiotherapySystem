@@ -1,0 +1,205 @@
+@model Physioline.Endpoint.WebAPI.Areas.Admin.Models.UserManagerModels.UserGetPageListViewModel
+
+@{
+    ViewData["Title"] = "لیست کاربران ثبت نام شده";
+    int nextPage = Model.PageNumber + 1;
+    int lastPage = Model.PageNumber == 1 ? 1 : Model.PageNumber - 1;
+
+    string TranslateRole(string role)
+    {
+        string result = "";
+        switch (role)
+        {
+            case "Admin":
+                result = "مدیر سیستم";
+                break;
+            case "Expert":
+                result = "متخصص";
+                break;
+            case "Client":
+                result = "خدمت گیرنده";
+                break;
+        }
+
+        return result;
+    }
+}
+
+
+<!-- Change Password Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-area="Admin" asp-controller="UserManager" asp-action="ChangeUserPassword" method="post">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">تغییر رمز کاربر</h1>
+            </div>
+                <div class="modal-body">
+                    <div>
+                        <span class="badge bg-primary">شما درحال تغییر رمز عبور کاربر میباشید.</span>
+                    </div>
+                    <div class="mt-3">
+                        <div class="d-block">
+                            <label for="userId">شناسه کاربر</label>
+                            <input type="number" name="UserId" id="userId" class="form-control disabled" readonly/>
+                            <span class="text-secondary"></span>
+                        </div>
+                        <div class="d-block mt-3">
+                            <label for="password">رمز عبور جدید</label>
+                            <input type="text" name="Password" id="password" class="form-control" required minlength="8" maxlength="2500"/>
+                            <span class="text-secondary text-small mt-2">حداقل 8 و حداکثر 2500 کاراکتر</span>
+                        </div>
+                    </div>
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+                <button type="submit" class="btn btn-primary">تغییر رمز عبور</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="row justify-content-center mt-5">
+    <div class="col-11">
+        @if(Model.OperationResult != null)
+        {
+            <div class="alert alert-dismissible @(Model.OperationResult == true ? "alert-success" : "alert-danger")  my-3" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                @Model.Message
+            </div>
+        }
+        <div class="d-flex justify-content-between">
+            <div>
+                <h2 class="h2">فهرست کاربران ثبت نام شده</h2>
+            </div>
+            <div>
+                <a asp-controller="" asp-action="">
+                    <button class="btn btn-outline-success">
+                        کاربر جدید
+                    </button>
+                </a>
+            </div>
+        </div>
+        <hr/>
+        <div class="row justify-content-between">
+            <div class="col-auto">
+                <form asp-controller="UserManager" asp-action="PageList" method="get" id="pageForm">
+                    <div class="d-inline-flex">
+                        <select class="form-select" name="pageSize">
+                            <option value="@Model.PageSize">تعداد در صفحه : @Model.PageSize</option>
+                            <option value="1">1</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                    <div class="d-inline-flex">
+                        <select class="form-select" name="userRole">
+                            <option value="@Model.Role">نقش کاربری: @TranslateRole(Model.Role)</option>
+                            <option value="Admin">مدیر سیستم</option>
+                            <option value="Expert">متخصص</option>
+                            <option value="Client">خدمت گیرنده</option>
+                        </select>
+                    </div>
+                    <div class="d-inline-flex">
+                        <button type="submit" class="btn btn-outline-secondary">اعمال فیلتر</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-auto">
+                <a class="btn btn-sm btn-outline-primary" asp-route-userRole="@Model.Role" 
+                   asp-route-pageNumber="@lastPage" asp-route-pageSize="@Model.PageSize">قبلی</a>
+                
+                <span class="text-primary mx-2 pt-2">صفحه: @Model.PageNumber</span>
+                
+                <a class="btn btn-sm btn-outline-primary" asp-route-userRole="@Model.Role" 
+                   asp-route-pageNumber="@nextPage" asp-route-pageSize="@Model.PageSize">بعدی</a>
+            </div>
+        </div>
+        <table class="table table-striped table-hover mt-3">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>ایمیل</th>
+                <th>نام خانوادگی</th>
+                <th>نام</th>
+                <th>جنسیت</th>
+                <th>نقش کاربری</th>
+                <th>وضعیت</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            @if (Model.Items.Any())
+            {
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Email</td>
+                        <td>@item.LastName</td>
+                        <td>@item.FirstName</td>
+                        <td>
+                            @(item.Gender == "Male" ? "مرد" : "زن")
+                        </td>
+                        <td>
+                            @TranslateRole(item.Role)
+                        </td>
+                        <td>
+                            @(item.IsConfirmed ? "فعال" : "غیرفعال")
+                        </td>
+                        <td>
+                            <div class="d-flex justify-content-center gap-1">
+                                <div>
+                                    @if (item.IsConfirmed && Model.Role != "Admin")
+                                    {
+                                        <a asp-area="Admin" asp-controller="UserManager" asp-action="DeactivateUser" asp-route-userId="@item.Id">
+                                            <button class="btn btn-warning btn-sm">
+                                                غیرفعال سازی
+                                            </button>
+                                        </a>
+                                    }
+                                    else if (!item.IsConfirmed && Model.Role != "Admin")
+                                    {
+                                        <a asp-area="Admin" asp-controller="UserManager" asp-action="ConfirmUser" asp-route-userId="@item.Id">
+                                            <button class="btn btn-success btn-sm">
+                                                تایید کاربر
+                                            </button>
+                                        </a>
+                                    }
+                                    
+                                </div>
+                                <div>
+                                    <a onclick="document.getElementById('userId').value = @item.Id;"
+                                       data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                        <button class="btn btn-info btn-sm">
+                                            <i class="fa-solid fa-key"></i>
+                                        </button>
+                                    </a>
+                                </div>
+                                <div>
+                                    <a asp-controller="" asp-action="" asp-route-bookId="@item.Id">
+                                        <button class="btn btn-danger btn-sm">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <div class="alert alert-danger my-3 m-4" role="alert">
+                    اطلاعاتی برای نمایش وجود ندارد.
+                </div>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

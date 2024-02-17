@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Physioline.Endpoint.WebAPI.ApiControllers.ExpertControllers
 {
-	[Authorize(Roles = "Expert")]
+	[Authorize(Roles = "Expert,Admin")]
 	[Route("api/expert/[controller]/[action]")]
 	[ApiController]
 	public class UserController : ControllerBase

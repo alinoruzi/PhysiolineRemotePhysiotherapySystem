@@ -27,20 +27,14 @@ namespace TreatmentManagement.ApplicationServices.CollectionDetailAppServices.Co
 			}
 
 			var collectionDetail = await _unitOfWork.CollectionDetailRepository.GetAsync(dto.Id, cancellationToken);
-			if (!collectionDetail.Collection.IsGlobal)
-			{
-				message = ResultMessage.DontHavePermission();
-				return OperationResult.Failed(message, HttpStatusCode.Unauthorized);
-			}
 
-			var collection = await _unitOfWork.CollectionDetailRepository.GetAsync(dto.Id, cancellationToken);
 			CollectionDetailMapper.Map(collectionDetail, dto);
 
-			_unitOfWork.CollectionDetailRepository.Update(collection);
+			_unitOfWork.CollectionDetailRepository.Update(collectionDetail);
 
 			await _unitOfWork.CommitAsync(cancellationToken);
 
-			message = ResultMessage.SuccessfullyEdited(nameof(collectionDetail), collection.Id);
+			message = ResultMessage.SuccessfullyEdited(nameof(collectionDetail), collectionDetail.Id);
 			return OperationResult.Success(message);
 		}
 	}

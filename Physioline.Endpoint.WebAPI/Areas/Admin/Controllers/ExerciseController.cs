@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Physioline.Endpoint.WebAPI.Areas.Admin.Models.ExerciseModels;
 using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.Commands;
-using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.DTOs;
 using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.Queries;
 
 namespace Physioline.Endpoint.WebAPI.Areas.Admin.Controllers

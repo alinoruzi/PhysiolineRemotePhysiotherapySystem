@@ -29,10 +29,16 @@ namespace TreatmentManagement.ApplicationServices.CollectionAppServices.Commands
 
 			var collection = await _unitOfWork.CollectionRepository.GetAsync(id, cancellationToken);
 
-			foreach (var collectionDetail in collection.Details)
+			var collectionDetails = await _unitOfWork.CollectionDetailRepository
+				.GetAllAsync(cd => cd.CollectionId == id,cancellationToken);
+			
+			var plans = await _unitOfWork.PlanDetailRepository
+				.GetAllAsync(pd => pd.CollectionId == id,cancellationToken);
+			
+			foreach (var collectionDetail in collectionDetails)
 				collectionDetail.IsDeleted = true;
 
-			foreach (var planDetail in collection.Plans)
+			foreach (var planDetail in plans)
 				planDetail.IsDeleted = true;
 
 			collection.IsDeleted = true;

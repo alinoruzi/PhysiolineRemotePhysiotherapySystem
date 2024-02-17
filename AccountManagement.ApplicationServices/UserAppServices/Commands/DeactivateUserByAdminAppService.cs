@@ -27,13 +27,13 @@ namespace AccountManagement.ApplicationServices.UserAppServices.Commands
 			
 			if (!user.IsRegistered)
 			{
-				message = ResultMessage.CustomMessage("The user has not completed registration.");
+				message = ResultMessage.RegistrationNotCompleted();
 				return OperationResult.Failed(message, HttpStatusCode.BadRequest);
 			}
 			
-			if (user.IsConfirmed)
+			if (!user.IsConfirmed)
 			{
-				message = ResultMessage.CustomMessage("The user has already been confirmed.");
+				message = ResultMessage.CustomMessage("کاربر قبلا در وضعیت غیرفعال قرار داشته است.");
 				return OperationResult.Failed(message, HttpStatusCode.BadRequest);
 			}
 
@@ -43,7 +43,7 @@ namespace AccountManagement.ApplicationServices.UserAppServices.Commands
 
 			await _unitOfWork.CommitAsync(cancellationToken);
 			
-			message = ResultMessage.CustomMessage("User successfully deactivated.");
+			message = ResultMessage.CustomMessage("کاربر با موفقیت غیرفعال شد.");
 			return OperationResult.Success(message);
 		}
 	}

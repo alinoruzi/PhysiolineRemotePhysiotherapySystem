@@ -54,10 +54,24 @@ namespace AccountManagement.ApplicationServices.Mappers
 			{
 				Id = user.Id,
 				Email = user.Email,
-				FisrtName = user.Person.FirstName,
+				FirstName = user.Person.FirstName,
 				LastName = user.Person.LastName,
 				Gender = user.Person.Gender.ToString(),
 				Role = user.UserRole.ToString(),
+				IsConfirmed = user.IsConfirmed
+			};
+
+		public static UserInfoDto MapToInfo(User user, Person person)
+			=> new UserInfoDto()
+			{
+				UserId = user.Id,
+				FirstName = person.FirstName,
+				LastName = person.LastName,
+				Email = user.Email,
+				Mobile = user.Mobile,
+				Role = user.UserRole.ToString(),
+				IsConfirmed = user.IsConfirmed,
+				IsRegistered = user.IsRegistered,
 			};
 	}
 }

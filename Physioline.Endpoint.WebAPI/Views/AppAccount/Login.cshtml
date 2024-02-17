@@ -1,0 +1,42 @@
+@model AccountManagement.ApplicationContracts.UserAppServicesContracts.DTOs.LoginInputDto
+
+@{
+    Layout = "_LoginLayout";
+    ViewData["Title"] = "ورود";
+}
+
+<form asp-area="" asp-controller="AppAccount" asp-action="Login" method="post" role="form">
+    <div class="mb-3">
+        <label asp-for="Username" for="text" class="form-label"></label>
+        <input type="text" class="form-control" asp-for="@Model.Username">
+        <div>
+            <span class="text-danger form-text" asp-validation-for="@Model.Username"></span>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label" asp-for="Password"></label>
+        <input type="password" class="form-control" asp-for="@Model.Password">
+        <div>
+            <span class="text-danger form-text" asp-validation-for="@Model.Password"></span>
+        </div>
+    </div>
+    <div class="d-grid g-2 pt-3">
+        <button type="submit" class="btn btn-outline-primary">ورود</button>
+        <div class="row g-2">
+            <div class="col-12 col-md-6 d-inline-grid">
+                <a asp-controller="AppAccount" asp-action="RegisterClient" class="btn btn-outline-secondary my-2">ثبت نام بیمار</a>
+            </div>
+            <div class="col-12 col-md-6 d-inline-grid">
+                <button class="btn btn-outline-secondary my-2">ثبت نام متخصص</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+@if (ViewData.ModelState.ContainsKey("LoginField"))
+{
+    <div class="alert alert-danger my-3" role="alert">
+        کاربر فعالی با نام کاربری و رمز وارد شده یافت نشد.
+    </div>
+}

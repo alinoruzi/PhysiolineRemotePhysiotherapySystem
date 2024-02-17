@@ -1,6 +1,7 @@
 using AccountManagement.ApplicationContracts.ClientAppServicesContracts.Commands;
 using AccountManagement.ApplicationContracts.ClientAppServicesContracts.DTOs;
 using AccountManagement.ApplicationServices.Mappers;
+using AccountManagement.Domain.Entities;
 using AccountManagement.Domain.Enums;
 using AccountManagement.Domain.Repositories;
 using Physioline.Framework.Application.GeneralServices;
@@ -21,25 +22,31 @@ namespace AccountManagement.ApplicationServices.ClientAppServices.Commands
 		{
 			ResultMessage message;
 			if (!await _unitOfWork.UserRepository.IsExistAsync(u
-				    => u.Email == dto.Email && u.Mobile == dto.Mobile ,cancellationToken))
+				    => u.Email == dto.Username && u.Mobile == dto.Mobile ,cancellationToken))
 			{
-				message = ResultMessage.CustomMessage($"The email and mobile number don't match.");
+				message = ResultMessage.EmailMobileNotMatchForRegistration();
 				return OperationResult.Failed(message, HttpStatusCode.NotFound);
+			}
+
+			if (await _unitOfWork.ClientRepository.IsExistAsync(u => u.NationalCode == dto.NationalCode,cancellationToken))
+			{
+				message = ResultMessage.AnUniquePropertyAlreadyExist(nameof(Client),nameof(Client.NationalCode));
+				return OperationResult.Failed(message, HttpStatusCode.BadRequest);
 			}
 			
 			var user = await _unitOfWork.UserRepository
-				.GetAsync(u => u.Email == dto.Email,cancellationToken);
+				.GetAsync(u => u.Email == dto.Username && u.Mobile == dto.Mobile,cancellationToken);
 			
 			if (user.IsRegistered)
 			{
-				message = ResultMessage.CustomMessage($"The user is already registered.");
+				message = ResultMessage.UserAlreadyRegistered();
 				return OperationResult.Failed(message, HttpStatusCode.BadRequest);
 			}
 			
 			
 			if (user.UserRole != UserRole.Client)
 			{
-				message = ResultMessage.CustomMessage($"User role of the target user is not allowed.");
+				message = ResultMessage.DontHavePermission();
 				return OperationResult.Failed(message, HttpStatusCode.Unauthorized);
 			}
 
@@ -58,7 +65,7 @@ namespace AccountManagement.ApplicationServices.ClientAppServices.Commands
 
 			await _unitOfWork.CommitAsync(cancellationToken);
 
-			message = ResultMessage.CustomMessage($"User with id: {user.Id} successfully created and verified");
+			message = ResultMessage.SuccessfullyRegistered();
 
 			return OperationResult.Success(message);
 		}

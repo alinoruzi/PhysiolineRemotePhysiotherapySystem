@@ -48,7 +48,7 @@ namespace TreatmentManagement.ApplicationServices.PlanDetailAppServices.Commands
 			if (await _unitOfWork.PlanDetailRepository.IsExistAsync(p 
 				    => p.PlanId == plan.Id && p.CollectionId == dto.CollectionId,cancellationToken))
 			{
-				message = ResultMessage.CustomMessage($"Your Collection with Id {dto.CollectionId} already exist with plan Id : {plan.Id}");
+				message = ResultMessage.CustomMessage($"مجموعه مورد نظر با شناسه  {dto.CollectionId} قبلا به این برنامه اضافه شده است.");
 				return OperationResult.Failed(message, HttpStatusCode.BadRequest);
 			}
 

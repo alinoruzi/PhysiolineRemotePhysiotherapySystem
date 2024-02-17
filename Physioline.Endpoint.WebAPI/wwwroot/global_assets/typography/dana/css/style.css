@@ -1,4 +1,4 @@
-@import url(/MehrUIVersionOfOstademaghzCMS/global_assets/typography/dana/css/fontiran.css); /* لینک فایلی که وظیفه بارگذاری فونت ها را برعهده دارد */
+@import url("/global_assets/typography/dana/css/fontiran.css"); /* لینک فایلی که وظیفه بارگذاری فونت ها را برعهده دارد */
 * {
 	font-family: dana  !important;
 	direction: rtl;

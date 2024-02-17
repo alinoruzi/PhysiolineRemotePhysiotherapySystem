@@ -1,0 +1,156 @@
+@model Physioline.Endpoint.WebAPI.Areas.Admin.Models.CollectionModels.CollectionGetViewModel
+
+@{
+    ViewData["Title"] = "مجموعه تمرین: " + Model.Collection.Title;
+
+    string ConvertTime(uint seconds)
+    {
+        var timeSpan = TimeSpan.FromSeconds(seconds);
+        return timeSpan.ToString(@"d\-hh\:mm\:ss");
+    }
+}
+
+
+<!-- Delete Collection Modal -->
+<div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-area="Admin" asp-controller="Collection" asp-action="DeleteDetail" method="post">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">حذف رکورد</h1>
+            </div>
+                <div class="modal-body">
+                    <div>
+                        <span class="badge bg-danger">شما درحال حذف یک ردیف از مجموعه تمرین میباشید.</span>
+                    </div>
+                    <div class="mt-3">
+                        <div class="d-block mt-3">
+                            <label for="password">شناسه جزئیات تمرین(ردیف)</label>
+                            <input type="number" name="collectionId" value="@Model.Collection.Id" hidden readonly/>
+                            <input type="number" name="id" id="idForDelete" class="form-control disabled" required readonly/>
+                            <span class="text-secondary text-small mt-2">مجموعه با این شناسه حذف خواهد شد و قابل برگشت نخواهد بود.</span>
+                        </div>
+                    </div>
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+                <button type="submit" class="btn btn-danger">مطمئنم؛ حذف شود</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="row justify-content-center mt-5">
+    <div class="col-11">
+        @if(Model.OperationResult != null)
+        {
+            <div class="alert alert-dismissible @(Model.OperationResult == true ? "alert-success" : "alert-danger")  my-3" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                @Model.Message
+            </div>
+        }
+        <div class="row gx-3 justify-content-between">
+            <div class="col-9">
+                <h2 class="h2">@ViewData["Title"]</h2>
+                <p class="text-secondary">@Model.Collection.ShortDescription</p>
+                <hr/>
+                <p class="text-black">@Model.Collection.LongDescription</p>
+                <div class="d-inline-flex g-3 justify-content-between">
+                    <div class="flex">
+                        <span class="badge bg-black">دسته بندی: @Model.CategoryTitle</span>
+                    </div>
+                    <div class="flex mx-3">
+                        <span class="badge bg-primary">ایجاد شده در: @Model.Collection.CreatedAt.ToString("yyyy/mm/dd - hh:mm")</span>
+                    </div>
+                    <div class="flex">
+                        <span class="badge bg-success">ایجاد شده توسط: @(Model.CreatorUserInfo.FirstName + " " + Model.CreatorUserInfo.LastName)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="d-grid gy-3 justify-content-end">
+                    <div class="d-grid">
+                        <a asp-controller="" asp-action="">
+                            <button class="btn btn-outline-success">
+                                ویرایش مجموعه
+                            </button>
+                        </a>
+                    </div>
+                    <div class="d-grid mt-3">
+                        <a asp-controller="" asp-action="">
+                            <button class="btn btn-outline-success">
+                                افزودن تمرین به مجموعه
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="row justify-content-between">
+
+        </div>
+        <table class="table table-striped table-hover mt-3">
+            <thead>
+            <tr>
+                <th></th>
+                <th>#</th>
+                <th>ردیف</th>
+                <th>عنوان تمرین</th>
+                <th>توضیح کوتاه</th>
+                <th>تعداد</th>
+                <th>زمان</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            @if (Model.Items.Any())
+            {
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>
+                            <img src="~/ExercisePictures/@item.ExercisePicturePath" class="img-thumbnail" height="50px" width="50px"/>
+                        </td>
+                        <td>@item.Id</td>
+                        <td>@item.Priority</td>
+                        <td>@item.ExerciseTitle</td>
+                        <td>@item.ExerciseShortDescription</td>
+                        <td>@item.NumberPerDuration</td>
+                        <td>@ConvertTime(item.SecondsOfDuration)</td>
+                        <td>
+                            <div class="d-flex justify-content-center gap-1">
+                                <div>
+                                    <a asp-area="Admin" asp-controller="Collection" asp-action=""
+                                       data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                        <button class="btn btn-info btn-sm">
+                                            <i class="fa-solid fa-info"></i>
+                                        </button>
+                                    </a>
+                                </div>
+                                <div>
+                                    <a onclick="document.getElementById('idForDelete').value = @item.Id;"
+                                       data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                        <button class="btn btn-danger btn-sm">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <div class="alert alert-danger my-3 m-4" role="alert">
+                    اطلاعاتی برای نمایش وجود ندارد.
+                </div>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

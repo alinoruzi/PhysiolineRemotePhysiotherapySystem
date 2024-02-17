@@ -24,13 +24,13 @@ namespace TreatmentManagement.ApplicationServices.CollectionDetailAppServices.Co
 			}
 
 			var collectionDetail = await _unitOfWork.CollectionDetailRepository.GetAsync(id, cancellationToken);
-			if (!collectionDetail.Collection.IsGlobal)
-			{
-				message = ResultMessage.DontHavePermission();
-				return OperationResult.Failed(message, HttpStatusCode.Unauthorized);
-			}
+
 
 			collectionDetail.IsDeleted = true;
+			
+			_unitOfWork.CollectionDetailRepository.Update(collectionDetail);
+			
+			await _unitOfWork.CommitAsync(cancellationToken);
 
 			message = ResultMessage.SuccessfullyDeleted(nameof(collectionDetail), collectionDetail.Id);
 			return OperationResult.Success(message);

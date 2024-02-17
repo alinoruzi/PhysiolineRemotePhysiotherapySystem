@@ -7,5 +7,6 @@ namespace AccountManagement.Domain.Repositories
 	public interface IUserRepository : IBaseRepository<User>
 	{
 		Task<IEnumerable<User>> GetPageIncludePersonAsync(UserRole role, int pageNumber, int pageSize, CancellationToken cancellationToken);
+		Task<User> GetAsyncIncludePerson(long id, CancellationToken cancellationToken);
 	}
 }

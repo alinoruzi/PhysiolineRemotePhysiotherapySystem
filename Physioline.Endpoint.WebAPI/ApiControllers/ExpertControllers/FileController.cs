@@ -1,8 +1,9 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Physioline.Endpoint.WebAPI.ApiControllers.ExpertControllers
 {
-	//[Authorize(Roles = "Expert")]
+	[Authorize(Roles = "Expert,Admin")]
 	[Route("api/expert/[controller]/[action]")]
 	[ApiController]
 	public class FileController : ControllerBase
@@ -19,20 +20,20 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.ExpertControllers
 		{
 			if (imageFile == null || imageFile.Length == 0)
 			{
-				return BadRequest("Please select a valid image file.");
+				return BadRequest("لطفا یک فایل مناسب ارسال کنید.");
 			}
 			
 			var allowedExtensions = new[] { ".png", ".gif", ".jpg" };
 			var fileExtension = Path.GetExtension(imageFile.FileName).ToLowerInvariant();
 			if (!Array.Exists(allowedExtensions, ext => ext == fileExtension))
 			{
-				return BadRequest("Invalid file extension. Supported extensions are .png, .gif, and .jpg.");
+				return BadRequest("فرمت تصویر ارسال شده مجاز نیست. فرمت مجاز شامل: .png, .gif, and .jpg.");
 			}
 
 			const long maxFileSize = 5 * 1024 * 1024;
 			if (imageFile.Length > maxFileSize)
 			{
-				return BadRequest("File size exceeds the maximum allowed limit (5MB).");
+				return BadRequest("فایل نباید بیشتر از 5 مگابایت باشد (5MB).");
 			}
 
 			var uniqueFileName = $"{Guid.NewGuid()}{fileExtension}";
@@ -52,20 +53,20 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.ExpertControllers
 		{
 			if (imageFile == null || imageFile.Length == 0)
 			{
-				return BadRequest("Please select a valid image file.");
+				return BadRequest("لطفا یک فایل مناسب ارسال کنید.");
 			}
 			
 			var allowedExtensions = new[] { ".png", ".jpg" };
 			var fileExtension = Path.GetExtension(imageFile.FileName).ToLowerInvariant();
 			if (!Array.Exists(allowedExtensions, ext => ext == fileExtension))
 			{
-				return BadRequest("Invalid file extension. Supported extensions are .png, .gif, and .jpg.");
+				return BadRequest("فرمت تصویر ارسال شده مجاز نیست. فرمت مجاز شامل: .png, .jpg.");
 			}
 
 			const long maxFileSize = 3 * 1024 * 1024;
 			if (imageFile.Length > maxFileSize)
 			{
-				return BadRequest("File size exceeds the maximum allowed limit (3MB).");
+				return BadRequest("فایل نباید بیشتر از 3 مگابایت باشد (3MB).");
 			}
 
 			var uniqueFileName = $"{Guid.NewGuid()}{fileExtension}";

@@ -21,5 +21,11 @@ namespace AccountManagement.Infrastructure.EntityFrameworkCore.Repositories
 				.Skip((pageNumber - 1) * pageSize)
 				.Take(pageSize).ToListAsync(cancellationToken);
 		}
+		public async Task<User> GetAsyncIncludePerson(long id, CancellationToken cancellationToken)
+		{
+			return await _context.Users.Include(u => u.Person)
+				.FirstAsync(u => u.Id == id, cancellationToken);
+
+		}
 	}
 }

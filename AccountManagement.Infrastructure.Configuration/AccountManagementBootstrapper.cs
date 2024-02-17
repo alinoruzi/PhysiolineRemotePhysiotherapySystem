@@ -47,11 +47,13 @@ namespace AccountManagement.Infrastructure.Configuration
 			services.AddScoped<IAddUserAppService, AddUserAppService>();
 			services.AddScoped<IConfirmUserByAdminAppService, ConfirmUserByAdminAppService>();
 			services.AddScoped<IDeactivateUserByAdminAppService, DeactivateUserByAdminAppService>();
+			services.AddScoped<IChangeUserPasswordByAdminAppService, ChangeUserPasswordByAdminAppService>();
 			
 			//Queries:
 			services.AddScoped<IGetUserIdAppService, GetUserIdAppService>();
 			services.AddScoped<IGetUsersPageListByAdminAppService, GetUsersPageListByAdminAppService>();
 			services.AddScoped<ILoginUserAppService, LoginUserAppService>();
+			services.AddScoped<IGetUserInfoAppService, GetUserInfoAppService>();
 			
 
 			#endregion
