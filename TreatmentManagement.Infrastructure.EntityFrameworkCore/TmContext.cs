@@ -22,6 +22,9 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore
 		public DbSet<Plan> Plans { get; set; }
 		public DbSet<PlanDetail> PlanDetails { get; set; }
 
+		public DbSet<ExerciseFeedback> ExerciseFeedbacks { get; set; }
+		public DbSet<CollectionFeedback> CollectionFeedbacks { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
@@ -40,6 +43,9 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore
 
 			modelBuilder.ApplyConfiguration(new PlanMapping());
 			modelBuilder.ApplyConfiguration(new PlanDetailMapping());
+
+			modelBuilder.ApplyConfiguration(new ExerciseFeedbackMapping());
+			modelBuilder.ApplyConfiguration(new CollectionFeedbackMapping());
 		}
 	}
 }

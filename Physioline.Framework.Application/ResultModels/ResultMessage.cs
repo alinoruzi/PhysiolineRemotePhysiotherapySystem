@@ -13,7 +13,7 @@ namespace Physioline.Framework.Application.ResultModels
 			=> new ResultMessage(message);
 		
 		public static ResultMessage EntityNotFound(string entityName, long id)
-			=> new ResultMessage($"رکوردی با شناسه {id} وجود ندارد یا در دسترس نیست");
+			=> new ResultMessage($"رکورد مورد نظر از نوع {entityName} با شناسه {id} یافت نشد.");
 		
 		
 		public static ResultMessage AnUniquePropertyAlreadyExist(string entityName, string propertyName)
@@ -25,15 +25,15 @@ namespace Physioline.Framework.Application.ResultModels
 
 
 		public static ResultMessage SuccessfullyAdded(string entityName, long id)
-			=> new ResultMessage($"رکورد مورد نظر با شناسه {id} با موفقیت اضافه شد.");
+			=> new ResultMessage($"رکورد مورد نظر از نوع {entityName} با شناسه {id} با موفقیت ایجاد شد.");
 
 
 		public static ResultMessage SuccessfullyEdited(string entityName, long id)
-			=> new ResultMessage($"رکورد مورد نظر با شناسه {id} با موفقیت ویرایش شد.");
+			=> new ResultMessage($"رکورد مورد نظر از نوع {entityName} با شناسه {id} با موفقیت ویرایش شد.");
 
 
 		public static ResultMessage SuccessfullyDeleted(string entityName, long id)
-			=> new ResultMessage($"رکورد مورد نظر با شناسه {id} با موفقیت حذف شد.");
+			=> new ResultMessage($"رکورد مورد نظر از نوع {entityName} با شناسه {id} با موفقیت حذف شد.");
 
 
 		public static ResultMessage SuccessfullyGetData()
@@ -41,7 +41,7 @@ namespace Physioline.Framework.Application.ResultModels
 
 
 		public static ResultMessage CategoryCanNotBeDelete()
-			=> new ResultMessage("دسته بندی مورد نظر نمیتواند حذف شد. ابتدا رکوردهای وابسته آن را حذف یا ویرایش نمایید.");
+			=> new ResultMessage("دسته بندی مورد نظر نمیتواند حذف شود. ابتدا رکوردهای وابسته آن را حذف یا ویرایش نمایید.");
 		
 		public static ResultMessage UserIsNotConfirmed()
 			=> new ResultMessage("حساب کاربری شما غیرفعال است یا هنوز توسط مدیر سیستم تایید نشده است.");

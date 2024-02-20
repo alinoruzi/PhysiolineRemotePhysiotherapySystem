@@ -12,6 +12,7 @@ namespace Physioline.Framework.Domain
 			CancellationToken cancellationToken);
 		Task<IEnumerable<TEntity>> GetPageAsync(int pageNumber, int pageSize, 
 			CancellationToken cancellationToken);
+		Task<uint> CountAllAsync(CancellationToken cancellationToken);
 		Task<IEnumerable<TEntity>> GetPageAsync(Expression<Func<TEntity, bool>> expression,
 			int pageNumber, int pageSize, CancellationToken cancellationToken);
 		Task<bool> IsExistAsync(Expression<Func<TEntity, bool>> expression, 

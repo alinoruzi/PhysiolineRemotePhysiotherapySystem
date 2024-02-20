@@ -13,7 +13,7 @@ namespace AccountManagement.Infrastructure.EntityFrameworkCore.Mappings
 			builder.HasBaseType<BaseEntity>();
 			builder.ToTable("SpecializedTitles", "AM");
 			builder.Property(st => st.Title).IsRequired().HasMaxLength(255);
-			builder.Property(st => st.ColorCode).IsRequired().HasMaxLength(6);
+			builder.Property(st => st.ColorCode).IsRequired().HasMaxLength(9);
 		}
 	}
 }

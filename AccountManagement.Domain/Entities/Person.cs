@@ -10,7 +10,7 @@ namespace AccountManagement.Domain.Entities
 		public required Gender Gender { get; set; }
 
 		public User User { get; set; }
-		public long? UserId { get; set; }
+		public required long UserId { get; set; }
 		
 	}
 

@@ -26,6 +26,7 @@ namespace AccountManagement.ApplicationServices.Mappers
 				NationalCode = dto.NationalCode,
 				BirthDate = dto.BirthDate,
 				CreatorUserId = userId,
+				UserId = userId
 			};
 		
 		public static Expert MapToExpert(RegisterExpertDto dto, long userId)
@@ -40,6 +41,7 @@ namespace AccountManagement.ApplicationServices.Mappers
 				Biography = dto.Biography,
 				NationalCode = dto.NationalCode,
 				CreatorUserId = userId,
+				UserId = userId
 			};
 
 		public static LoginResultDto MapToLoginResult(User user)
@@ -72,6 +74,18 @@ namespace AccountManagement.ApplicationServices.Mappers
 				Role = user.UserRole.ToString(),
 				IsConfirmed = user.IsConfirmed,
 				IsRegistered = user.IsRegistered,
+			};
+
+		public static ExpertInfoDto MapToExpertInfo(Expert expert)
+			=> new ExpertInfoDto()
+			{
+				Id = expert.Id,
+				UserId = expert.UserId,
+				SpecializedTitleId = expert.SpecializedTitleId,
+				NationalCode = expert.NationalCode,
+				Biography = expert.Biography,
+				MedicalSystemCode = expert.MedicalSystemCode,
+				ProfilePicture = expert.ProfilePicturePath
 			};
 	}
 }

@@ -6,10 +6,14 @@ using TreatmentManagement.ApplicationContracts.CollectionCategoryAppServicesCont
 using TreatmentManagement.ApplicationContracts.CollectionCategoryAppServicesContracts.Queries;
 using TreatmentManagement.ApplicationContracts.CollectionDetailAppServiceCaontracts.Commands;
 using TreatmentManagement.ApplicationContracts.CollectionDetailAppServiceCaontracts.Queries;
+using TreatmentManagement.ApplicationContracts.CollectionFeedbackAppServiceContracts.Commands;
+using TreatmentManagement.ApplicationContracts.CollectionFeedbackAppServiceContracts.Queries;
 using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.Commands;
 using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.Queries;
 using TreatmentManagement.ApplicationContracts.ExerciseCategoryAppServicesContracts.Commands;
 using TreatmentManagement.ApplicationContracts.ExerciseCategoryAppServicesContracts.Queries;
+using TreatmentManagement.ApplicationContracts.ExerciseFeedbackAppServiceContracts.Commands;
+using TreatmentManagement.ApplicationContracts.ExerciseFeedbackAppServiceContracts.Queries;
 using TreatmentManagement.ApplicationContracts.PlanAppServicesContracts.Commands;
 using TreatmentManagement.ApplicationContracts.PlanAppServicesContracts.Queries;
 using TreatmentManagement.ApplicationContracts.PlanDetailAppServicesContracts.Commands;
@@ -20,10 +24,14 @@ using TreatmentManagement.ApplicationServices.CollectionCategoryAppServices.Comm
 using TreatmentManagement.ApplicationServices.CollectionCategoryAppServices.Queries;
 using TreatmentManagement.ApplicationServices.CollectionDetailAppServices.Commands;
 using TreatmentManagement.ApplicationServices.CollectionDetailAppServices.Queries;
+using TreatmentManagement.ApplicationServices.CollectionFeedbackAppServices.Commands;
+using TreatmentManagement.ApplicationServices.CollectionFeedbackAppServices.Queries;
 using TreatmentManagement.ApplicationServices.ExerciseAppServices.Commands;
 using TreatmentManagement.ApplicationServices.ExerciseAppServices.Queries;
 using TreatmentManagement.ApplicationServices.ExerciseCategoryAppServices.Commands;
 using TreatmentManagement.ApplicationServices.ExerciseCategoryAppServices.Queries;
+using TreatmentManagement.ApplicationServices.ExerciseFeedbackAppServices.Commands;
+using TreatmentManagement.ApplicationServices.ExerciseFeedbackAppServices.Queries;
 using TreatmentManagement.ApplicationServices.PlanAppServices.Commands;
 using TreatmentManagement.ApplicationServices.PlanAppServices.Queries;
 using TreatmentManagement.ApplicationServices.PlanDetailAppServices.Commands;
@@ -136,6 +144,8 @@ namespace TreatmentManagement.Infrastructure.Configuration
 			services.AddScoped<IDeletePlanByAdminAppService, DeletePlanByAdminAppService>();
 			services.AddScoped<IDeletePlanByExpertAppService, DeletePlanByExpertAppService>();
 			services.AddScoped<IEditPlanByExpertAppService, EditPlanByExpertAppService>();
+			services.AddScoped<IAddExerciseFeedbackByClientAppService, AddExerciseFeedbackByClientAppService>();
+			services.AddScoped<IAddCollectionFeedbackByClientAppService, AddCollectionFeedbackByClientAppService>();
 
 			//Queries:
 			services.AddScoped<IGetPlanByExpertAppService, GetPlanByExpertAppService>();
@@ -143,6 +153,11 @@ namespace TreatmentManagement.Infrastructure.Configuration
 			services.AddScoped<IGetPlansPageListByAdminAppService, GetPlansPageListByAdminAppService>();
 			services.AddScoped<IGetAllPlansByClientAppService, GetAllPlansByClientAppService>();
 			services.AddScoped<IGetPlanByClientAppService, GetPlanByClientAppService>();
+			services.AddScoped<IGetPlanByAdminAppService, GetPlanByAdminAppService>();
+			services.AddScoped<IGetSuccessExerciseFeedbackListByExpertAppService, GetSuccessExerciseFeedbackListByExpertAppService>();
+			services.AddScoped<IGetUnsuccessfulExerciseFeedbackListByExpertAppService, GetUnsuccessfulExerciseFeedbackListByExpertAppService>();
+			services.AddScoped<IGetSuccessCollectionFeedbackListByExpertAppService, GetSuccessCollectionFeedbackListByExpertAppService>();
+			services.AddScoped<IGetUnsuccessfulCollectionFeedbackListByExpertAppService, GetUnsuccessfulCollectionFeedbackListByExpertAppService>();
 
 			#endregion
 

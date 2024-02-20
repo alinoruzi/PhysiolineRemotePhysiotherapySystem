@@ -12,7 +12,8 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.ClientControllers
 	{
 		private readonly IGetPlanByClientAppService _get;
 		private readonly IGetAllPlansByClientAppService _getAll;
-		public PlanController(IGetAllPlansByClientAppService getAll, IGetPlanByClientAppService get)
+		public PlanController(IGetAllPlansByClientAppService getAll,
+			IGetPlanByClientAppService get)
 		{
 			_getAll = getAll;
 			_get = get;
@@ -21,7 +22,7 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.ClientControllers
 		[HttpGet]
 		public async Task<ActionResult<List<GetPlanByClientDto>>> GetAll(CancellationToken cancellationToken)
 		{
-			var userId = long.Parse(HttpContext.User.Claims.First(c=>c.Type == "userId").Value);
+			long userId = long.Parse(HttpContext.User.Claims.First(c=>c.Type == "userId").Value);
 			return await _getAll.Run(userId, cancellationToken);
 		}
 
@@ -29,7 +30,7 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.ClientControllers
 		public async Task<ActionResult<GetPlanByClientDto>> Get(long id,
 			CancellationToken cancellationToken)
 		{
-			var userId = long.Parse(HttpContext.User.Claims.First(c=>c.Type == "userId").Value);
+			long userId = long.Parse(HttpContext.User.Claims.First(c=>c.Type == "userId").Value);
 			var result = await _get.Run(id, userId, cancellationToken);
 			return result ? Ok(result.Value) : StatusCode(result, result.Message);
 		}

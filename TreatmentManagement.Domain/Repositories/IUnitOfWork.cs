@@ -9,6 +9,8 @@ namespace TreatmentManagement.Domain.Repositories
 		public ICollectionDetailRepository CollectionDetailRepository { get; }
 		public IPlanRepository PlanRepository { get; }
 		public IPlanDetailRepository PlanDetailRepository { get; }
+		public IExerciseFeedbackRepository ExerciseFeedbackRepository { get; }
+		public ICollectionFeedbackRepository CollectionFeedbackRepository { get; }
 
 		Task<int> CommitAsync(CancellationToken cancellationToken);
 		void Dispose();

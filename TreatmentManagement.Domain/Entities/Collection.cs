@@ -7,6 +7,7 @@ namespace TreatmentManagement.Domain.Entities
 
 		public Collection()
 		{
+			CollectionFeedbacks = new List<CollectionFeedback>();
 			Details = new List<CollectionDetail>();
 			Plans = new List<PlanDetail>();
 		}
@@ -16,6 +17,7 @@ namespace TreatmentManagement.Domain.Entities
 		public bool IsGlobal { get; set; }
 		public CollectionCategory Category { get; set; }
 		public required long CategoryId { get; set; }
+		public List<CollectionFeedback> CollectionFeedbacks { get; set; }
 		public List<CollectionDetail> Details { get; set; }
 		public List<PlanDetail> Plans { get; set; }
 	}

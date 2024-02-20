@@ -13,12 +13,13 @@ namespace Physioline.Endpoint.WebAPI.Services.AuthenticationServices
 			_configuration = configuration;
 		}
 		
-		public string Generate(long userId, string role)
+		public string Generate(long userId, string role, string fullName)
 		{
 			var claims = new List<Claim>()
 			{
 				new Claim("userId", userId.ToString()),
 				new Claim(ClaimTypes.Role,role),
+				new Claim(ClaimTypes.Name, fullName)
 			};
 
 			var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));

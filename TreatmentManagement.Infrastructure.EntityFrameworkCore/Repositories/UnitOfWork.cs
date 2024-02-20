@@ -5,24 +5,14 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Repositories
 	public class UnitOfWork : IUnitOfWork
 	{
 		private readonly TmContext _context;
-
-
 		private ICollectionCategoryRepository _collectionCategoryRepository;
-
-
 		private ICollectionDetailRepository _collectionDetailRepository;
-
-
 		private ICollectionRepository _collectionRepository;
-
-
 		private IExerciseCategoryRepository _exerciseCategoryRepository;
-
-
 		private IExerciseRepository _exerciseRepository;
-
-
 		private IPlanDetailRepository _planDetailRepository;
+		private IExerciseFeedbackRepository _exerciseFeedbackRepository;
+		private ICollectionFeedbackRepository _collectionFeedbackRepository;
 
 
 		private IPlanRepository _planRepository;
@@ -52,6 +42,12 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Repositories
 		public IPlanDetailRepository PlanDetailRepository
 			=> _planDetailRepository = _planDetailRepository ?? new PlanDetailRepository(_context);
 
+		public IExerciseFeedbackRepository ExerciseFeedbackRepository
+			=> _exerciseFeedbackRepository = _exerciseFeedbackRepository ?? new ExerciseFeedbackRepository(_context);
+
+		public ICollectionFeedbackRepository CollectionFeedbackRepository
+			=> _collectionFeedbackRepository = _collectionFeedbackRepository ?? new CollectionFeedbackRepository(_context);
+		
 
 		public async Task<int> CommitAsync(CancellationToken cancellationToken)
 			=> await _context.SaveChangesAsync(cancellationToken);

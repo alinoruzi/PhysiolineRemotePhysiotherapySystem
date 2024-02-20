@@ -29,6 +29,7 @@ namespace TreatmentManagement.ApplicationServices.Mappers
 			{
 				Id = entity.Id,
 				PlanId = entity.PlanId,
+				Priority = entity.Priority,
 				CollectionId = entity.CollectionId,
 				WeekDays = entity.WeekDays
 					.Select(x => (byte)x.DayOfWeek).ToList()

@@ -1,0 +1,174 @@
+@model TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.DTOs.AddExerciseDto
+
+@{
+    ViewData["Title"] = "ایجاد تمرین جدید";
+}
+
+<div class="container-fluid px-5 d-flex justify-content-between">
+    <div>
+        <h2 class="h2 titr-small badge bg-dark">@ViewData["Title"]</h2>
+    </div>
+    <div>
+        <a asp-area="Admin" asp-controller="Exercise" asp-action="PageList">
+            <button class="btn btn-sm btn-outline-primary">
+                بازگشت به فهرست
+                <i class="fa-solid fa-arrow-circle-left"></i>
+            </button>
+        </a>
+    </div>
+</div>
+<hr/>
+<div class="row justify-content-center mt-3">
+    <div class="mt-5 col-sm-10 col-lg-6 ps-lg-5">
+        <form asp-area="Admin" asp-controller="Exercise" asp-action="CreateExercise" id="addExercise" method="post">
+            <div class="row mb-3 mt-3">
+                <div class="col-6">
+                    <label asp-for="Title"></label>
+                    <input type="text" asp-for="Title" name="Title" class="form-control"/>
+                    <span class="text-danger form-text" asp-validation-for="Title"></span>
+                </div>
+                <div class="col-6">
+                    <label asp-for="CategoryId"></label>
+                    <select asp-for="CategoryId" asp-items="@((IEnumerable<SelectListItem>)ViewData["categories"])" name="CategoryId" class="form-select" required>
+                        <option value="">یک دسته بندی را انتخاب کنید</option>
+                    </select>
+                    <span class="text-danger form-text" asp-validation-for="CategoryId"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3 mt-3">
+                <div class="col-12">
+                    <label asp-for="ShortDescription"></label>
+                    <input type="text" asp-for="ShortDescription" name="ShortDescription" class="form-control"/>
+                    <span class="text-danger form-text" asp-validation-for="ShortDescription"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="LongDescription"></label>
+                    <textarea asp-for="LongDescription" name="LongDescription" class="form-control"></textarea>
+                    <span class="text-danger form-text" asp-validation-for="LongDescription"></span>
+                </div>
+            </div>
+            <div class="row mb-3 mt-3">
+                <div class="col-12">
+                    <div class="card rounded-4">
+                        <div class="card-header">
+                            <label asp-for="GuideReferences"></label>
+                        </div>
+                        <div class="d-inline p-3 g-3 card-body">
+                            @* <ul id="GuideReferences"> *@
+                            @*     <li id="tuple"> *@
+                            @*         <div class="d-inline-flex gap-3"> *@
+                            @*             <input asp-for="GuideReferences" name="Title[]" class="form-control" type="text" placeholder="عنوان راهنما"/> *@
+                            @*             <input asp-for="GuideReferences" name="Url[]" type="url" class="form-control" placeholder="لینک راهنما"/> *@
+                            @*         </div> *@
+                            @*     </li> *@
+                            @* </ul> *@
+                            
+                            <div id="guideReferences">
+                                <div class="guideReference">
+                                    <div class="d-inline-flex gap-3">
+                                        <input type="text" name="guideReferences[0].title" class="form-control" placeholder="عنوان راهنما" required>
+                                        <input type="url" name="guideReferences[0].url" class="form-control" placeholder="آدرس اینترنتی" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-grid g-2 mt-2">
+                                <span class="text-danger form-text" asp-validation-for="GuideReferences"></span>
+                                <button type="button" class="btn btn-sm btn-primary" id="addGuideReference">افزودن منبع راهنمای جدید</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3 mt-3">
+                <div class="col-12">
+                    <div class="card rounded-4">
+                        <div class="card-header">
+                            <label asp-for="PicturePath"></label>
+                        </div>
+                        <div class="d-inline p-3 g-3 card-body">
+                            <div id="image-div"></div>
+                            <form method="post" enctype="multipart/form-data">
+                                <input class="form-control" id="imageFile" name="imageFile" type="file" size="1"/>
+                                <div class="d-grid g-2 mt-2">
+                                    <a class="btn btn-sm btn-primary" onclick="uploadFile('imageFile');">آپلود عکس</a>
+                                    <a class="btn btn-sm btn-secondary mt-2" onclick="clearImage();">حذف عکس</a>
+                                </div>
+                                <span class="text-success mt-2" id="fileSuccess" style="display: none">آپلود با موفقیت انجام شد.</span>
+                                <span class="text-danger mt-2" id="fileError" style="display: none">فایل آپلود شده نامعتبر است. حداکثر 5 مگابایت و فقط .jpg و .png و .gif</span>
+                            </form>
+                            <input type="text" asp-for="PicturePath" name="PicturePath" class="form-control" hidden readonly/>
+                            <span class="text-danger form-text" asp-validation-for="PicturePath"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 mt-5">
+                <div class="d-grid gap-2">
+                    <input type="submit" form="addExercise" class="btn btn-outline-primary" value="ایجاد تمرین"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+// JavaScript function:
+function uploadFile(inputId) {
+    var fileUpload = $("#" + inputId).get(0);
+    var files = fileUpload.files;
+    var formData = new FormData();
+    formData.append("imageFile", files[0]);
+
+    $.ajax({
+        url: "/api/admin/File/UploadExercisePicture",
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(result) {
+            fileUpload.value = null;
+             $("#myDynamicImage").remove();
+             $("#PicturePath").val(result);
+               var newImage = $('<img>', {
+                   src: "/ExercisePictures/"+result,
+                   id: 'myDynamicImage',
+                   width: "100%",
+                   class: "card-img img-thumbnail rounded-4"
+                   });
+           $("#image-div").append(newImage);
+           $("#fileSuccess").show();
+           $("#fileError").hide();
+        },
+        error: (textStatus) => {
+            $("#fileSuccess").hide();
+            $("#fileError").show();
+            }
+    });
+}
+
+function clearImage(){
+    $("#PicturePath").val("");
+     $("#myDynamicImage").remove();
+     $("#fileSuccess").hide();
+     $("#fileError").hide();
+    }
+    
+    document.getElementById('addGuideReference').addEventListener('click', function() {
+      var container = document.getElementById('guideReferences');
+      var newGuideReference = document.createElement('div');
+      newGuideReference.className = 'guideReference';
+      newGuideReference.innerHTML = `
+        <div class="d-inline-flex gap-3">
+            <input type="text" name="guideReferences[${container.children.length}].title" class="form-control" placeholder="عنوان راهنما" required>
+            <input type="url" name="guideReferences[${container.children.length}].url" class="form-control" placeholder="آدرس اینترنتی" required>
+        </div>
+        `;
+      container.appendChild(newGuideReference);
+    });
+
+</script>
+
+
+

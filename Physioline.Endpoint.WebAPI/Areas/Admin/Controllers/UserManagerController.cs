@@ -4,9 +4,11 @@ using AccountManagement.ApplicationContracts.UserAppServicesContracts.Queries;
 using AccountManagement.Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Physioline.Endpoint.WebAPI.Areas.Admin.Models.UserManagerModels;
 using TreatmentManagement.ApplicationContracts.CollectionAppServicesContracts.Queries;
 using TreatmentManagement.ApplicationContracts.CollectionDetailAppServiceCaontracts.Queries;
+using TreatmentManagement.Domain.Entities;
 
 namespace Physioline.Endpoint.WebAPI.Areas.Admin.Controllers
 {
@@ -17,16 +19,19 @@ namespace Physioline.Endpoint.WebAPI.Areas.Admin.Controllers
 		private readonly IConfirmUserByAdminAppService _confirm;
 		private readonly IDeactivateUserByAdminAppService _deactivate;
 		private readonly IChangeUserPasswordByAdminAppService _changeUserPassword;
+		private readonly IAddUserAppService _addUser;
 		
 		public UserManagerController(IGetUsersPageListByAdminAppService getPage, 
 			IConfirmUserByAdminAppService confirm,
 			IDeactivateUserByAdminAppService deactivate, 
-			IChangeUserPasswordByAdminAppService changeUserPassword)
+			IChangeUserPasswordByAdminAppService changeUserPassword, 
+			IAddUserAppService addUser)
 		{
 			_getPage = getPage;
 			_confirm = confirm;
 			_deactivate = deactivate;
 			_changeUserPassword = changeUserPassword;
+			_addUser = addUser;
 
 		}
 		
@@ -98,6 +103,43 @@ namespace Physioline.Endpoint.WebAPI.Areas.Admin.Controllers
 			TempData["operationResult"] = result.IsSuccess;
 			TempData["message"] = result.Message;
 			return RedirectToAction("PageList",
+				new
+				{
+					pageNumber = TempData["pageNumber"],
+					pageSize = TempData["pageSize"], 
+					userRole = TempData["userRole"]
+				});
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> PreRegisterUser([Bind] PreRegisterViewModel viewModel, CancellationToken cancellationToken)
+		{
+			if (!ModelState.IsValid)
+			{
+				TempData["operationResult"] = false;
+				TempData["message"] = "ساختار داده ای ارسال شده معتبر نیست. لطفا مجددا تلاش کنید.";
+				return RedirectToAction("PageList",
+					new
+					{
+						pageNumber = TempData["pageNumber"],
+						pageSize = TempData["pageSize"], 
+						userRole = TempData["userRole"]
+					});
+			}
+
+			var dto = new AddUserDto()
+			{
+				Email = viewModel.Email,
+				Mobile = viewModel.Mobile
+			};
+			
+			long userId = long.Parse(HttpContext.User.Claims.First(c => c.Type == "userId").Value);
+			
+			var result = await _addUser.Run(dto,(UserRole)viewModel.RoleNumber, userId, cancellationToken);
+			
+			TempData["operationResult"] = result.IsSuccess;
+			TempData["message"] = result.Message;
+			return RedirectToAction(nameof(PageList),
 				new
 				{
 					pageNumber = TempData["pageNumber"],

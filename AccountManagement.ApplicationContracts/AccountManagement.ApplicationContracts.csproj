@@ -8,11 +8,6 @@
 
     <ItemGroup>
         <Folder Include="AdminAppServicesContracts\Queries\"/>
-        <Folder Include="ClientAppServicesContracts\Queries\"/>
-        <Folder Include="ExpertAppServicesContracts\Queries\"/>
-        <Folder Include="SpecializedTitleAppServicesContracts\Commands\"/>
-        <Folder Include="SpecializedTitleAppServicesContracts\DTOs\"/>
-        <Folder Include="SpecializedTitleAppServicesContracts\Queries\"/>
     </ItemGroup>
 
     <ItemGroup>

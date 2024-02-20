@@ -1,0 +1,147 @@
+@model Physioline.Endpoint.WebAPI.Areas.Admin.Models.PlanModels.PlanGetViewModel
+
+@{
+    ViewData["Title"] = "جزئیات برنامه درمانی دکتر  " + Model.ExpertUserInfo.LastName;
+
+    string ConvertToWeekDay(byte dayNumber)
+    {
+        string result = "";
+        switch (dayNumber)
+        {
+            case 0:
+                result = "یکشنبه";
+                break;
+            case 1:
+                result = "دوشنبه";
+                break;
+            case 2:
+                result = "سه شنبه";
+                break;
+            case 3:
+                result = "چهار شنبه";
+                break;
+            case 4:
+                result = "پنج شنبه";
+                break;
+            case 5:
+                result = "جمعه";
+                break;
+            case 6:
+                result = "شنبه";
+                break;
+        }
+        return result;
+    }
+
+    string days = "";
+}
+
+<div class="row justify-content-center mt-3">
+    <div class="col-11">
+        @if (Model.OperationResult != null)
+        {
+            <div class="alert alert-dismissible mb-3 @(Model.OperationResult == true ? "alert-success" : "alert-danger")  my-3" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                @Model.Message
+            </div>
+        }
+        <div class="row gx-3 justify-content-between">
+            <div class="col-12 col-md-9">
+                <h2 class="h2">@ViewData["Title"]</h2>
+                <div class="flex">
+                    <span class="badge bg-black">شناسه: @Model.Plan.Id</span>
+                </div>
+                <p class="text-secondary mt-3 ps-5">توصیه پزشک: @Model.Plan.Description</p>
+                <hr/>
+                <div class="d-inline-flex wrapper mt-2 g-3 justify-content-between">
+                    <div class="flex">
+                        <span class="badge bg-secondary">شروع برنامه: @(Model.Plan.StartDate.ToString("yyyy-MM-dd"))</span>
+                    </div>
+                    <div class="flex mx-3">
+                        <span class="badge bg-warning">پایان برنامه: @(Model.Plan.EndDate.ToString("yyyy-MM-dd"))</span>
+                    </div>
+                    <div class="flex ms-3">
+                        <span class="badge bg-info">مدت برنامه (روز): @((Model.Plan.EndDate - Model.Plan.StartDate).Days)</span>
+                    </div>
+                    <div class="flex">
+                        <span class="badge bg-primary">وضعیت: @(Model.Plan.EndDate<DateTime.Now ? "پایان یافته" : "فعال")</span>
+                    </div>
+                </div>
+                <div class="d-inline-flex wrapper g-3 mt-2 justify-content-between">
+                    <div class="flex">
+                        <span class="badge bg-danger">متخصص: دکتر  @(Model.ExpertUserInfo.FirstName+" "+Model.ExpertUserInfo.LastName)</span>
+                    </div>
+                    <div class="flex mx-3">
+                        <span class="badge bg-primary">بیمار(خدمت گیرنده):  @(Model.ClientUserInfo.FirstName+" "+Model.ClientUserInfo.LastName)</span>
+                    </div>
+                    <div class="flex">
+                        <span class="badge bg-success">ایجاد شده در: @Model.Plan.CreatedAt.ToString("yyyy/MM/dd - hh:mm")</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-3">
+                <div class="card py-3 justify-content-center align-items-center">
+                    <div class="card-header bg-white">
+                        <h4 class="h4">مشخصات پزشک</h4>
+                    </div>
+                    <div class="card-body align-items-center">
+                        <img src="~/ProfilePictures/@Model.ExpertInfo.ProfilePicture" class="card-img rounded-5"/>
+                        <div class="justify-content-center align-content-center mt-3">
+                            <h5>دکتر @(Model.ExpertUserInfo.FirstName+" "+Model.ExpertUserInfo.LastName)</h5>
+                            <p>نظام پزشکی:  @Model.ExpertInfo.MedicalSystemCode</p>
+                            <p>@Model.ExpertInfo.Biography</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="row justify-content-between">
+
+        </div>
+        <table class="table table-striped table-hover mt-3">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>شناسه مجموعه</th>
+                <th>اولویت</th>
+                <th>عنوان مجموعه</th>
+                <th>توضیحات</th>
+                <th>دسترسی مجموعه</th>
+                <th>روزهای هفته</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            @if (Model.Details.Any())
+            {
+                @foreach (var item in Model.Details)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.CollectionId</td>
+                        <td>@item.Priority</td>
+                        <td>@item.CollectionTitle</td>
+                        <td>@(item.CollectionShortDescription.Length > 40 ? item.CollectionShortDescription.Substring(0,40) : item.CollectionShortDescription)</td>
+                        <td>@(item.CollectionIsGlobal ? "سراسری" : "اختصاصی")</td>
+                        <td>
+                            @foreach (byte day in item.WeekDays)
+                            {
+                                days = days + "، "+ConvertToWeekDay(day);
+                            }
+                            @days.Trim('،')
+                            @{ days = "";}
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <div class="alert alert-danger my-3 m-4" role="alert">
+                    اطلاعاتی برای نمایش وجود ندارد.
+                </div>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

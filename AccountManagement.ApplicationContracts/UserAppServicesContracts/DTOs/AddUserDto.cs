@@ -10,7 +10,6 @@ namespace AccountManagement.ApplicationContracts.UserAppServicesContracts.DTOs
 		public string Email { get; set; }
 
 		[Required]
-		[Phone] 
 		[MaxLength(11)]
 		public string Mobile { get; set; }
 	}

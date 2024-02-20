@@ -6,7 +6,7 @@ using TreatmentManagement.ApplicationContracts.PlanAppServicesContracts.Queries;
 
 namespace Physioline.Endpoint.WebAPI.ApiControllers.ExpertControllers
 {
-	[Authorize("Expert")]
+	[Authorize(Roles = "Expert")]
 	[Route("api/expert/[controller]")]
 	[ApiController]
 	public class PlanController : ControllerBase

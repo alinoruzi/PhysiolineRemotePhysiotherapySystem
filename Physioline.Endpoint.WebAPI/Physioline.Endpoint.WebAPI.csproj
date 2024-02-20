@@ -35,4 +35,8 @@
         <Folder Include="wwwroot\ProfilePictures\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <AdditionalFiles Include="Areas\Admin\Views\SpecializedTitle\PageList.cshtml" />
+    </ItemGroup>
+
 </Project>

@@ -8,6 +8,7 @@ namespace TreatmentManagement.Domain.Entities
 
 		public Exercise()
 		{
+			ExerciseFeedbacks = new List<ExerciseFeedback>();
 			GuideReferences = new List<ExerciseGuideReference>();
 			Collections = new List<CollectionDetail>();
 			IsGlobal = false;
@@ -20,6 +21,7 @@ namespace TreatmentManagement.Domain.Entities
 		public required string PicturePath { get; set; }
 		public ExerciseCategory Category { get; set; }
 		public required long CategoryId { get; set; }
+		public List<ExerciseFeedback> ExerciseFeedbacks { get; set; }
 		public List<CollectionDetail> Collections { get; set; }
 		public List<ExerciseGuideReference> GuideReferences { get; set; }
 	}

@@ -29,6 +29,8 @@ namespace Physioline.Framework.Infrastructure
 			CancellationToken cancellationToken)
 			=> await _dbSet.AsNoTracking().Skip((pageNumber - 1) * pageSize)
 				.Take(pageSize).ToListAsync(cancellationToken);
+		public async Task<uint> CountAllAsync(CancellationToken cancellationToken)
+			=> (uint)await _dbSet.CountAsync(cancellationToken);
 
 		public async Task<IEnumerable<TEntity>> GetPageAsync(Expression<Func<TEntity, bool>> expression, int pageNumber, int pageSize,
 			CancellationToken cancellationToken)

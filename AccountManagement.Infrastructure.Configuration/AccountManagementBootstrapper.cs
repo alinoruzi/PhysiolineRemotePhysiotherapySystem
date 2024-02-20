@@ -1,12 +1,17 @@
 using AccountManagement.ApplicationContracts.AdminAppServicesContracts.Commands;
-using AccountManagement.ApplicationContracts.AdminAppServicesContracts.DTOs;
 using AccountManagement.ApplicationContracts.ClientAppServicesContracts.Commands;
 using AccountManagement.ApplicationContracts.ExpertAppServicesContracts.Commands;
+using AccountManagement.ApplicationContracts.ExpertAppServicesContracts.Queries;
+using AccountManagement.ApplicationContracts.SpecializedTitleAppServicesContracts.Commands;
+using AccountManagement.ApplicationContracts.SpecializedTitleAppServicesContracts.Queries;
 using AccountManagement.ApplicationContracts.UserAppServicesContracts.Commands;
 using AccountManagement.ApplicationContracts.UserAppServicesContracts.Queries;
 using AccountManagement.ApplicationServices.AdminAppServices.Commands;
 using AccountManagement.ApplicationServices.ClientAppServices.Commands;
 using AccountManagement.ApplicationServices.ExpertAppServices.Commands;
+using AccountManagement.ApplicationServices.ExpertAppServices.Queries;
+using AccountManagement.ApplicationServices.SpecializedTitleAppServices.Commands;
+using AccountManagement.ApplicationServices.SpecializedTitleAppServices.Queries;
 using AccountManagement.ApplicationServices.UserAppServices.Commands;
 using AccountManagement.ApplicationServices.UserAppServices.Queries;
 using AccountManagement.Domain.Repositories;
@@ -39,6 +44,7 @@ namespace AccountManagement.Infrastructure.Configuration
 			#region ExpertAppService
 			//Commands:
 			services.AddScoped<IRegisterExpertAppService, RegisterExpertAppService>();
+			services.AddScoped<IGetExpertInfoAppService, GetExpertInfoAppService>();
 
 			#endregion
 
@@ -48,6 +54,7 @@ namespace AccountManagement.Infrastructure.Configuration
 			services.AddScoped<IConfirmUserByAdminAppService, ConfirmUserByAdminAppService>();
 			services.AddScoped<IDeactivateUserByAdminAppService, DeactivateUserByAdminAppService>();
 			services.AddScoped<IChangeUserPasswordByAdminAppService, ChangeUserPasswordByAdminAppService>();
+			services.AddScoped<IUserChangePasswordAppService, UserChangePasswordAppService>();
 			
 			//Queries:
 			services.AddScoped<IGetUserIdAppService, GetUserIdAppService>();
@@ -56,6 +63,18 @@ namespace AccountManagement.Infrastructure.Configuration
 			services.AddScoped<IGetUserInfoAppService, GetUserInfoAppService>();
 			
 
+			#endregion
+
+			#region SpecializedTitle
+			//Commands:
+			services.AddScoped<IAddSpecializedTitleByAdminAppService, AddSpecializedTitleByAdminAppService>();
+			services.AddScoped<IDeleteSpecializedTitleByAdminAppService, DeleteSpecializedTitleByAdminAppService>();
+			services.AddScoped<IEditSpecializedTitleByAdminAppService, EditSpecializedTitleByAdminAppService>();
+
+			//Queries:
+			services.AddScoped<IGetSpecializedTitlesPageListByAdminAppService, GetSpecializedTitlesPageListByAdminAppService>();
+			services.AddScoped<IGetSpecializedTitleAppService, GetSpecializedTitleAppService>();
+			services.AddScoped<ISearchSpecializedTitleAppService, SearchSpecializedTitleAppService>();
 			#endregion
 
 			//UnitOfWork:

@@ -67,7 +67,7 @@ namespace AccountManagement.Infrastructure.EntityFrameworkCore.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<long?>("UserId")
+                    b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasIndex("UserId")
@@ -83,8 +83,8 @@ namespace AccountManagement.Infrastructure.EntityFrameworkCore.Migrations
 
                     b.Property<string>("ColorCode")
                         .IsRequired()
-                        .HasMaxLength(6)
-                        .HasColumnType("nvarchar(6)");
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -211,7 +211,8 @@ namespace AccountManagement.Infrastructure.EntityFrameworkCore.Migrations
                     b.HasOne("AccountManagement.Domain.Entities.User", "User")
                         .WithOne("Person")
                         .HasForeignKey("AccountManagement.Domain.Entities.Person", "UserId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });

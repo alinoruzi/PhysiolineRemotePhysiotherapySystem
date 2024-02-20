@@ -117,6 +117,30 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
                     b.ToTable("CollectionDetails", "TM");
                 });
 
+            modelBuilder.Entity("TreatmentManagement.Domain.Entities.CollectionFeedback", b =>
+                {
+                    b.HasBaseType("Physioline.Framework.Domain.BaseEntity");
+
+                    b.Property<long>("CollectionId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Comment")
+                        .HasMaxLength(750)
+                        .HasColumnType("nvarchar(750)");
+
+                    b.Property<bool>("DoingState")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("PlanId")
+                        .HasColumnType("bigint");
+
+                    b.HasIndex("CollectionId");
+
+                    b.HasIndex("PlanId");
+
+                    b.ToTable("CollectionFeedbacks");
+                });
+
             modelBuilder.Entity("TreatmentManagement.Domain.Entities.Exercise", b =>
                 {
                     b.HasBaseType("Physioline.Framework.Domain.BaseEntity");
@@ -165,6 +189,30 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.ToTable("ExerciseCategories", "TM");
+                });
+
+            modelBuilder.Entity("TreatmentManagement.Domain.Entities.ExerciseFeedback", b =>
+                {
+                    b.HasBaseType("Physioline.Framework.Domain.BaseEntity");
+
+                    b.Property<string>("Comment")
+                        .HasMaxLength(750)
+                        .HasColumnType("nvarchar(750)");
+
+                    b.Property<bool>("DoingState")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("ExerciseId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("PlanId")
+                        .HasColumnType("bigint");
+
+                    b.HasIndex("ExerciseId");
+
+                    b.HasIndex("PlanId");
+
+                    b.ToTable("ExerciseFeedbacks");
                 });
 
             modelBuilder.Entity("TreatmentManagement.Domain.Entities.Plan", b =>
@@ -263,6 +311,31 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
                     b.Navigation("Exercise");
                 });
 
+            modelBuilder.Entity("TreatmentManagement.Domain.Entities.CollectionFeedback", b =>
+                {
+                    b.HasOne("TreatmentManagement.Domain.Entities.Collection", "Collection")
+                        .WithMany("CollectionFeedbacks")
+                        .HasForeignKey("CollectionId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Physioline.Framework.Domain.BaseEntity", null)
+                        .WithOne()
+                        .HasForeignKey("TreatmentManagement.Domain.Entities.CollectionFeedback", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TreatmentManagement.Domain.Entities.Plan", "Plan")
+                        .WithMany("CollectionFeedbacks")
+                        .HasForeignKey("PlanId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Collection");
+
+                    b.Navigation("Plan");
+                });
+
             modelBuilder.Entity("TreatmentManagement.Domain.Entities.Exercise", b =>
                 {
                     b.HasOne("TreatmentManagement.Domain.Entities.ExerciseCategory", "Category")
@@ -320,6 +393,31 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
                         .HasForeignKey("TreatmentManagement.Domain.Entities.ExerciseCategory", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("TreatmentManagement.Domain.Entities.ExerciseFeedback", b =>
+                {
+                    b.HasOne("TreatmentManagement.Domain.Entities.Exercise", "Exercise")
+                        .WithMany("ExerciseFeedbacks")
+                        .HasForeignKey("ExerciseId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Physioline.Framework.Domain.BaseEntity", null)
+                        .WithOne()
+                        .HasForeignKey("TreatmentManagement.Domain.Entities.ExerciseFeedback", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TreatmentManagement.Domain.Entities.Plan", "Plan")
+                        .WithMany("ExerciseFeedbacks")
+                        .HasForeignKey("PlanId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Exercise");
+
+                    b.Navigation("Plan");
                 });
 
             modelBuilder.Entity("TreatmentManagement.Domain.Entities.Plan", b =>
@@ -387,6 +485,8 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
 
             modelBuilder.Entity("TreatmentManagement.Domain.Entities.Collection", b =>
                 {
+                    b.Navigation("CollectionFeedbacks");
+
                     b.Navigation("Details");
 
                     b.Navigation("Plans");
@@ -400,6 +500,8 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
             modelBuilder.Entity("TreatmentManagement.Domain.Entities.Exercise", b =>
                 {
                     b.Navigation("Collections");
+
+                    b.Navigation("ExerciseFeedbacks");
                 });
 
             modelBuilder.Entity("TreatmentManagement.Domain.Entities.ExerciseCategory", b =>
@@ -409,7 +511,11 @@ namespace TreatmentManagement.Infrastructure.EntityFrameworkCore.Migrations
 
             modelBuilder.Entity("TreatmentManagement.Domain.Entities.Plan", b =>
                 {
+                    b.Navigation("CollectionFeedbacks");
+
                     b.Navigation("Details");
+
+                    b.Navigation("ExerciseFeedbacks");
                 });
 #pragma warning restore 612, 618
         }

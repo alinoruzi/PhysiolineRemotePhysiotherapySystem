@@ -7,6 +7,8 @@ namespace TreatmentManagement.Domain.Entities
 
 		public Plan()
 		{
+			ExerciseFeedbacks = new List<ExerciseFeedback>();
+			CollectionFeedbacks = new List<CollectionFeedback>();
 			Details = new List<PlanDetail>();
 		}
 		public required string Title { get; set; }
@@ -14,6 +16,8 @@ namespace TreatmentManagement.Domain.Entities
 		public required long ClientUserId { get; set; }
 		public DateTime StartDate { get; set; }
 		public required DateTime EndDate { get; set; }
+		public List<ExerciseFeedback> ExerciseFeedbacks { get; set; }
+		public List<CollectionFeedback> CollectionFeedbacks { get; set; }
 		public List<PlanDetail> Details { get; set; }
 	}
 }

@@ -1,52 +1,64 @@
 using AccountManagement.ApplicationContracts.UserAppServicesContracts.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Physioline.Endpoint.WebAPI.Areas.Admin.Models.CollectionModels;
-using Physioline.Endpoint.WebAPI.Areas.Admin.Views.Collection;
 using TreatmentManagement.ApplicationContracts.CollectionAppServicesContracts.Commands;
 using TreatmentManagement.ApplicationContracts.CollectionAppServicesContracts.DTOs;
 using TreatmentManagement.ApplicationContracts.CollectionAppServicesContracts.Queries;
 using TreatmentManagement.ApplicationContracts.CollectionCategoryAppServicesContracts.DTOs;
 using TreatmentManagement.ApplicationContracts.CollectionCategoryAppServicesContracts.Queries;
 using TreatmentManagement.ApplicationContracts.CollectionDetailAppServiceCaontracts.Commands;
+using TreatmentManagement.ApplicationContracts.CollectionDetailAppServiceCaontracts.DTOs;
 using TreatmentManagement.ApplicationContracts.CollectionDetailAppServiceCaontracts.Queries;
+using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.DTOs;
 using TreatmentManagement.ApplicationContracts.ExerciseAppServicesContracts.Queries;
 
 namespace Physioline.Endpoint.WebAPI.Areas.Admin.Controllers
 {
+	[Authorize(Roles = "Admin")]
 	public class CollectionController : Controller
 	{
 		private readonly IGetCollectionsPageListByAdminAppService _getPage;
 		private readonly IDeleteCollectionByAdminAppService _delete;
 		private readonly IGetCollectionByAdminAppService _get;
-		private readonly IGetCollectionDetailsByAdminAppService _getDetail;
+		private readonly IGetCollectionDetailsByAdminAppService _getDetails;
 		private readonly IGetExerciseByAdminAppService _getExercise;
 		private readonly IDeleteCollectionDetailByAdminAppService _deleteDetail;
 		private readonly IAddCollectionByAdminAppService _add;
 		private readonly ISearchCollectionCategoryAppService _searchCategory;
 		private readonly IGetUserInfoAppService _getUserInfo;
 		private readonly IGetCollectionCategoryAppService _getCategory;
+		private readonly IAddCollectionDetailByAdminAppService _addCollectionDetail;
+		private readonly ISearchExerciseByAdminAppService _searchExercise;
+		private readonly IEditCollectionByAdminAppService _edit;
 
 
 		public CollectionController(IGetCollectionsPageListByAdminAppService getPage,
 			IDeleteCollectionByAdminAppService delete, 
 			IGetCollectionByAdminAppService get, 
-			IGetCollectionDetailsByAdminAppService getDetail, 
+			IGetCollectionDetailsByAdminAppService getDetails, 
 			IGetExerciseByAdminAppService getExercise,
 			IDeleteCollectionDetailByAdminAppService deleteDetail, IAddCollectionByAdminAppService add, 
 			ISearchCollectionCategoryAppService searchCategory, IGetUserInfoAppService getUserInfo,
-			IGetCollectionCategoryAppService getCategory)
+			IGetCollectionCategoryAppService getCategory,
+			IAddCollectionDetailByAdminAppService addCollectionDetail, 
+			ISearchExerciseByAdminAppService searchExercise, 
+			IEditCollectionByAdminAppService edit)
 		{
 			_getPage = getPage;
 			_delete = delete;
 			_get = get;
-			_getDetail = getDetail;
+			_getDetails = getDetails;
 			_getExercise = getExercise;
 			_deleteDetail = deleteDetail;
 			_add = add;
 			_searchCategory = searchCategory;
 			_getUserInfo = getUserInfo;
 			_getCategory = getCategory;
+			_addCollectionDetail = addCollectionDetail;
+			_searchExercise = searchExercise;
+			_edit = edit;
 		}
 		
 		
@@ -55,11 +67,11 @@ namespace Physioline.Endpoint.WebAPI.Areas.Admin.Controllers
 			[FromQuery] uint pageNumber = 1,
 			[FromQuery] uint pageSize = 10)
 		{
-			var users = await _getPage.Run((int)pageNumber, (int)pageSize, cancellationToken);
+			var collections = await _getPage.Run((int)pageNumber, (int)pageSize, cancellationToken);
 
 			var viewModel = new CollectionGetPageListViewModel()
 			{
-				Items = users,
+				Items = collections,
 				PageNumber = (int)pageNumber,
 				PageSize = (int)pageSize,
 				OperationResult = TempData["operationResult"] as bool?,
@@ -80,10 +92,12 @@ namespace Physioline.Endpoint.WebAPI.Areas.Admin.Controllers
 
 			if (!result)
 			{
+				TempData["operationResult"] = (bool)result;
+				TempData["message"] = result.Message;
 				return RedirectToAction(nameof(PageList));
 			}
 			
-			var details = await _getDetail.Run(id, cancellationToken);
+			var details = await _getDetails.Run(id, cancellationToken);
 
 			var detailsViewModel = new List<CollectionDetailItemViewModel>();
 
@@ -92,10 +106,11 @@ namespace Physioline.Endpoint.WebAPI.Areas.Admin.Controllers
 				var exerciseResult = await _getExercise.Run(item.ExerciseId, cancellationToken);
 
 				if (!exerciseResult)
+				{
+					TempData["operationResult"] = (bool)exerciseResult;
+					TempData["message"] = exerciseResult.Message;
 					return RedirectToAction(nameof(PageList));
-
-				var exercise = exerciseResult.Value;
-
+				}
 				
 				detailsViewModel.Add(new CollectionDetailItemViewModel()
 				{
@@ -104,9 +119,10 @@ namespace Physioline.Endpoint.WebAPI.Areas.Admin.Controllers
 					ExerciseId = item.ExerciseId,
 					NumberPerDuration = item.NumberPerDuration,
 					SecondsOfDuration = item.SecondsOfDuration,
-					ExerciseTitle = exercise.Title,
-					ExerciseShortDescription = exercise.ShortDescription,
-					ExercisePicturePath = exercise.PicturePath
+					ExerciseIsGlobal = exerciseResult.Value.IsGlobal,
+					ExerciseTitle = exerciseResult.Value.Title,
+					ExerciseShortDescription = exerciseResult.Value.ShortDescription,
+					ExercisePicturePath = exerciseResult.Value.PicturePath
 				});
 			}
 			
@@ -127,10 +143,18 @@ namespace Physioline.Endpoint.WebAPI.Areas.Admin.Controllers
 				return RedirectToAction(nameof(PageList));
 			}
 				
+			var exercises = await _searchExercise.Run(new SearchInputExerciseDto() { Title = null }, cancellationToken);
+			var exerciseListItems = exercises.Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.Title });
+
+			var categories = await _searchCategory.Run(new CollectionCategorySearchInputDto() { Title = null }, cancellationToken);
+			var categoriesListItems = categories.Select(c => new SelectListItem() { Value = c.Id.ToString(), Text = c.Title });
+
 			var viewModel = new CollectionGetViewModel()
 			{
 				Collection = result.Value,
 				CategoryTitle = categoryResult.Value.Title,
+				Exercises = exerciseListItems,
+				Categories = categoriesListItems,
 				CreatorUserInfo = userResult.Value,
 				Items = detailsViewModel,
 				OperationResult = TempData["operationResult"] as bool?,
@@ -192,6 +216,44 @@ namespace Physioline.Endpoint.WebAPI.Areas.Admin.Controllers
 			TempData["operationResult"] = result.IsSuccess;
 			TempData["message"] = result.Message;
 			return RedirectToAction(nameof(GetSingle),new {id = collectionId});
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> CreateDetail(AddCollectionDetailDto dto, CancellationToken cancellationToken)
+		{
+			if (!ModelState.IsValid)
+			{
+				TempData["operationResult"] = false;
+				TempData["message"] = "ساختار داده ای ارسال شده معتبر نیست. لطفا مجددا تلاش کنید.";
+				return RedirectToAction(nameof(GetSingle), new {id = dto.CollectionId});
+			}
+			
+			long userId = long.Parse(HttpContext.User.Claims.First(c => c.Type == "userId").Value);
+			var result = await _addCollectionDetail.Run(dto, userId, cancellationToken);
+			
+			TempData["operationResult"] = result.IsSuccess;
+			TempData["message"] = result.Message;
+
+			return RedirectToAction(nameof(GetSingle), new {id = dto.CollectionId});
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> EditCollection(EditCollectionDto dto, CancellationToken cancellationToken)
+		{
+			if (!ModelState.IsValid)
+			{
+				TempData["operationResult"] = false;
+				TempData["message"] = "ساختار داده ای ارسال شده معتبر نیست. لطفا مجددا تلاش کنید.";
+				return RedirectToAction(nameof(GetSingle), new {id = dto.Id});
+			}
+			
+			var result = await _edit.Run(dto, cancellationToken);
+			
+			TempData["operationResult"] = result.IsSuccess;
+			TempData["message"] = result.Message;
+
+			return RedirectToAction(nameof(GetSingle), new {id = dto.Id});
+			
 		}
 	}
 }

@@ -5,6 +5,7 @@ using AccountManagement.ApplicationContracts.UserAppServicesContracts.DTOs;
 using AccountManagement.ApplicationContracts.UserAppServicesContracts.Queries;
 using Microsoft.AspNetCore.Mvc;
 using Physioline.Endpoint.WebAPI.Services.AuthenticationServices;
+using System.Security.Claims;
 
 namespace Physioline.Endpoint.WebAPI.Controllers
 {
@@ -14,22 +15,31 @@ namespace Physioline.Endpoint.WebAPI.Controllers
 		private readonly ILoginUserAppService _login;
 		private readonly IRegisterClientAppService _registerClient;
 		private readonly IRegisterExpertAppService _registerExpert;
+		private readonly IGetUserInfoAppService _getUserInfo;
 		
 		public AppAccountController(ILoginUserAppService login,
 			IConfiguration configuration,
 			IRegisterClientAppService registerClient,
-			IRegisterExpertAppService registerExpert)
+			IRegisterExpertAppService registerExpert, 
+			IGetUserInfoAppService getUserInfo)
 		{
 			_login = login;
 			_configuration = configuration;
 			_registerClient = registerClient;
 			_registerExpert = registerExpert;
+			_getUserInfo = getUserInfo;
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Login()
+		public IActionResult Login()
 		{
-			return View();
+			if (!HttpContext.User.Identity.IsAuthenticated)
+				return View();
+			
+			if (HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Role).Value == "Admin")
+				return RedirectPermanent("/Admin/Dashboard/Index/");
+			
+			return RedirectToAction("Index", "Home");
 		}
 		
 		[HttpPost]
@@ -42,12 +52,12 @@ namespace Physioline.Endpoint.WebAPI.Controllers
 			
 			if (!result)
 			{
-				ModelState.AddModelError("LoginField", "عملیات ورود به حساب کاربری نا موفق بود");
+				ModelState.AddModelError("LoginField",result.Message);
 				return View();
 			}
-			
+			var userInfo = (await _getUserInfo.Run(result.Value.UserId, cancellationToken)).Value;
 			var tokenGenerator = new JwtTokenGenerator(_configuration);
-			var token = tokenGenerator.Generate(result.Value.UserId, result.Value.Role);
+			var token = tokenGenerator.Generate(result.Value.UserId, result.Value.Role, userInfo.FirstName + " " + userInfo.LastName);
 			HttpContext.Response.Cookies.Append("auth-token", token, new CookieOptions
 			{
 				Expires = DateTime.Now.AddDays(7),
@@ -83,5 +93,19 @@ namespace Physioline.Endpoint.WebAPI.Controllers
 			
 			return RedirectToAction("Login","AppAccount");
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> SignOut(CancellationToken cancellationToken)
+		{
+			HttpContext.Response.Cookies.Append("auth-token", "", new CookieOptions
+			{
+				Expires = DateTime.UtcNow.AddDays(-1),
+				HttpOnly = true,
+				Secure = true,
+				SameSite = SameSiteMode.Strict
+			});
+			return Redirect($"/Home/Index");
+		}
+
 	}
 }

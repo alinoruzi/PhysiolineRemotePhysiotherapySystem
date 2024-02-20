@@ -26,8 +26,24 @@ namespace AccountManagement.ApplicationServices.AdminAppServices.Commands
 				return OperationResult.Failed(message, HttpStatusCode.BadRequest);
 			}
 
+			
+			var user = new User
+			{
+				Email = dto.Email,
+				Mobile = dto.Mobile,
+				Password = HasherService.HashString(dto.Password),
+				CreatorUserId = userId,
+				UserRole = UserRole.Admin,
+				IsConfirmed = true,
+				IsRegistered = true,
+			};
+
+			await _unitOfWork.UserRepository.CreateAsync(user, cancellationToken);
+			await _unitOfWork.CommitAsync(cancellationToken);
+
 			var admin = new Admin
 			{
+				UserId = user.Id,
 				CreatorUserId = userId,
 				FirstName = dto.FirstName,
 				LastName = dto.LastName,
@@ -35,21 +51,6 @@ namespace AccountManagement.ApplicationServices.AdminAppServices.Commands
 			};
 
 			await _unitOfWork.AdminRepository.CreateAsync(admin, cancellationToken);
-
-			var user = new User
-			{
-				Email = dto.Email,
-				Mobile = dto.Mobile,
-				Password = HasherService.HashString(dto.Password),
-				CreatorUserId = userId,
-				Person = admin,
-				UserRole = UserRole.Admin,
-				IsConfirmed = true,
-				IsRegistered = true,
-			};
-
-			await _unitOfWork.UserRepository.CreateAsync(user, cancellationToken);
-
 			await _unitOfWork.CommitAsync(cancellationToken);
 			
 			message = ResultMessage.SuccessfullyAdded(nameof(User), user.Id);

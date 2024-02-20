@@ -50,14 +50,14 @@ namespace Physioline.Endpoint.WebAPI.ApiControllers.AdminControllers
 			return StatusCode(result, result.Message);
 		}
 		
-		[HttpGet(Name = "confirm-user")]
+		[HttpPost(Name = "confirm-user")]
 		public async Task<ActionResult> ConfirmUser(long userId, CancellationToken cancellationToken)
 		{
 			var result = await _confirmUser.Run(userId, cancellationToken);
 			return StatusCode(result, result.Message);
 		}
 		
-		[HttpGet(Name = "deactivate-user")]
+		[HttpPost(Name = "deactivate-user")]
 		public async Task<ActionResult> DeactivateUser(long userId, CancellationToken cancellationToken)
 		{
 			var result = await _deactivateUser.Run(userId, cancellationToken);

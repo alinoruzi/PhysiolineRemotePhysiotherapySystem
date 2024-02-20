@@ -1,35 +1,37 @@
-﻿@{
+﻿@model Physioline.Endpoint.WebAPI.Areas.Admin.Models.DashboardModels.HomeDashboardViewModel
+@{
     ViewData["Title"] = "صفحه نخست";
 }
 
+<div class="d-flex justify-content-center">
+  <img src="~/global_assets/image/dashboarPic.jpg" width="400px"/>
+</div>
+
 <div class="d-flex justify-content-center gap-4 mt-5">
-
-
   <div class="card" style="width: 18rem;">
     <div class="card-body">
-      <h5 class="card-title"></h5>
-      <h6 class="card-subtitle mb-2 text-muted">عنوان</h6>
-      <p class="card-text">تعداد عناوین موجود در مخزن</p>
-      <a asp-controller="" asp-action="" class="card-link">فهرست کتب</a>
-      <a asp-controller="" asp-action="" class="card-link">افزودن کتاب</a>
+      <h5 class="card-title">@Model.CountOfExercises</h5>
+      <h6 class="card-subtitle mb-2 text-muted">تمرین</h6>
+      <p class="card-text">تعداد تمارین موجود در مخزن</p>
+      <a asp-area="Admin" asp-controller="Exercise" asp-action="PageList" class="card-link btn-primary btn btn-sm">فهرست تمارین</a>
+      <a asp-area="Admin" asp-controller="Exercise" asp-action="CreateExercise" class="card-link btn-success btn btn-sm">افزودن تمرین</a>
     </div>
   </div>
   <div class="card" style="width: 18rem;">
     <div class="card-body">
-      <h5 class="card-title"></h5>
-      <h6 class="card-subtitle mb-2 text-muted">کتاب</h6>
-      <p class="card-text">تعداد کتب در امانت <span class="badge bg-success">آخرین ثبت امانت: </span></p>
-      <a asp-controller="" asp-action="" class="card-link">ثبت امانت</a>
-      <a asp-controller="" asp-action="" class="card-link">بازگشت امانت</a>
+      <h5 class="card-title">@Model.CountOfCollections</h5>
+      <h6 class="card-subtitle mb-2 text-muted">مجموعه تمرین</h6>
+      <p class="card-text">تعداد مجموعه تمرینات موجود</p>
+      <a asp-area="Admin" asp-controller="Collection" asp-action="PageList" class="card-link btn-primary btn btn-sm">فهرست مجموعه ها</a>
+      <a asp-area="Admin" asp-controller="Collection" asp-action="CreateCollection" class="card-link btn-success btn btn-sm">افزودن مجموعه</a>
     </div>
   </div>
   <div class="card" style="width: 18rem;">
     <div class="card-body">
-      <h5 class="card-title"></h5>
-      <h6 class="card-subtitle mb-2 text-muted">عضو</h6>
-      <p class="card-text">تعداد اعضای کتابخانه</p>
-      <a href="#" class="card-link">فهرست اعضا</a>
-      <a href="#" class="card-link">افزودن عضو</a>
+      <h5 class="card-title">@Model.CountOfPlans</h5>
+      <h6 class="card-subtitle mb-2 text-muted">برنامه درمانی</h6>
+      <p class="card-text">تعداد برنامه های ایجاد شده</p>
+      <a asp-area="Admin" asp-controller="Plan" asp-action="PageList" class="card-link btn btn-primary btn-sm">فهرست برنامه ها</a>
     </div>
   </div>
 
